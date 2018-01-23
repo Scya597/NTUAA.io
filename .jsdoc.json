@@ -1,0 +1,31 @@
+{
+   "tags": {
+       "allowUnknownTags": true,
+       "dictionaries": ["jsdoc"]
+   },
+   "source": {
+<<<<<<< HEAD
+       "include": ["./server", "package.json", "README.md"],
+=======
+       "include": ["./src", "package.json", "README.md"],
+>>>>>>> c536179ef235489912f120b3971995f772279a3f
+       "includePattern": ".js$",
+       "excludePattern": "(node_modules/|docs)"
+   },
+   "plugins": [
+       "plugins/markdown"
+   ],
+   "templates": {
+       "cleverLinks": false,
+       "monospaceLinks": true,
+       "useLongnameInNav": false,
+       "showInheritedInNav": true
+   },
+   "opts": {
+       "destination": "./docs/",
+       "encoding": "utf8",
+       "private": true,
+       "recurse": true,
+       "template": "./node_modules/minami"
+   }
+}
