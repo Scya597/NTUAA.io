@@ -1,3 +1,4 @@
+import Vector2 from '../maths/vector2';
 import uuid from 'uuid/v1';
 import Cell from './cell';
 
@@ -13,13 +14,14 @@ class Player {
   constructor(props) {
     this.id = props.id;
     this.name = props.name;
-    this.mousePos = { x: 100, y: 100 };
+    //this.mousePos = { x: 100, y: 100 };
+    this.mousePos = new Vector2(100, 100);
     this.cellList = [new Cell({
       mass: 2000,
-      pos: { x: 100, y: 100 },
+      pos: new Vector2(100, 100),
       id: uuid(),
       color: 0x111111,
-      vel: { x: 0, y: 0 },
+      vel: new Vector2(0, 0),
       isEaten: false,
     })];
     this.score = 1;

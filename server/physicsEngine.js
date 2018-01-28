@@ -1,25 +1,25 @@
 import uuid from 'uuid/v1';
 
 import Food from './entity/food';
+import Vector2 from './maths/vector2';
 
 const updatePlayerPosition = (playerList, setting) => {
+  const dt = 1/60;
   playerList.forEach((player) => {
     player.cellList.forEach((cell) => {
-      cell.vel.x = player.mousePos.x - cell.pos.x;
-      cell.vel.y = player.mousePos.y - cell.pos.y;
+      cell.vel.subtractVectors(
+        player.mousePos,
+        cell.pos);
+
+      cell.pos.add(
+        cell.vel.clone().scale(1/60));
+
+      const r = cell.getRadius();
+      cell.pos.clipComponents(
+        r, setting.worldWidth-r,
+        r, setting.worldHeight-r);
     });
 
-    player.cellList.forEach((cell) => {
-      const cellRadius = cell.getRadius();
-      if ((cell.pos.x + (cell.vel.x * (1 / 60))) - cellRadius >= 0 &&
-        (cell.pos.x + (cell.vel.x * (1 / 60))) + cellRadius <= setting.worldWidth) {
-        cell.pos.x += cell.vel.x * (1 / 60);
-      }
-      if ((cell.pos.y + (cell.vel.y * (1 / 60))) - cellRadius >= 0 &&
-        (cell.pos.y + (cell.vel.y * (1 / 60))) + cellRadius <= setting.worldHeight) {
-        cell.pos.y += cell.vel.y * (1 / 60);
-      }
-    });
   });
 };
 
@@ -27,7 +27,9 @@ const generateFoods = (foodList, setting) => {
   for (let i = 0; i < 400 - foodList.length; i += 1) {
     foodList.push(new Food({
       mass: 100,
-      pos: { x: Math.random() * setting.worldWidth, y: Math.random() * setting.worldHeight },
+      pos: new Vector2(
+        Math.random() * setting.worldWidth,
+        Math.random() * setting.worldHeight),
       id: uuid(),
       color: 0x111111,
       isEaten: false,
