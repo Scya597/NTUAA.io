@@ -1,6 +1,9 @@
-import { updatePlayerPosition, updatePlayersBoxValue,
+import {
+  updatePlayerPosition, updatePlayersBoxValue,
   checkAllEaten, removeEatenCells, generateFoods,
   checkAllFoodEaten, removeEatenFoods } from './physicsEngine';
+import Vector2 from './space/vector2';
+import Zone from './space/zone';
 import Player from './entity/player';
 import setting from '../src/game/config';
 
@@ -8,6 +11,19 @@ export default function ioActivate(io) {
   const userList = [];
   const playerList = [];
   const foodList = [];
+  const zoneList = [
+    new Zone({
+      acceptEntry: function() {
+        return false;
+      },
+      centre: new Vector2(0, 0),
+      radius: 500,
+
+      /* unused */
+      id: 0,
+      color: 0xff0000,
+    })
+  ];
 
   io.on('connection', (socket) => {
     console.log('New client connected');
@@ -40,6 +56,7 @@ export default function ioActivate(io) {
     socket.on('GET_DATA', () => {
       socket.emit('GET_PLAYERS_DATA', playerList);
       socket.emit('GET_FOODS_DATA', foodList);
+      socket.emit('GET_ZONE_DATA', zoneList);
     });
 
     socket.on('disconnect', () => {
@@ -51,7 +68,7 @@ export default function ioActivate(io) {
   });
 
   setInterval(() => {
-    updatePlayerPosition(playerList, setting);
+    updatePlayerPosition(playerList, zoneList, setting);
     generateFoods(foodList, setting);
     checkAllFoodEaten(playerList, foodList);
     removeEatenFoods(foodList);

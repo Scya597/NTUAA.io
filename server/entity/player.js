@@ -1,4 +1,4 @@
-import Vector2 from '../maths/vector2';
+import Vector2 from '../space/vector2';
 import uuid from 'uuid/v1';
 import Cell from './cell';
 
@@ -14,7 +14,6 @@ class Player {
   constructor(props) {
     this.id = props.id;
     this.name = props.name;
-    //this.mousePos = { x: 100, y: 100 };
     this.mousePos = new Vector2(100, 100);
     this.cellList = [new Cell({
       mass: 2000,

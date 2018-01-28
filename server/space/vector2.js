@@ -91,7 +91,7 @@ class Vector2 {
 
   clipNorm(m) {
     return (this.norm() > m) ?
-      this.unit().scale(m) :
+      this.normalise().scale(m) :
       this;
   }
 

@@ -1,12 +1,14 @@
 import uuid from 'uuid/v1';
 
 import Food from './entity/food';
-import Vector2 from './maths/vector2';
+import Vector2 from './space/vector2';
+import Zone from './space/zone';
 
-const updatePlayerPosition = (playerList, setting) => {
+const updatePlayerPosition = (playerList, zoneList, setting) => {
   const dt = 1/60;
   playerList.forEach((player) => {
     player.cellList.forEach((cell) => {
+      /* integrate EoM */
       cell.vel.subtractVectors(
         player.mousePos,
         cell.pos);
@@ -14,10 +16,17 @@ const updatePlayerPosition = (playerList, setting) => {
       cell.pos.add(
         cell.vel.clone().scale(1/60));
 
+      /* clip to world boundary */
       const r = cell.getRadius();
       cell.pos.clipComponents(
         r, setting.worldWidth-r,
         r, setting.worldHeight-r);
+
+      /* clip to zone boundaries */
+      zoneList.forEach((zone) => {
+        zone.doorkeep(player, cell.pos);
+      });
+
     });
 
   });
