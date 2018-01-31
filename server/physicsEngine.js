@@ -39,11 +39,21 @@ const updateFoodPosition = (foodList, zoneList, setting) => {
   });
 };
 
-const fireFood = (foodList, damage, pos, vel) => {
-  console.log('firefood');
+const fireFood = (player, foodList) => {
+
+  const direction = new Vector2();
+  direction.subtractVectors(
+    player.mousePos,
+    player.cellList[0].pos).normalise();
+
+  const vel = direction.clone().scale(10);
+  const src = player.cellList[0].pos.clone().add(
+                direction.clone().scale(
+                  player.cellList[0].getRadius()));
+
   foodList.push(new Food({
-    mass: -damage,
-    pos: pos,
+    mass: -100,
+    pos: src,
     vel: vel,
     id: uuid(),
     color: 0x111111,
@@ -67,6 +77,27 @@ const generateFoods = (foodList, setting) => {
   }
 };
 
+const checkOneFoodExpired = (food, zoneList, setting) => {
+  /* only bullets move and can possibly expire */
+  if (food.mass > 0) { return; }
+
+  if (food.pos.x > setting.worldWidth ||
+      food.pos.y > setting.worldHeight ||
+      food.pos.x < 0 || food.pos.y < 0) {
+    console.log('expired: world boundary');
+    food.isEaten = true;
+    return;
+  }
+
+  for (let i = 0; i < zoneList.length; ++i) {
+    if (zoneList[i].contains(food.pos)) {
+      console.log('expired: zone');
+      food.isEaten = true;
+      return;
+    }
+  }
+}
+
 const checkOneFoodEaten = (cell, food) => {
   if (Math.sqrt(((cell.pos.x - food.pos.x) ** 2) +
   ((cell.pos.y - food.pos.y) ** 2)) < cell.getRadius()) {
@@ -75,9 +106,12 @@ const checkOneFoodEaten = (cell, food) => {
   }
 };
 
-const checkAllFoodEaten = (playerList, foodList) => {
-  for (let i = 0; i < playerList.length; i += 1) {
-    for (let k = 0; k < foodList.length; k += 1) {
+const checkAllFoodEaten = (playerList, foodList, zoneList, setting) => {
+  for (let k = 0; k < foodList.length; k += 1) {
+
+    checkOneFoodExpired(foodList[k], zoneList, setting);
+
+    for (let i = 0; i < playerList.length; i += 1) {
       if(checkOneFoodEaten(playerList[i].cellList[0], foodList[k])) {
         console.log(playerList[i].cellList[0].mass + '+' + foodList[k].mass);
         playerList[i].cellList[0].mass += foodList[k].mass;

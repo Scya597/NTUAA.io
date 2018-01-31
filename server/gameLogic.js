@@ -74,13 +74,16 @@ export default function ioActivate(io) {
     updatePlayerPosition(playerList, zoneList, setting);
     updateFoodPosition(foodList, zoneList, setting);
     generateFoods(foodList, setting);
-    checkAllFoodEaten(playerList, foodList);
+    checkAllFoodEaten(playerList, foodList, zoneList, setting);
     removeEatenFoods(foodList);
   }, 1000 / 60);
 
   setInterval(() => {
-    fireFood(foodList, 100, new Vector2(700, 700), new Vector2(0, -1));
+    if (playerList[0]) {
+      fireFood(playerList[0], foodList);
+    }
   }, 1000);
+
 }
 
 // PRESS_SPACE

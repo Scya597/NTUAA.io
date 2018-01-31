@@ -31,7 +31,6 @@ class Zone {
     r.subtractVectors(u, this.centre);
 
     if (r.norm() < this.radius) {
-      console.log('! eject');
       u.addVectors(
         this.centre,
         r.normalise().scale(
