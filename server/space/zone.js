@@ -16,6 +16,15 @@ class Zone {
   }
 
   /**
+   * checks if vector `u` is inside of zone. */
+  contains(u) {
+    var r = new Vector2();
+    r.subtractVectors(u, this.centre);
+
+    return (r.norm() < this.radius);
+  }
+
+  /**
    * projects vector `u` to outside of zone. */
   eject(u) {
     var r = new Vector2();

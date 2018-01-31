@@ -1,5 +1,8 @@
 import {
-  updatePlayerPosition, updatePlayersBoxValue,
+  updateFoodPosition,
+  updatePlayerPosition,
+  updatePlayersBoxValue,
+  fireFood,
   checkAllEaten, removeEatenCells, generateFoods,
   checkAllFoodEaten, removeEatenFoods } from './physicsEngine';
 import Vector2 from './space/vector2';
@@ -69,10 +72,15 @@ export default function ioActivate(io) {
 
   setInterval(() => {
     updatePlayerPosition(playerList, zoneList, setting);
+    updateFoodPosition(foodList, zoneList, setting);
     generateFoods(foodList, setting);
     checkAllFoodEaten(playerList, foodList);
     removeEatenFoods(foodList);
   }, 1000 / 60);
+
+  setInterval(() => {
+    fireFood(foodList, 100, new Vector2(700, 700), new Vector2(0, -1));
+  }, 1000);
 }
 
 // PRESS_SPACE

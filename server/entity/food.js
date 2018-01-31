@@ -9,6 +9,7 @@ class Food extends Circle {
    */
   constructor(props) {
     super(props);
+    this.vel = props.vel;
     this.isEaten = props.isEaten;
   }
 }

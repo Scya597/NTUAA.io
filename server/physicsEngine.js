@@ -32,10 +32,31 @@ const updatePlayerPosition = (playerList, zoneList, setting) => {
   });
 };
 
+const updateFoodPosition = (foodList, zoneList, setting) => {
+  const dt = 1/60;
+  foodList.forEach((food) => {
+     food.pos.add(food.vel);
+  });
+};
+
+const fireFood = (foodList, damage, pos, vel) => {
+  console.log('firefood');
+  foodList.push(new Food({
+    mass: -damage,
+    pos: pos,
+    vel: vel,
+    id: uuid(),
+    color: 0x111111,
+    isEaten: false
+  }));
+};
+
 const generateFoods = (foodList, setting) => {
+  /* TODO: don't count the foods that are actually bullets */
   for (let i = 0; i < 400 - foodList.length; i += 1) {
     foodList.push(new Food({
       mass: 100,
+      vel: new Vector2(0, 0),
       pos: new Vector2(
         Math.random() * setting.worldWidth,
         Math.random() * setting.worldHeight),
@@ -58,8 +79,9 @@ const checkAllFoodEaten = (playerList, foodList) => {
   for (let i = 0; i < playerList.length; i += 1) {
     for (let k = 0; k < foodList.length; k += 1) {
       if(checkOneFoodEaten(playerList[i].cellList[0], foodList[k])) {
+        console.log(playerList[i].cellList[0].mass + '+' + foodList[k].mass);
+        playerList[i].cellList[0].mass += foodList[k].mass;
         playerList[i].score += 1;
-        console.log(playerList[i].score);
       };
     }
   }
@@ -80,6 +102,8 @@ const removeEatenFoods = (foodList) => {
 
 export {
   updatePlayerPosition,
+  updateFoodPosition,
+  fireFood,
   generateFoods,
   checkAllFoodEaten,
   removeEatenFoods,

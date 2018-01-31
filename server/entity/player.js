@@ -23,7 +23,7 @@ class Player {
       vel: new Vector2(0, 0),
       isEaten: false,
     })];
-    this.score = 1;
+    this.score = 0;
   }
 
   /**
