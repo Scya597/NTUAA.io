@@ -39,7 +39,7 @@ const updateFoodPosition = (foodList, zoneList, setting) => {
   });
 };
 
-const fireFood = (player, foodList) => {
+const fireFood = (player, foodList, zoneList) => {
 
   const direction = new Vector2();
   direction.subtractVectors(
@@ -51,14 +51,24 @@ const fireFood = (player, foodList) => {
                 direction.clone().scale(
                   player.cellList[0].getRadius()));
 
+  const zones = [];
+  zoneList.forEach((zone) => {
+    if (zone.contains(src)) {
+      zones[zone.id] = true;
+    }
+  });
+
   foodList.push(new Food({
     mass: -100,
     pos: src,
     vel: vel,
+    zones: zones,
     id: uuid(),
     color: 0x111111,
     isEaten: false
   }));
+
+  
 };
 
 const generateFoods = (foodList, setting) => {
@@ -91,9 +101,17 @@ const checkOneFoodExpired = (food, zoneList, setting) => {
 
   for (let i = 0; i < zoneList.length; ++i) {
     if (zoneList[i].contains(food.pos)) {
-      console.log('expired: zone');
-      food.isEaten = true;
-      return;
+      if (!food.zones[zoneList[i].id]) {
+        console.log('expired: entered zone');
+        food.isEaten = true;
+        return;
+      }
+    } else {
+      if (food.zones[zoneList[i].id]) {
+        console.log('expired: exited zone');
+        food.isEaten = true;
+        return;
+      }
     }
   }
 }

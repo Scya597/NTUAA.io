@@ -17,13 +17,14 @@ export default function ioActivate(io) {
   const zoneList = [
     new Zone({
       acceptEntry: function() {
-        return false;
+        return true;
       },
       centre: new Vector2(0, 0),
       radius: 500,
 
-      /* unused */
       id: 0,
+
+      /* unused */
       color: 0xff0000,
     })
   ];
@@ -80,7 +81,7 @@ export default function ioActivate(io) {
 
   setInterval(() => {
     if (playerList[0]) {
-      fireFood(playerList[0], foodList);
+      fireFood(playerList[0], foodList, zoneList);
     }
   }, 1000);
 
