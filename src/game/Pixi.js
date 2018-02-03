@@ -104,7 +104,7 @@ class Pixi extends Component {
           controlKeys[i]) ? 1 : 0;
       }
 
-      this.socket.emit('MOUSE_MOVE', {
+      this.socket.emit('STATE_UPDATE', {
         mousePos: this.app.renderer.plugins.interaction.mouse.getLocalPosition(this.gameScene),
         keysDown: keysDown,
         id: this.id });

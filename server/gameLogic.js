@@ -45,7 +45,7 @@ export default function ioActivate(io) {
       playerList.push(newPlayer);
     });
 
-    socket.on('MOUSE_MOVE', (mouseData) => {
+    socket.on('STATE_UPDATE', (mouseData) => {
       const player = playerList.find((element) => {
         if (element.id === mouseData.id) {
           return element;
