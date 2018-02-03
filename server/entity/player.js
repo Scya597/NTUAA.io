@@ -28,6 +28,7 @@ class Player {
       vel: new Vector2(0, 0),
       isEaten: false,
     })];
+    this.zones = [];
     this.score = 0;
   }
 

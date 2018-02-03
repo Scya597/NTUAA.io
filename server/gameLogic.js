@@ -16,13 +16,28 @@ export default function ioActivate(io) {
   const foodList = [];
   const zoneList = [
     new Zone({
-      acceptEntry: function() {
-        return true;
+      acceptEntry: function(player) {
+        return player.score > 200;
       },
+      cooldown: 0,
       centre: new Vector2(0, 0),
       radius: 500,
 
       id: 0,
+
+      /* unused */
+      color: 0xff0000,
+    }),
+
+    new Zone({
+      acceptEntry: function(player) {
+        return true;
+      },
+      cooldown: 10*1000,
+      centre: new Vector2(0, 0),
+      radius: 300,
+
+      id: 1,
 
       /* unused */
       color: 0xff0000,

@@ -6,6 +6,9 @@ class Zone {
     /* accepts an object as an argument and returns true or false. */
     this.acceptEntry = props.acceptEntry;     
 
+    this.cooldown = props.cooldown;
+    this.lastEntry = 0;
+
     this.centre = props.centre;
     this.radius = props.radius;
 
@@ -39,10 +42,27 @@ class Zone {
   }
 
   /**
-   * projects `pos` out of zone if `player` not qualified. */
+   * projects `pos` out of zone if either `player` is not qualified. */
   doorkeep(player, pos) {
+    if (!this.contains(pos)) {
+      player.zones[this.id] = false;
+      return;
+    }
+    if (player.zones[this.id]) {
+      /* already granted entry */
+      return;
+    }
+
+
     if (!this.acceptEntry(player)) {
       this.eject(pos);
+
+    } else if (Date.now() - this.lastEntry < this.cooldown) {
+      this.eject(pos);
+
+    } else {
+      player.zones[this.id] = true;
+      this.lastEntry = Date.now();
     }
   }
 

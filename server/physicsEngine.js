@@ -47,6 +47,16 @@ const updateFoodPosition = (foodList, zoneList, setting) => {
   });
 };
 
+const getZones = (pos, zoneList) => {
+  const zones = [];
+  zoneList.forEach((zone) => {
+    if (zone.contains(pos)) {
+      zones[zone.id] = true;
+    }
+  });
+  return zones;
+};
+
 const fireFood = (player, foodList, zoneList) => {
 
   const direction = new Vector2();
@@ -59,18 +69,20 @@ const fireFood = (player, foodList, zoneList) => {
                 direction.clone().scale(
                   player.cellList[0].getRadius()));
 
+  /*
   const zones = [];
   zoneList.forEach((zone) => {
     if (zone.contains(src)) {
       zones[zone.id] = true;
     }
   });
+  */
 
   foodList.push(new Food({
     mass: -100,
     pos: src,
     vel: vel,
-    zones: zones,
+    zones: getZones(src, zoneList),
     id: uuid(),
     color: 0x111111,
     isEaten: false
@@ -102,7 +114,6 @@ const checkOneFoodExpired = (food, zoneList, setting) => {
   if (food.pos.x > setting.worldWidth ||
       food.pos.y > setting.worldHeight ||
       food.pos.x < 0 || food.pos.y < 0) {
-    console.log('expired: world boundary');
     food.isEaten = true;
     return;
   }
@@ -110,13 +121,11 @@ const checkOneFoodExpired = (food, zoneList, setting) => {
   for (let i = 0; i < zoneList.length; ++i) {
     if (zoneList[i].contains(food.pos)) {
       if (!food.zones[zoneList[i].id]) {
-        console.log('expired: entered zone');
         food.isEaten = true;
         return;
       }
     } else {
       if (food.zones[zoneList[i].id]) {
-        console.log('expired: exited zone');
         food.isEaten = true;
         return;
       }
