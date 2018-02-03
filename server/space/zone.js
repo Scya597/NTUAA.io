@@ -45,6 +45,11 @@ class Zone {
     }
   }
 
+  /** in milliseconds */
+  getRemainingCooldownTime() {
+    return this.cooldown - (Date.now() - this.lastEntry);
+  }
+
   /**
    * projects `player` out of zone if not qualified */
   doorkeep(player) {
