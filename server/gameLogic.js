@@ -54,6 +54,7 @@ export default function ioActivate(io) {
       });
       if (player) {
         player.mousePos = mouseData.mousePos;
+        player.keysDown = mouseData.keysDown;
       }
     });
 

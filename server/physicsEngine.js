@@ -7,14 +7,20 @@ import Zone from './space/zone';
 const updatePlayerPosition = (playerList, zoneList, setting) => {
   const dt = 1/60;
   playerList.forEach((player) => {
+
     player.cellList.forEach((cell) => {
-      /* integrate EoM */
-      cell.vel.subtractVectors(
-        player.mousePos,
-        cell.pos);
+
+      cell.vel.set(
+
+        player.keysDown[39]+player.keysDown[68]
+        -player.keysDown[37]-player.keysDown[65],
+
+        player.keysDown[40]+player.keysDown[83]
+        -player.keysDown[38]-player.keysDown[87]
+      ).scale(500).clipNorm(500);
 
       cell.pos.add(
-        cell.vel.clone().scale(1/60));
+        cell.vel.clone().scale(dt));
 
       /* clip to world boundary */
       const r = cell.getRadius();
@@ -131,9 +137,12 @@ const checkAllFoodEaten = (playerList, foodList, zoneList, setting) => {
 
     for (let i = 0; i < playerList.length; i += 1) {
       if(checkOneFoodEaten(playerList[i].cellList[0], foodList[k])) {
-        console.log(playerList[i].cellList[0].mass + '+' + foodList[k].mass);
-        playerList[i].cellList[0].mass += foodList[k].mass;
-        playerList[i].score += 1;
+
+        /* this is potentially confusion: `mass` determines the radius of the
+         * cell. Since we don't want the size of the player to change anymore,
+         * we keep track of bullet count with `score` instead. */
+        console.log(playerList[i].score + '+' + foodList[k].mass);
+        playerList[i].score += foodList[k].mass;
       };
     }
   }
