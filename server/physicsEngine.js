@@ -32,7 +32,7 @@ const updatePlayerPosition = (playerList, zoneList, setting) => {
 
       /* clip to zone boundaries */
       zoneList.forEach((zone) => {
-        zone.doorkeep(player, cell.pos);
+        zone.doorkeep(player);
       });
 
     });

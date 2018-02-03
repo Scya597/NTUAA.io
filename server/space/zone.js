@@ -19,32 +19,40 @@ class Zone {
   }
 
   /**
-   * checks if vector `u` is inside of zone. */
-  contains(u) {
+   * checks if vector `u` is within `offset` of zone. */
+  contains(u, offset) {
+    offset = offset || 0;
+
     var r = new Vector2();
     r.subtractVectors(u, this.centre);
 
-    return (r.norm() < this.radius);
+    return (r.norm() < this.radius+offset);
   }
 
   /**
    * projects vector `u` to outside of zone. */
-  eject(u) {
+  eject(u, offset) {
+    offset = offset || 0;
+
     var r = new Vector2();
     r.subtractVectors(u, this.centre);
 
-    if (r.norm() < this.radius) {
+    if (r.norm() < this.radius+offset) {
       u.addVectors(
         this.centre,
         r.normalise().scale(
-          this.radius));
+          this.radius+offset));
     }
   }
 
   /**
-   * projects `pos` out of zone if either `player` is not qualified. */
-  doorkeep(player, pos) {
-    if (!this.contains(pos)) {
+   * projects `player` out of zone if not qualified */
+  doorkeep(player) {
+
+    var pos = player.cellList[0].pos;
+    var radius = player.cellList[0].getRadius();
+
+    if (!this.contains(pos, radius)) {
       player.zones[this.id] = false;
       return;
     }
@@ -54,11 +62,9 @@ class Zone {
     }
 
 
-    if (!this.acceptEntry(player)) {
-      this.eject(pos);
-
-    } else if (Date.now() - this.lastEntry < this.cooldown) {
-      this.eject(pos);
+    if (!this.acceptEntry(player) ||
+    (Date.now() - this.lastEntry < this.cooldown)) {
+      this.eject(pos, radius);
 
     } else {
       player.zones[this.id] = true;
