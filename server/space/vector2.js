@@ -102,6 +102,17 @@ class Vector2 {
     if (this.y > y2) { this.y = y2; }
     return this;
   }
+
+  interpolate(u, ratio) {
+    return this.scale(1-ratio).add(
+      u.clone().scale(ratio));
+  }
+
+  interpolateVectors(u, v, ratio) {
+    return this.addVectors(
+      u.clone().scale(1-ratio),
+      v.clone().scale(ratio));
+  }
 }
 
 export default Vector2;
