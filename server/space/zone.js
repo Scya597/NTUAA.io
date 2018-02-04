@@ -1,10 +1,9 @@
 import Vector2 from './vector2';
+
 class Zone {
-
   constructor(props) {
-
     /* accepts an object as an argument and returns true or false. */
-    this.acceptEntry = props.acceptEntry;     
+    this.acceptEntry = props.acceptEntry;
 
     this.cooldown = props.cooldown;
     this.lastEntry = 0;
@@ -22,11 +21,9 @@ class Zone {
    * checks if vector `u` is within `offset` of zone. */
   contains(u, offset) {
     offset = offset || 0;
-
-    var r = new Vector2();
+    const r = new Vector2();
     r.subtractVectors(u, this.centre);
-
-    return (r.norm() < this.radius+offset);
+    return (r.norm() < this.radius + offset);
   }
 
   /**
@@ -37,11 +34,11 @@ class Zone {
     var r = new Vector2();
     r.subtractVectors(u, this.centre);
 
-    if (r.norm() < this.radius+offset) {
+    if (r.norm() < this.radius + offset) {
       u.addVectors(
         this.centre,
-        r.normalise().scale(
-          this.radius+offset));
+        r.normalise().scale(this.radius + offset),
+      );
     }
   }
 
@@ -53,7 +50,6 @@ class Zone {
   /**
    * projects `player` out of zone if not qualified */
   doorkeep(player) {
-
     var pos = player.cellList[0].pos;
     var radius = player.cellList[0].getRadius();
 
@@ -70,13 +66,11 @@ class Zone {
     if (!this.acceptEntry(player) ||
     (Date.now() - this.lastEntry < this.cooldown)) {
       this.eject(pos, radius);
-
     } else {
       player.zones[this.id] = true;
       this.lastEntry = Date.now();
     }
   }
-
 }
 
 export default Zone;

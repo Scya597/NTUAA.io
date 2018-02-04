@@ -1,9 +1,7 @@
 import {
   updateFoodPosition,
   updatePlayerPosition,
-  updatePlayersBoxValue,
-  fireFoods,
-  checkAllEaten, removeEatenCells, generateFoods,
+  fireFoods, generateFoods,
   checkAllFoodEaten, removeEatenFoods } from './physicsEngine';
 import Vector2 from './space/vector2';
 import Zone from './space/zone';
@@ -16,7 +14,7 @@ export default function ioActivate(io) {
   const foodList = [];
   const zoneList = [
     new Zone({
-      acceptEntry: function(player) {
+      acceptEntry(player) {
         return player.score > 200;
       },
       cooldown: 0,
@@ -30,10 +28,10 @@ export default function ioActivate(io) {
     }),
 
     new Zone({
-      acceptEntry: function(player) {
+      acceptEntry() {
         return true;
       },
-      cooldown: 10*1000,
+      cooldown: 10 * 1000,
       centre: new Vector2(0, 0),
       radius: 300,
 
@@ -41,7 +39,7 @@ export default function ioActivate(io) {
 
       /* unused */
       color: 0xff0000,
-    })
+    }),
   ];
 
   io.on('connection', (socket) => {

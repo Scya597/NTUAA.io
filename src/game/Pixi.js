@@ -96,19 +96,19 @@ class Pixi extends Component {
       const controlKeys = [
         32,
         37, 38, 39, 40,
-        65, 87, 68, 83
+        65, 87, 68, 83,
       ];
       const keysDown = [];
-      for (let i = 0; i < controlKeys.length; ++i) {
-        keysDown[controlKeys[i]] = key.isPressed(
-          controlKeys[i]) ? 1 : 0;
+      for (let i = 0; i < controlKeys.length; i += 1) {
+        keysDown[controlKeys[i]] = key.isPressed(controlKeys[i]) ? 1 : 0;
       }
 
       this.socket.emit('STATE_UPDATE', {
         mousePos: this.app.renderer.plugins.interaction.mouse.getLocalPosition(this.gameScene),
         mouseDown: false,
-        keysDown: keysDown,
-        id: this.id });
+        keysDown,
+        id: this.id,
+      });
       // this.playerContainer.onGetPlayersData();
     });
   }
