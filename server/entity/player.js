@@ -15,6 +15,7 @@ class Player {
     this.id = props.id;
     this.name = props.name;
     this.mousePos = new Vector2(100, 100);
+    this.mouseDown = false;
     this.keysDown = {
       32: 0,
       37: 0, 38: 0, 39: 0, 40: 0,
@@ -30,6 +31,9 @@ class Player {
     })];
     this.zones = [];
     this.score = 0;
+
+    this.fireFoodCooldown = 24;    
+    this.remainingFireFoodCooldown = 0;
   }
 
   /**

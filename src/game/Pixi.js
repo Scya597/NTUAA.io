@@ -106,11 +106,13 @@ class Pixi extends Component {
 
       this.socket.emit('STATE_UPDATE', {
         mousePos: this.app.renderer.plugins.interaction.mouse.getLocalPosition(this.gameScene),
+        mouseDown: false,
         keysDown: keysDown,
         id: this.id });
       // this.playerContainer.onGetPlayersData();
     });
   }
+
   /**
    * Initialize space event.
    * When 'space' is pressed, client will emit 'PRESS_SPACE' task to server.

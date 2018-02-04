@@ -57,6 +57,19 @@ const getZones = (pos, zoneList) => {
   return zones;
 };
 
+const fireFoods = (playerList, foodList, zoneList) => {
+  playerList.forEach((player) => {
+
+    if (player.remainingFireFoodCooldown > 0) {
+      --player.remainingFireFoodCooldown;
+    } else if (player.mouseDown && player.score > 200) {
+      fireFood(player, foodList, zoneList);
+    }
+
+  });
+};
+
+
 const fireFood = (player, foodList, zoneList) => {
 
   const direction = new Vector2();
@@ -67,16 +80,7 @@ const fireFood = (player, foodList, zoneList) => {
   const vel = direction.clone().scale(10);
   const src = player.cellList[0].pos.clone().add(
                 direction.clone().scale(
-                  player.cellList[0].getRadius()));
-
-  /*
-  const zones = [];
-  zoneList.forEach((zone) => {
-    if (zone.contains(src)) {
-      zones[zone.id] = true;
-    }
-  });
-  */
+                  player.cellList[0].getRadius()+10));
 
   foodList.push(new Food({
     mass: -100,
@@ -88,6 +92,8 @@ const fireFood = (player, foodList, zoneList) => {
     isEaten: false
   }));
 
+  player.score -= 100;
+  player.remainingFireFoodCooldown = player.fireFoodCooldown;
   
 };
 
@@ -175,7 +181,7 @@ const removeEatenFoods = (foodList) => {
 export {
   updatePlayerPosition,
   updateFoodPosition,
-  fireFood,
+  fireFoods,
   generateFoods,
   checkAllFoodEaten,
   removeEatenFoods,

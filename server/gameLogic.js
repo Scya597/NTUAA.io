@@ -2,7 +2,7 @@ import {
   updateFoodPosition,
   updatePlayerPosition,
   updatePlayersBoxValue,
-  fireFood,
+  fireFoods,
   checkAllEaten, removeEatenCells, generateFoods,
   checkAllFoodEaten, removeEatenFoods } from './physicsEngine';
 import Vector2 from './space/vector2';
@@ -69,6 +69,7 @@ export default function ioActivate(io) {
       });
       if (player) {
         player.mousePos = mouseData.mousePos;
+        player.mouseDown = mouseData.mouseDown;
         player.keysDown = mouseData.keysDown;
       }
     });
@@ -90,17 +91,19 @@ export default function ioActivate(io) {
   setInterval(() => {
     updatePlayerPosition(playerList, zoneList, setting);
     updateFoodPosition(foodList, zoneList, setting);
+    fireFoods(playerList, foodList, zoneList);
     generateFoods(foodList, setting);
     checkAllFoodEaten(playerList, foodList, zoneList, setting);
     removeEatenFoods(foodList);
   }, 1000 / 60);
 
+  /*
   setInterval(() => {
     if (playerList[0]) {
       fireFood(playerList[0], foodList, zoneList);
     }
   }, 1000);
-
+  */
 }
 
 // PRESS_SPACE
