@@ -38,7 +38,7 @@ const updatePlayerPosition = (playerList, zoneList, setting) => {
 const updateFoodPosition = (foodList) => {
   const dt = 1 / 60;
   foodList.forEach((food) => {
-    food.pos.add(food.vel);
+    food.pos.add(food.vel.clone().scale(dt));
   });
 };
 
@@ -59,7 +59,7 @@ const fireFood = (player, foodList, zoneList) => {
     player.cellList[0].pos,
   ).normalise();
 
-  const vel = direction.clone().scale(10);
+  const vel = direction.clone().scale(600);
   const src = player.cellList[0].pos.clone()
     .add(direction.clone().scale(player.cellList[0].getRadius() + 10));
 
