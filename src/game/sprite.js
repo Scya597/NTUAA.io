@@ -7,7 +7,7 @@ import { Sprite, Graphics } from 'pixi.js';
  * @return {number} - radius.
  */
 function getRadius(mass) {
-  return Math.sqrt(mass / Math.PI);
+  return Math.sqrt(Math.abs(mass) / Math.PI);
 }
 
 /**

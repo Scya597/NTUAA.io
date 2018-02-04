@@ -81,6 +81,7 @@ class Pixi extends Component {
 
     this.initTicker();
     this.initSpaceEmitter();
+
     this.playerContainer.onGetPlayersData();
     this.foodContainer.onGetFoodsData();
     this.bgContainer.generateBg();
@@ -91,10 +92,27 @@ class Pixi extends Component {
   initTicker() {
     this.app.ticker.add(() => {
       this.socket.emit('GET_DATA');
-      this.socket.emit('MOUSE_MOVE', { mousePos: this.app.renderer.plugins.interaction.mouse.getLocalPosition(this.gameScene), id: this.id });
+
+      const controlKeys = [
+        32,
+        37, 38, 39, 40,
+        65, 87, 68, 83
+      ];
+      const keysDown = [];
+      for (let i = 0; i < controlKeys.length; ++i) {
+        keysDown[controlKeys[i]] = key.isPressed(
+          controlKeys[i]) ? 1 : 0;
+      }
+
+      this.socket.emit('STATE_UPDATE', {
+        mousePos: this.app.renderer.plugins.interaction.mouse.getLocalPosition(this.gameScene),
+        mouseDown: false,
+        keysDown: keysDown,
+        id: this.id });
       // this.playerContainer.onGetPlayersData();
     });
   }
+
   /**
    * Initialize space event.
    * When 'space' is pressed, client will emit 'PRESS_SPACE' task to server.

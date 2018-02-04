@@ -16,7 +16,7 @@ class Circle {
    * @return {number} - radius of the Circle
    */
   getRadius() {
-    return Math.sqrt(this.mass / Math.PI);
+    return Math.sqrt(Math.abs(this.mass) / Math.PI);
   }
 }
 
