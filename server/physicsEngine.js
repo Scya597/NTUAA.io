@@ -3,6 +3,15 @@ import uuid from 'uuid/v1';
 import Food from './entity/food';
 import Vector2 from './space/vector2';
 
+const checkAllPlayerDead = (playerList, userList) => {
+  for (let i = playerList.length - 1; i >= 0; i -= 1) {
+    if (playerList[i].score < 0) {
+      userList.splice(userList.findIndex(user => user.id === playerList[i].id), 1);
+      playerList.splice(i, 1);
+    }
+  }
+};
+
 const updatePlayerPosition = (playerList, zoneList, setting) => {
   const dt = 1 / 60;
   playerList.forEach((player) => {
@@ -13,7 +22,7 @@ const updatePlayerPosition = (playerList, zoneList, setting) => {
         - player.keysDown[37] - player.keysDown[65],
 
         player.keysDown[40] + player.keysDown[83]
-        - player.keysDown[38] - player.keysDown[87]
+        - player.keysDown[38] - player.keysDown[87],
       ).scale(500).clipNorm(500);
 
       cell.vel.interpolate(newVel, 0.2);
@@ -166,6 +175,7 @@ const removeEatenFoods = (foodList) => {
 };
 
 export {
+  checkAllPlayerDead,
   updatePlayerPosition,
   updateFoodPosition,
   fireFoods,

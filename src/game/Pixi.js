@@ -27,11 +27,16 @@ class Pixi extends Component {
      * Player's name
      * @member {string} */
     this.name = props.name;
+
+    this.click = false;
+  }
+  componentDidMount() {
+    this.setup();
   }
   /**
    * Setup pixi configuration
    */
-  componentDidMount() {
+  setup() {
     const appConfig = {
       width: window.innerWidth,
       height: window.innerHeight,
@@ -52,6 +57,9 @@ class Pixi extends Component {
     this.gameScene.interactive = true;
     this.gameScene.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
     this.app.stage.addChild(this.gameScene);
+    this.app.stage.interactive = true;
+    this.app.stage.on('mousedown', () => { this.click = true; });
+    this.app.stage.on('mouseup', () => { this.click = false; });
     window.onresize = () => {
       this.app.renderer.resize(window.innerWidth, window.innerHeight);
       this.gameScene.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
@@ -64,6 +72,7 @@ class Pixi extends Component {
       socket: this.socket,
       id: this.id,
       updateCamera: this.updateCamera,
+      loseGame: this.props.loseGame,
     });
     /**
      * A FoodContainer wrapped inside [this.gameScene]{@link Pixi#gameScene}.
@@ -77,7 +86,6 @@ class Pixi extends Component {
     this.bgContainer = new BgContainer();
     this.gameScene.addChild(this.bgContainer, this.playerContainer, this.foodContainer);
 
-    this.socket.emit('INIT', { id: this.id, name: this.name });
 
     this.initTicker();
     this.initSpaceEmitter();
@@ -105,7 +113,7 @@ class Pixi extends Component {
 
       this.socket.emit('STATE_UPDATE', {
         mousePos: this.app.renderer.plugins.interaction.mouse.getLocalPosition(this.gameScene),
-        mouseDown: false,
+        mouseDown: this.click,
         keysDown,
         id: this.id,
       });

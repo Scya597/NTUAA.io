@@ -33,6 +33,7 @@ class PlayerContainer extends Container {
      * A point representing the centroid of all the cells the player owns.
      * @member {PIXI.Point} */
     this.centroid = new Point();
+    this.loseGame = arg.loseGame;
   }
   /**
    * When this function is called.
@@ -46,11 +47,11 @@ class PlayerContainer extends Container {
    */
   onGetPlayersData() {
     this.socket.on('GET_PLAYERS_DATA', (playerList) => {
+      let dead = true;
       playerList.forEach((player) => {
         player.cellList.forEach((cell) => {
           let sprite = this.children.find(child => child.id === cell.id);
           if (sprite === undefined) {
-            console.log(cell);
             sprite = new CellSprite(cell);
             this.addChild(sprite);
           }
@@ -59,6 +60,7 @@ class PlayerContainer extends Container {
           sprite.flag = true;
         });
         if (player.id === this.id) {
+          dead = false;
           const mx = player.cellList.reduce((acc, cell) => acc + (cell.pos.x * cell.mass), 0);
           const my = player.cellList.reduce((acc, cell) => acc + (cell.pos.y * cell.mass), 0);
           const m = player.cellList.reduce((acc, cell) => acc + cell.mass, 0);
@@ -66,7 +68,9 @@ class PlayerContainer extends Container {
           this.updateCamera(this.centroid);
         }
       });
-
+      if (dead === true) {
+        this.loseGame();
+      }
       const arr = [];
       // Store index of child which does not update in this round into arr.
       for (let i = 0; i < this.children.length; i += 1) {

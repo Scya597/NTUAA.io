@@ -19,6 +19,7 @@ class LoginBox extends Component {
   setTitle = () => {
     console.log('setTitle: socket.emit SET_NAME');
     this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id });
+    this.socket.emit('INIT', { id: this.id, name: this.name });
     this.props.handlelogin(this.textInput.value); // update app state
     this.textInput.value = '';
   }

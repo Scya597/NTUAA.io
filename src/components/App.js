@@ -17,6 +17,7 @@ class App extends Component {
     this.id = uuid();
     this.socket = socketIOClient(endpoint, { query: { id: this.id } });
     this.handleLogin = this.handleLogin.bind(this);
+    this.loseGame = this.loseGame.bind(this);
   }
 
   handleLogin(name) {
@@ -24,11 +25,14 @@ class App extends Component {
     this.setState({ login: 1, name });
   }
 
+  loseGame() {
+    this.setState({ login: 0 });
+  }
   render() {
     return (
       <div>
         {this.state.login === 1
-          ? <Pixi socket={this.socket} id={this.id} name={this.state.name} />
+          ? <Pixi socket={this.socket} id={this.id} name={this.state.name} loseGame={this.loseGame}/>
           : <LoginBox handlelogin={this.handleLogin} socket={this.socket} id={this.id} />}
       </div>
     );

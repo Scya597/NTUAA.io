@@ -1,4 +1,5 @@
 import {
+  checkAllPlayerDead,
   updateFoodPosition,
   updatePlayerPosition,
   fireFoods, generateFoods,
@@ -56,6 +57,7 @@ export default function ioActivate(io) {
     socket.on('INIT', (player) => {
       const newPlayer = new Player({ id: player.id, name: player.name });
       playerList.push(newPlayer);
+      console.log('playerList', playerList.length);
     });
 
     socket.on('STATE_UPDATE', (mouseData) => {
@@ -65,6 +67,7 @@ export default function ioActivate(io) {
         }
         return false;
       });
+      console.log('STATE_UPDATE', player);
       if (player) {
         player.mousePos = mouseData.mousePos;
         player.mouseDown = mouseData.mouseDown;
@@ -87,6 +90,7 @@ export default function ioActivate(io) {
   });
 
   setInterval(() => {
+    checkAllPlayerDead(playerList, userList);
     updatePlayerPosition(playerList, zoneList, setting);
     updateFoodPosition(foodList, zoneList, setting);
     fireFoods(playerList, foodList, zoneList);

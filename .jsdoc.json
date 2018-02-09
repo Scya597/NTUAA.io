@@ -4,11 +4,7 @@
        "dictionaries": ["jsdoc"]
    },
    "source": {
-<<<<<<< HEAD
        "include": ["./server", "package.json", "README.md"],
-=======
-       "include": ["./src", "package.json", "README.md"],
->>>>>>> c536179ef235489912f120b3971995f772279a3f
        "includePattern": ".js$",
        "excludePattern": "(node_modules/|docs)"
    },
