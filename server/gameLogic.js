@@ -46,18 +46,19 @@ export default function ioActivate(io) {
   io.on('connection', (socket) => {
     console.log('New client connected');
     // login
-    socket.emit('GET_USERLIST', userList);
+    socket.on('EMIT_USERLIST', () => {
+      io.emit('GET_USERLIST', userList);
+    });
 
     socket.on('SET_NAME', (userInfo) => {
       userList.push({ name: userInfo.name, id: userInfo.id });
-      console.log('socket on SET_NAME userList:', userList);
       io.emit('GET_USERLIST', userList);
     });
     // pixi
     socket.on('INIT', (player) => {
       const newPlayer = new Player({ id: player.id, name: player.name });
       playerList.push(newPlayer);
-      console.log('playerList', playerList.length);
+      // console.log('playerList', playerList.length);
     });
 
     socket.on('STATE_UPDATE', (mouseData) => {

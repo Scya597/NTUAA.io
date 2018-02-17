@@ -31,10 +31,13 @@ class Pixi extends Component {
     this.click = false;
   }
   componentDidMount() {
+    console.log('mount');
     this.setup();
   }
-  componentDidUpdate() {
-    this.setup();
+  componentWillUnmount() {
+    console.log('unmount');
+    this.socket.off('GET_PLAYERS_DATA');
+    this.socket.off('GET_FOODS_DATA');
   }
   /**
    * Setup pixi configuration
@@ -120,7 +123,6 @@ class Pixi extends Component {
         keysDown,
         id: this.id,
       });
-      // this.playerContainer.onGetPlayersData();
     });
   }
 

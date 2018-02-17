@@ -26,18 +26,15 @@ class App extends Component {
   }
 
   loseGame() {
-    this.setState({ login: 0, lose:true });
-    // this.socket.emit('disconnect');
-    // const { endpoint } = this.state;
-    // this.id = uuid();
-    // this.socket = socketIOClient(endpoint, { query: { id: this.id } });
-    // window.location.reload();
+    this.setState({
+      login: 0, lose: true,
+    });
   }
   render() {
     return (
       <div>
         {this.state.login === 1
-          ? <Pixi socket={this.socket} id={this.id} name={this.state.name} loseGame={this.loseGame}/>
+          ? <Pixi socket={this.socket} id={this.id} name={this.state.name} loseGame={this.loseGame} />
           : <LoginBox handlelogin={this.handleLogin} socket={this.socket} id={this.id} lose={this.state.lose} />}
       </div>
     );

@@ -47,6 +47,7 @@ class PlayerContainer extends Container {
    */
   onGetPlayersData() {
     this.socket.on('GET_PLAYERS_DATA', (playerList) => {
+      console.log('get_player_data');
       let dead = true;
       playerList.forEach((player) => {
         player.cellList.forEach((cell) => {

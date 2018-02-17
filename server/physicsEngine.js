@@ -8,6 +8,7 @@ const checkAllPlayerDead = (playerList, userList) => {
     if (playerList[i].score < 0) {
       userList.splice(userList.findIndex(user => user.id === playerList[i].id), 1);
       playerList.splice(i, 1);
+      
     }
   }
 };
@@ -155,7 +156,7 @@ const checkAllFoodEaten = (playerList, foodList, zoneList, setting) => {
         /* this is potentially confusion: `mass` determines the radius of the
          * cell. Since we don't want the size of the player to change anymore,
          * we keep track of bullet count with `score` instead. */
-        console.log(`${playerList[i].score}+${foodList[k].mass}`);
+      //   console.log(`${playerList[i].score}+${foodList[k].mass}`);
         playerList[i].score += foodList[k].mass;
       }
     }
