@@ -67,7 +67,6 @@ export default function ioActivate(io) {
         }
         return false;
       });
-      console.log('STATE_UPDATE', player);
       if (player) {
         player.mousePos = mouseData.mousePos;
         player.mouseDown = mouseData.mouseDown;

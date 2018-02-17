@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   handleLogin(name) {
-    console.log('handleLogin: this.setState({ login: 1, name })');
     this.setState({ login: 1, name });
   }
 

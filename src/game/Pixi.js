@@ -33,6 +33,9 @@ class Pixi extends Component {
   componentDidMount() {
     this.setup();
   }
+  componentDidUpdate() {
+    this.setup();
+  }
   /**
    * Setup pixi configuration
    */
