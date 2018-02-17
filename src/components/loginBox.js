@@ -8,6 +8,7 @@ class LoginBox extends Component {
     };
     this.socket = props.socket;
     this.id = props.id;
+    this.lose = props.lose;
   }
 
   componentDidMount() {
@@ -27,18 +28,25 @@ class LoginBox extends Component {
   render() {
     return (
       <div className="loginRoot">
-        <div className="loginMenu">
-          <h1 className="loginHeader">Welcome</h1>
-          <input className="loginInput" placeholder="name" ref={(input) => { this.textInput = input; }} />
-          <button className="loginStart" onClick={this.setTitle}>START</button>
-          <div className="loginOnline">
-            <div className="loginOnlineDraw">Online</div>
-            <ul className="loginOnlineul">
-              {this.state.userList.map(user =>
-            (<li className="loginOnlineli" key={user.id}> {user.name} </li>))}
-            </ul>
+        {
+          this.lose === true ?
+          <div className="loginMenu">
+            <h1 className="loginHeader">You Lose!!!</h1>
+            <button className="loginStart"><a href="https://yolololo.herokuapp.com/">Play Again</a></button>
+          </div>:
+          <div className="loginMenu">
+            <h1 className="loginHeader">Welcome</h1>
+            <input className="loginInput" placeholder="name" ref={(input) => { this.textInput = input; }} />
+            <button className="loginStart" onClick={this.setTitle}>START</button>
+            <div className="loginOnline">
+              <div className="loginOnlineDraw">Online</div>
+              <ul className="loginOnlineul">
+                {this.state.userList.map(user =>
+              (<li className="loginOnlineli" key={user.id}> {user.name} </li>))}
+              </ul>
+            </div>
           </div>
-        </div>
+        }  
       </div>
     );
   }
