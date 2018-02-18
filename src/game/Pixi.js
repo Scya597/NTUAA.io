@@ -39,7 +39,8 @@ class Pixi extends Component {
     this.socket.off('GET_PLAYERS_DATA');
     this.socket.off('GET_FOODS_DATA');
     this.socket.off('GET_ZONE_DATA');
-    this.socket.emit('disconnect');
+    this.app.ticker.destroy();
+    this.app.stop();
   }
   /**
    * Setup pixi configuration

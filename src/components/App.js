@@ -27,6 +27,7 @@ class App extends Component {
 
   loseGame() {
     const { endpoint } = this.state;
+    // this.socket.emit('disconnect');
     this.id = uuid();
     this.socket = socketIOClient(endpoint, { query: { id: this.id } });
     this.setState({
