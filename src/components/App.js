@@ -26,6 +26,9 @@ class App extends Component {
   }
 
   loseGame() {
+    const { endpoint } = this.state;
+    this.id = uuid();
+    this.socket = socketIOClient(endpoint, { query: { id: this.id } });
     this.setState({
       login: 0, lose: true,
     });

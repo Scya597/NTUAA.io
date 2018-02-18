@@ -38,6 +38,8 @@ class Pixi extends Component {
     console.log('unmount');
     this.socket.off('GET_PLAYERS_DATA');
     this.socket.off('GET_FOODS_DATA');
+    this.socket.off('GET_ZONE_DATA');
+    this.socket.emit('disconnect');
   }
   /**
    * Setup pixi configuration

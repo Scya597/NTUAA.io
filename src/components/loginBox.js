@@ -8,7 +8,7 @@ class LoginBox extends Component {
     };
     this.socket = props.socket;
     this.id = props.id;
-    this.lose = props.lose;
+    // this.lose = props.lose;
   }
 
   componentDidMount() {
