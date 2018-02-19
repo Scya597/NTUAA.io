@@ -2,11 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const autoprefixer = require('autoprefixer');
 
 const hotMiddlewareScript = 'webpack-hot-middleware/client';
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: {
     bundle: [
@@ -35,6 +35,17 @@ module.exports = {
         test: /\.scss$/,
         loader: 'style-loader!css-loader!postcss-loader!sass-loader',
       },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
@@ -56,6 +67,6 @@ module.exports = {
           }),
         ],
       },
-    }),
+    })
   ],
 };

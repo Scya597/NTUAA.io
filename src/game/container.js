@@ -49,7 +49,6 @@ class PlayerContainer extends Container {
    */
   onGetPlayersData() {
     this.socket.on('GET_PLAYERS_DATA', (playerList) => {
-      console.log('get_player_data');
       let dead = true;
       playerList.forEach((player) => {
         if (player.zones[1]) {
@@ -63,7 +62,7 @@ class PlayerContainer extends Container {
             this.addChild(sprite);
           }
           sprite.updatePos(cell.pos);
-          sprite.updateCell(cell); // update size
+          sprite.updateAngle(player); // update size
           sprite.flag = true;
         });
         if (player.id === this.id) {

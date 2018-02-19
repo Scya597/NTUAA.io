@@ -1,5 +1,5 @@
-import { Sprite, Graphics } from 'pixi.js';
-
+import { Sprite, Graphics, Texture } from 'pixi.js';
+import playerPNG from '../assets/player.png';
 /**
  * Convert mass to radius.
  * @function getRadius
@@ -35,7 +35,10 @@ class CellSprite extends Sprite {
    * @param {Cell} cell - A cell object
    */
   constructor(cell) {
-    super(generateCircleTexture(cell, getRadius(cell.mass)));
+    super(Texture.fromImage(playerPNG));
+    const r = getRadius(cell.mass);
+    this.width = 2 * r;
+    this.height = 2 * r;
     /**
      * Sprite's uuid
      * @member {string} */
@@ -54,8 +57,11 @@ class CellSprite extends Sprite {
    * When the cell mass changes, update cellSprite size accordingly.
    * @param {Cell} cell - A cell object
    */
-  updateCell(cell) {
-    this.texture = generateCircleTexture(cell, getRadius(cell.mass));
+  updateAngle(player) {
+    const { mousePos } = player;
+    const pos = { x: this.x, y: this.y };
+    const delta = { x: mousePos.x - pos.x, y: -(mousePos.y - pos.y) };
+    this.rotation = Math.atan2(delta.x, delta.y);
   }
   /**
    * When the cell moves, update cellSprite position accordingly.
