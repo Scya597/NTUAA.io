@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Application } from 'pixi.js';
 import key from 'keymaster';
-import { Container, PlayerContainer, FoodContainer, BgContainer } from './container';
+import { Container, PlayerContainer, FoodContainer, BgContainer, ZoneContainer } from './container';
 
 /** A react component representing the whole pixi game. */
 class Pixi extends Component {
@@ -93,14 +93,15 @@ class Pixi extends Component {
      * It sets up the map of the game.
      * @member {BgContainer} */
     this.bgContainer = new BgContainer();
-    this.gameScene.addChild(this.bgContainer, this.playerContainer, this.foodContainer);
-
+    this.zoneContainer = new ZoneContainer({ socket: this.socket });
+    this.gameScene.addChild(this.bgContainer, this.zoneContainer, this.playerContainer, this.foodContainer);
 
     this.initTicker();
     this.initSpaceEmitter();
 
     this.playerContainer.onGetPlayersData();
     this.foodContainer.onGetFoodsData();
+    this.zoneContainer.onGetZonesData();
     this.bgContainer.generateBg();
   }
   /**

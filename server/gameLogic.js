@@ -19,9 +19,8 @@ export default function ioActivate(io) {
         return player.score > 200;
       },
       cooldown: 0,
-      centre: new Vector2(0, 0),
+      centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
       radius: 500,
-
       id: 0,
 
       /* unused */
@@ -33,13 +32,13 @@ export default function ioActivate(io) {
         return true;
       },
       cooldown: 10 * 1000,
-      centre: new Vector2(0, 0),
+      centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
       radius: 300,
 
       id: 1,
 
       /* unused */
-      color: 0xff0000,
+      color: 0xffff00,
     }),
   ];
 

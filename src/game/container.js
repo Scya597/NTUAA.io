@@ -1,7 +1,7 @@
 // @flow
 
 import { Container, Point, Graphics } from 'pixi.js';
-import { Sprite, CellSprite, FoodSprite } from './sprite';
+import { Sprite, CellSprite, FoodSprite, ZoneSprite } from './sprite';
 import config from './config';
 
 /** PlayerContainer class extended from PIXI.container
@@ -93,7 +93,7 @@ class PlayerContainer extends Container {
  * @extends PIXI.Container */
 class FoodContainer extends Container {
   /**
-   * Create a PlayerContainer
+   * Create a FoodContainer
    * @param {object} arg - The arg used to construct.
    * @param {object} arg.socket - The socket to connect with server side.
    */
@@ -165,4 +165,36 @@ class BgContainer extends Container {
     return sprite;
   }
 }
-export { Container, PlayerContainer, FoodContainer, BgContainer };
+
+/** ZoneContainer class extended from PIXI.container
+ * to define methods for easily manipulating the data insides.
+ * @extends PIXI.Container */
+class ZoneContainer extends Container {
+  /**
+   * Create a ZoneContainer
+   * @param {object} arg - The arg used to construct.
+   * @param {object} arg.socket - The socket to connect with server side.
+   */
+  constructor(arg) {
+    super();
+    /**
+     * Client side socket object to connect with server
+     * @member {Object} */
+    this.socket = arg.socket;
+  }
+  onGetZonesData() {
+    this.socket.on('GET_ZONE_DATA', (zoneList) => {
+      zoneList.forEach((zone) => {
+        let sprite = this.children.find(child => child.id === zone.id);
+        if (sprite === undefined) {
+          sprite = new ZoneSprite(zone);
+          this.addChild(sprite);
+        }
+        sprite.updatePos({ x: zone.centre.x, y: zone.centre.y });
+        sprite.flag = true;
+      });
+    });
+  }
+}
+
+export { Container, PlayerContainer, FoodContainer, BgContainer, ZoneContainer };

@@ -16,11 +16,11 @@ function getRadius(mass) {
  * @param {Circle} circle - any object extends from Circle.
  * @return {PIXI.Texture} - A PIXI.Texture to construct a sprite.
  */
-function generateCircleTexture(circle) {
+function generateCircleTexture(circle, radius) {
   const graphics = new Graphics();
   graphics.lineStyle();
   graphics.beginFill(circle.color);
-  graphics.drawCircle(0, 0, getRadius(circle.mass));
+  graphics.drawCircle(0, 0, radius);
   graphics.endFill();
   return graphics.generateCanvasTexture();
 }
@@ -35,7 +35,7 @@ class CellSprite extends Sprite {
    * @param {Cell} cell - A cell object
    */
   constructor(cell) {
-    super(generateCircleTexture(cell));
+    super(generateCircleTexture(cell, getRadius(cell.mass)));
     /**
      * Sprite's uuid
      * @member {string} */
@@ -85,7 +85,7 @@ class FoodSprite extends Sprite {
    * @param {Food} food - A food object
    */
   constructor(food) {
-    super(generateCircleTexture(food));
+    super(generateCircleTexture(food, getRadius(food.mass)));
     /**
      * Sprite's uuid
      * @member {string} */
@@ -101,10 +101,42 @@ class FoodSprite extends Sprite {
     this.anchor.set(0.5, 0.5);
   }
   updatePos(pos) {
-  this.x = pos.x;
-  this.y = pos.y;
+    this.x = pos.x;
+    this.y = pos.y;
   }
 }
 
 
-export { Sprite, CellSprite, FoodSprite };
+/**
+ * A class extends from PIXI.Sprite to define
+ * convenient methods for easily constructing or updating a food sprite.
+ * @extends PIXI.Sprite */
+class ZoneSprite extends Sprite {
+  /**
+   * Create a foodSprite from the data in food.
+   * @param {Food} food - A food object
+   */
+  constructor(zone) {
+    super(generateCircleTexture(zone, zone.radius));
+    /**
+     * Sprite's uuid
+     * @member {string} */
+    this.id = zone.id;
+    /**
+     * A flag to indicate whether this sprite have been
+     * updated after receiving the data from server.
+     * If not, it means that it does not exist in the server database anymore,
+     * it will be removed from the container.
+     * @member {boolean}
+     * @default false */
+    this.flag = false;
+    this.anchor.set(0.5, 0.5);
+  }
+  updatePos(pos) {
+    this.x = pos.x;
+    this.y = pos.y;
+  }
+}
+
+
+export { Sprite, CellSprite, FoodSprite, ZoneSprite };
