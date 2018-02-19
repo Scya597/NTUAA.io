@@ -139,3 +139,16 @@
   margin: 0;
   line-height: 1.4;
  }
+
+.game-info {
+   position: absolute;
+   right: 0;
+   top: 0;
+   width: 100px;
+   height: 60px;
+   text-align: center;
+   background-color: #fff;
+   border: 1px solid;
+   padding: 10px;
+   box-shadow: 5px 10px #888888;
+}
