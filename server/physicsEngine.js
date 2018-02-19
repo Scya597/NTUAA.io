@@ -8,7 +8,6 @@ const checkAllPlayerDead = (playerList, userList) => {
     if (playerList[i].score < 0) {
       userList.splice(userList.findIndex(user => user.id === playerList[i].id), 1);
       playerList.splice(i, 1);
-      
     }
   }
 };
@@ -19,10 +18,10 @@ const updatePlayerPosition = (playerList, zoneList, setting) => {
     player.cellList.forEach((cell) => {
       const newVel = new Vector2();
       newVel.set(
-        player.keysDown[39] + player.keysDown[68]
+        (player.keysDown[39] + player.keysDown[68])
         - player.keysDown[37] - player.keysDown[65],
 
-        player.keysDown[40] + player.keysDown[83]
+        (player.keysDown[40] + player.keysDown[83])
         - player.keysDown[38] - player.keysDown[87],
       ).scale(500).clipNorm(500);
 

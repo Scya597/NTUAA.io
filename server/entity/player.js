@@ -1,8 +1,9 @@
-import Vector2 from '../space/vector2';
 import uuid from 'uuid/v1';
+
+import Vector2 from '../space/vector2';
 import Cell from './cell';
 
-const TWEEN = require('@tweenjs/tween.js');
+// const TWEEN = require('@tweenjs/tween.js');
 
 /**
  * The Player class
@@ -20,7 +21,7 @@ class Player {
       32: 0,
       37: 0, 38: 0, 39: 0, 40: 0,
       65: 0, 87: 0, 68: 0, 83: 0
-    },
+    };
     this.cellList = [new Cell({
       mass: 2000,
       pos: new Vector2(100, 100),
@@ -31,8 +32,7 @@ class Player {
     })];
     this.zones = [];
     this.score = 0;
-
-    this.fireFoodCooldown = 24;    
+    this.fireFoodCooldown = 24;
     this.remainingFireFoodCooldown = 0;
   }
 

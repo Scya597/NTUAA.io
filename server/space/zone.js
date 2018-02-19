@@ -31,7 +31,7 @@ class Zone {
   eject(u, offset) {
     offset = offset || 0;
 
-    var r = new Vector2();
+    const r = new Vector2();
     r.subtractVectors(u, this.centre);
 
     if (r.norm() < this.radius + offset) {
@@ -50,8 +50,8 @@ class Zone {
   /**
    * projects `player` out of zone if not qualified */
   doorkeep(player) {
-    var pos = player.cellList[0].pos;
-    var radius = player.cellList[0].getRadius();
+    const { pos } = player.cellList[0];
+    const radius = player.cellList[0].getRadius();
 
     if (!this.contains(pos, radius)) {
       player.zones[this.id] = false;

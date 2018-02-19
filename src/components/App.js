@@ -12,7 +12,6 @@ class App extends Component {
       endpoint: 'localhost:8080',
       login: 0,
       name: '',
-      lose: false,
     };
     const { endpoint } = this.state;
     this.id = uuid();
@@ -23,23 +22,26 @@ class App extends Component {
 
   handleLogin(name) {
     this.setState({ login: 1, name });
+    this.socket.connect();
   }
 
   loseGame() {
-    const { endpoint } = this.state;
-    // this.socket.emit('disconnect');
-    this.id = uuid();
-    this.socket = socketIOClient(endpoint, { query: { id: this.id } });
+    this.socket.disconnect();
     this.setState({
-      login: 0, lose: true,
+      login: 0,
     });
   }
   render() {
     return (
       <div>
         {this.state.login === 1
-          ? <Pixi socket={this.socket} id={this.id} name={this.state.name} loseGame={this.loseGame} />
-          : <LoginBox handlelogin={this.handleLogin} socket={this.socket} id={this.id} lose={this.state.lose} />}
+          ? <Pixi
+            socket={this.socket}
+            id={this.id}
+            name={this.state.name}
+            loseGame={this.loseGame}
+          />
+          : <LoginBox handlelogin={this.handleLogin} socket={this.socket} id={this.id} />}
       </div>
     );
   }

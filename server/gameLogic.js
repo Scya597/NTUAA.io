@@ -83,9 +83,12 @@ export default function ioActivate(io) {
 
     socket.on('disconnect', () => {
       console.log('Client disconnected');
-      userList.splice(userList.findIndex(user => user.id === socket.handshake.query.id), 1);
-      playerList.splice(playerList.findIndex(player => player.id === socket.handshake.query.id), 1);
-      io.emit('GET_USERLIST', userList);
+      if (userList.findIndex(user => user.id === socket.handshake.query.id) !== -1) {
+        userList.splice(userList.findIndex(user => user.id === socket.handshake.query.id), 1);
+        playerList.splice(playerList.findIndex(player =>
+          player.id === socket.handshake.query.id), 1);
+        io.emit('GET_USERLIST', userList);
+      }
     });
   });
 
@@ -97,6 +100,7 @@ export default function ioActivate(io) {
     generateFoods(foodList, setting);
     checkAllFoodEaten(playerList, foodList, zoneList, setting);
     removeEatenFoods(foodList);
+    // console.log(userList);
   }, 1000 / 60);
 
   /*
