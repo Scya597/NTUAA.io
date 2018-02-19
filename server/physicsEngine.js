@@ -12,6 +12,15 @@ const checkAllPlayerDead = (playerList, userList) => {
   }
 };
 
+const removeWinner = (playerList, userList) => {
+  for (let i = playerList.length - 1; i >= 0; i -= 1) {
+    if (playerList[i].zones[1]) {
+      userList.splice(userList.findIndex(user => user.id === playerList[i].id), 1);
+      playerList.splice(i, 1);
+    }
+  }
+};
+
 const updatePlayerPosition = (playerList, zoneList, setting) => {
   const dt = 1 / 60;
   playerList.forEach((player) => {
@@ -182,4 +191,5 @@ export {
   generateFoods,
   checkAllFoodEaten,
   removeEatenFoods,
+  removeWinner,
 };

@@ -82,6 +82,7 @@ class Pixi extends Component {
       id: this.id,
       updateCamera: this.updateCamera,
       loseGame: this.props.loseGame,
+      winGame: this.props.winGame,
     });
     /**
      * A FoodContainer wrapped inside [this.gameScene]{@link Pixi#gameScene}.

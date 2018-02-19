@@ -3,7 +3,7 @@ import {
   updateFoodPosition,
   updatePlayerPosition,
   fireFoods, generateFoods,
-  checkAllFoodEaten, removeEatenFoods } from './physicsEngine';
+  checkAllFoodEaten, removeEatenFoods, removeWinner } from './physicsEngine';
 import Vector2 from './space/vector2';
 import Zone from './space/zone';
 import Player from './entity/player';
@@ -33,7 +33,7 @@ export default function ioActivate(io) {
       },
       cooldown: 10 * 1000,
       centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
-      radius: 300,
+      radius: 50,
 
       id: 1,
 
@@ -80,6 +80,11 @@ export default function ioActivate(io) {
       socket.emit('GET_ZONE_DATA', zoneList);
     });
 
+    socket.on('WIN', () => {
+      console.log('win');
+      removeWinner(playerList, userList);
+    })
+    
     socket.on('disconnect', () => {
       console.log('Client disconnected');
       if (userList.findIndex(user => user.id === socket.handshake.query.id) !== -1) {

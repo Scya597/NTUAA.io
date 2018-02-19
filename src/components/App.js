@@ -18,6 +18,7 @@ class App extends Component {
     this.socket = socketIOClient(endpoint, { query: { id: this.id } });
     this.handleLogin = this.handleLogin.bind(this);
     this.loseGame = this.loseGame.bind(this);
+    this.winGame = this.winGame.bind(this);
   }
 
   handleLogin(name) {
@@ -25,8 +26,18 @@ class App extends Component {
     this.socket.connect();
   }
 
+  winGame() {
+    this.socket.disconnect();
+    console.log('holy win');
+    // redirect to winning page!!
+    this.setState({
+      login: 0,
+    });
+  }
+  
   loseGame() {
     this.socket.disconnect();
+    console.log('holy lose');
     this.setState({
       login: 0,
     });
@@ -40,6 +51,7 @@ class App extends Component {
             id={this.id}
             name={this.state.name}
             loseGame={this.loseGame}
+            winGame = {this.winGame}
           />
           : <LoginBox handlelogin={this.handleLogin} socket={this.socket} id={this.id} />}
       </div>

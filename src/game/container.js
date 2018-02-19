@@ -34,6 +34,8 @@ class PlayerContainer extends Container {
      * @member {PIXI.Point} */
     this.centroid = new Point();
     this.loseGame = arg.loseGame;
+    this.winGame = arg.winGame;
+    this.win = false;
   }
   /**
    * When this function is called.
@@ -50,6 +52,10 @@ class PlayerContainer extends Container {
       console.log('get_player_data');
       let dead = true;
       playerList.forEach((player) => {
+        if (player.zones[1]) {
+          this.win = true;
+          this.socket.emit('WIN');
+        }
         player.cellList.forEach((cell) => {
           let sprite = this.children.find(child => child.id === cell.id);
           if (sprite === undefined) {
@@ -70,7 +76,11 @@ class PlayerContainer extends Container {
         }
       });
       if (dead === true) {
-        this.loseGame();
+        if (this.win === false) {
+          this.loseGame();
+        } else {
+          this.winGame();
+        }
       }
       const arr = [];
       // Store index of child which does not update in this round into arr.
