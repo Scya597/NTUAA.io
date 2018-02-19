@@ -26,7 +26,7 @@ class Player {
       mass: 2000,
       pos: new Vector2(100, 100),
       id: uuid(),
-      color: 0x111111,
+      color: 0x414141,
       vel: new Vector2(0, 0),
       isEaten: false,
     })];

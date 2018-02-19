@@ -55,7 +55,7 @@ class CellSprite extends Sprite {
    * @param {Cell} cell - A cell object
    */
   updateCell(cell) {
-    this.texture = generateCircleTexture(cell);
+    this.texture = generateCircleTexture(cell, getRadius(cell.mass));
   }
   /**
    * When the cell moves, update cellSprite position accordingly.

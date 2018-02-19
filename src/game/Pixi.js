@@ -94,8 +94,7 @@ class Pixi extends Component {
      * @member {BgContainer} */
     this.bgContainer = new BgContainer();
     this.zoneContainer = new ZoneContainer({ socket: this.socket });
-    this.gameScene.addChild(this.bgContainer, this.zoneContainer, this.playerContainer, this.foodContainer);
-
+    this.gameScene.addChild(this.bgContainer, this.zoneContainer, this.foodContainer, this.playerContainer);
     this.initTicker();
     this.initSpaceEmitter();
 
