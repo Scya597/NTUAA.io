@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Application } from 'pixi.js';
 import key from 'keymaster';
 import { Container, PlayerContainer, FoodContainer, BgContainer, ZoneContainer } from './container';
+import GameInfo from '../components/GameInfo';
 
 /** A react component representing the whole pixi game. */
 class Pixi extends Component {
@@ -29,6 +30,10 @@ class Pixi extends Component {
     this.name = props.name;
 
     this.click = false;
+
+    this.state = {
+      hp: 0,
+    };
   }
   componentDidMount() {
     console.log('mount');
@@ -83,6 +88,7 @@ class Pixi extends Component {
       updateCamera: this.updateCamera,
       loseGame: this.props.loseGame,
       winGame: this.props.winGame,
+      updateHp: this.updateHp,
     });
     /**
      * A FoodContainer wrapped inside [this.gameScene]{@link Pixi#gameScene}.
@@ -148,12 +154,21 @@ class Pixi extends Component {
   updateCamera(pos) {
     this.gameScene.pivot.copy(pos);
   }
+  updateHp = (_hp) => {
+    let { hp } = this.state;
+    hp = _hp;
+    this.setState({ hp });
+  }
   /**
    * @return {jsx} < div className = 'pixi' >
    */
   render() {
+    const { hp } = this.state;
     return (
-      <div className="pixi" ref={(pixi) => { this.pixi = pixi; }} />
+      <div>
+        <div className="pixi" ref={(pixi) => { this.pixi = pixi; }} />
+        <GameInfo hp={hp} />
+      </div>
     );
   }
 }

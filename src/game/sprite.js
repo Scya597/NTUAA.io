@@ -1,4 +1,4 @@
-import { Sprite, Graphics, Texture } from 'pixi.js';
+import { Sprite, Graphics, Texture, Container, Text } from 'pixi.js';
 import playerPNG from '../assets/player.png';
 /**
  * Convert mass to radius.
@@ -53,34 +53,29 @@ class CellSprite extends Sprite {
     this.flag = false;
     this.anchor.set(0.5, 0.5);
   }
-  /**
-   * When the cell mass changes, update cellSprite size accordingly.
-   * @param {Cell} cell - A cell object
-   */
-  updateAngle(player) {
-    const { mousePos } = player;
-    const pos = { x: this.x, y: this.y };
-    const delta = { x: mousePos.x - pos.x, y: -(mousePos.y - pos.y) };
-    this.rotation = Math.atan2(delta.x, delta.y);
+}
+class PlayerSprite extends Container {
+  constructor(cell, hp = '0') {
+    super();
+    this.cell = new CellSprite(cell);
+    this.text = new Text(hp);
+    this.addChild(this.cell);
+    this.addChild(this.text);
   }
-  /**
-   * When the cell moves, update cellSprite position accordingly.
-   * @param {object} pos - A sprite position
-   * @param {number} pos.x - positon x.
-   * @param {number} pos.y - positon y.
-   */
-  updatePos(pos) {
-    /**
-     * x local position relative to its parent container
-     * @member {number} */
+  update(player, pos) {
+    // update pos
     this.x = pos.x;
-    /**
-     * y local position relative to its parent container
-     * @member {number} */
     this.y = pos.y;
+
+    // update angle
+    const { mousePos } = player;
+    const delta = { x: mousePos.x - pos.x, y: -(mousePos.y - pos.y) };
+    this.cell.rotation = Math.atan2(delta.x, delta.y);
+    // update hp
+    console.log(this.text.text, player.score);
+    this.text.text = player.score;
   }
 }
-
 /**
  * A class extends from PIXI.Sprite to define
  * convenient methods for easily constructing or updating a food sprite.
@@ -145,4 +140,4 @@ class ZoneSprite extends Sprite {
 }
 
 
-export { Sprite, CellSprite, FoodSprite, ZoneSprite };
+export { Sprite, CellSprite, FoodSprite, ZoneSprite, PlayerSprite };

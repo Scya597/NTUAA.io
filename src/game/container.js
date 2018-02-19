@@ -1,7 +1,7 @@
 // @flow
 
 import { Container, Point, Graphics } from 'pixi.js';
-import { Sprite, CellSprite, FoodSprite, ZoneSprite } from './sprite';
+import { Sprite, FoodSprite, ZoneSprite, PlayerSprite } from './sprite';
 import config from './config';
 
 /** PlayerContainer class extended from PIXI.container
@@ -36,6 +36,7 @@ class PlayerContainer extends Container {
     this.loseGame = arg.loseGame;
     this.winGame = arg.winGame;
     this.win = false;
+    this.updateHp = arg.updateHp;
   }
   /**
    * When this function is called.
@@ -58,11 +59,10 @@ class PlayerContainer extends Container {
         player.cellList.forEach((cell) => {
           let sprite = this.children.find(child => child.id === cell.id);
           if (sprite === undefined) {
-            sprite = new CellSprite(cell);
+            sprite = new PlayerSprite(cell);
             this.addChild(sprite);
           }
-          sprite.updatePos(cell.pos);
-          sprite.updateAngle(player); // update size
+          sprite.update(player, cell.pos);
           sprite.flag = true;
         });
         if (player.id === this.id) {
@@ -72,6 +72,7 @@ class PlayerContainer extends Container {
           const m = player.cellList.reduce((acc, cell) => acc + cell.mass, 0);
           this.centroid.set(mx / m, my / m);
           this.updateCamera(this.centroid);
+          this.updateHp(player.score);
         }
       });
       if (dead === true) {
