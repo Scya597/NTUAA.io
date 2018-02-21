@@ -58,7 +58,7 @@ class PlayerSprite extends Container {
   constructor(cell, hp = '0') {
     super();
     this.cell = new CellSprite(cell);
-    this.text = new Text(hp);
+    this.text = new Text(hp, { fontFamily: 'Arial', fontSize: 5, align: 'left' });
     this.addChild(this.cell);
     this.addChild(this.text);
   }

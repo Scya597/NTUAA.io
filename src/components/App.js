@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import socketIOClient from 'socket.io-client';
 import uuid from 'uuid/v1';
 import LoginBox from './loginBox';
+import WinningPage from './winningPage';
 import Pixi from '../game/Pixi';
 
 
@@ -19,6 +20,7 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.loseGame = this.loseGame.bind(this);
     this.winGame = this.winGame.bind(this);
+    this.renderPage = this.renderPage.bind(this);
   }
 
   handleLogin(name) {
@@ -31,10 +33,10 @@ class App extends Component {
     console.log('holy win');
     // redirect to winning page!!
     this.setState({
-      login: 0,
+      login: 2,
     });
   }
-  
+
   loseGame() {
     this.socket.disconnect();
     console.log('holy lose');
@@ -42,18 +44,27 @@ class App extends Component {
       login: 0,
     });
   }
+
+  renderPage() {
+    if (this.state.login === 1) {
+      return (<Pixi
+        socket={this.socket}
+        id={this.id}
+        name={this.state.name}
+        loseGame={this.loseGame}
+        winGame={this.winGame}
+      />);
+    } else if (this.state.login === 0) {
+      return <LoginBox handlelogin={this.handleLogin} socket={this.socket} id={this.id} />;
+    } else {
+      return <WinningPage />;
+    }
+  }
+
   render() {
     return (
       <div>
-        {this.state.login === 1
-          ? <Pixi
-            socket={this.socket}
-            id={this.id}
-            name={this.state.name}
-            loseGame={this.loseGame}
-            winGame = {this.winGame}
-          />
-          : <LoginBox handlelogin={this.handleLogin} socket={this.socket} id={this.id} />}
+        {this.renderPage()}
       </div>
     );
   }
