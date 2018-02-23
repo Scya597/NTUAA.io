@@ -30,16 +30,18 @@ class LoginBox extends Component {
     return (
       <div className="loginRoot">
         <div className="loginMenu">
-          <h1 className="loginHeader">Welcome</h1>
-          <input className="loginInput" placeholder="name" ref={(input) => { this.textInput = input; }} />
-          <button className="loginStart" onClick={this.setTitle}>START</button>
-          <div className="loginOnline">
-            <div className="loginOnlineDraw">Online</div>
-            <ul className="loginOnlineul">
-              {this.state.userList.map(user =>
-            (<li className="loginOnlineli" key={user.id}> {user.name} </li>))}
-            </ul>
-          </div>
+          <h1 className="loginHeader">NTUAA.io</h1>
+          <h4 className="loginText">角色選擇</h4>
+          <input className="loginInput" placeholder="名字" ref={(input) => { this.textInput = input; }} />
+          <select className="custom-select-wrapper">
+            <option>開場舞</option>
+            <option>創意劇</option>
+            <option>手語劇</option>
+            <option>金劇</option>
+            <option>會長劇</option>
+            <option>歌舞劇</option>
+          </select>
+          <button className="loginStart" onClick={this.setTitle}>開始遊戲</button>
         </div>
       </div>
     );

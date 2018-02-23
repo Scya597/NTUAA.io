@@ -5,44 +5,8 @@
 	align-items: center;
  }
 
- .loginOnline{
-	@include xcenter-col-flex;
-	width: 100%;
-	height: 100%;
-	top: 55%;
-	transition: 0.6s ease-out;
-
-	.loginOnlineDraw{
-	  width: 30%;
-	  height: 3rem;
-	  padding-top: 8px;
-	  cursor: pointer;
-	  background-color: #ee66aaa3;
-	  color: #fff;
-	  font-size: 1.3rem;
-	  border-radius: 50% 50% 0 0;
-	  transition: 0.5s;
-	}
-	.loginOnlineul{
-		background-color: #676666;
-	  list-style-type: none; //remove default style
-	  width: 100%;
-	  height: 100%;
-	  padding-top: 15px;
-	  overflow: scroll;
-	  text-align: left;
-	}
-	.loginOnlineli{
-	  color:#fff;
-	  font-size: 1.2rem;
-	  list-style-type: disc;
-	}
-	&.open{
-	  top: 0%;
-	}
- }
-
  .loginStart{
+	margin-top: -20px;
 	position: relative;
 	top: 12rem;
 	width: 10rem;
@@ -82,7 +46,7 @@
 	  border-width: 1.5px 1.5px 1.5px 1.5px;
 	  border-color: #66eece;
 	  width: 15rem;
-	  text-align: left;
+	  text-align: center;
 	  border-radius: 5%;
 	}
  }
@@ -91,6 +55,13 @@
 	top: 1.5rem;
 	font-size: 4.5rem;
 	color: #30e8bd;
+ }
+ .loginText{
+	 margin-top: 20px;
+	 position: relative;
+	 top: 1.5rem;
+	 font-size: 1.5rem;
+	 color: #30e8bd;
  }
  .loginMenu{
 	@include xcenter-col-flex;
@@ -151,4 +122,10 @@
    border: 1px solid;
    padding: 10px;
    box-shadow: 5px 10px #888888;
+}
+
+.custom-select-wrapper {
+	margin-top: -20px;
+	font-size: 20px;
+	height: 40px;
 }
