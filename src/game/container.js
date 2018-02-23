@@ -13,6 +13,7 @@ class PlayerContainer extends Container {
    * @param {object} arg - The arg used to construct.
    * @param {object} arg.socket - The socket to connect with server side.
    * @param {string} arg.id - The player's uuid.
+   * @param {number} arg.character - The player's character.
    * @param {function} arg.updateCamera - The callback function to align camera.
    */
   constructor(arg) {
@@ -25,6 +26,10 @@ class PlayerContainer extends Container {
      * Client side uuid
      * @member {string} */
     this.id = arg.id;
+    /**
+     * Client side character
+     * @member {number} */
+    this.character = arg.character;
     /**
      * The callback function to align camera.
      * @member {function} */
@@ -59,7 +64,7 @@ class PlayerContainer extends Container {
         player.cellList.forEach((cell) => {
           let sprite = this.children.find(child => child.id === cell.id);
           if (sprite === undefined) {
-            sprite = new PlayerSprite(cell);
+            sprite = new PlayerSprite(cell, this.character);
             this.addChild(sprite);
           }
           sprite.update(player, cell.pos);

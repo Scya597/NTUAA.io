@@ -1,5 +1,11 @@
 import { Sprite, Graphics, Texture, Container, Text } from 'pixi.js';
-import playerPNG from '../assets/player.png';
+import playerPNG1 from '../assets/player1.png';
+import playerPNG2 from '../assets/player2.png';
+import playerPNG3 from '../assets/player3.png';
+import playerPNG4 from '../assets/player4.png';
+import playerPNG5 from '../assets/player5.png';
+import playerPNG6 from '../assets/player6.png';
+
 /**
  * Convert mass to radius.
  * @function getRadius
@@ -34,8 +40,20 @@ class CellSprite extends Sprite {
    * Create a cellSprite from the data in cell.
    * @param {Cell} cell - A cell object
    */
-  constructor(cell) {
-    super(Texture.fromImage(playerPNG));
+  constructor(cell, character) {
+    if (character === '1') {
+      super(Texture.fromImage(playerPNG1));
+    } else if (character === '2') {
+      super(Texture.fromImage(playerPNG2));
+    } else if (character === '3') {
+      super(Texture.fromImage(playerPNG3));
+    } else if (character === '4') {
+      super(Texture.fromImage(playerPNG4));
+    } else if (character === '5') {
+      super(Texture.fromImage(playerPNG5));
+    } else {
+      super(Texture.fromImage(playerPNG6));
+    }
     const r = getRadius(cell.mass);
     this.width = 2 * r;
     this.height = 2 * r;
@@ -55,9 +73,9 @@ class CellSprite extends Sprite {
   }
 }
 class PlayerSprite extends Container {
-  constructor(cell, hp = '0') {
+  constructor(cell, character, hp = '0') {
     super();
-    this.cell = new CellSprite(cell);
+    this.cell = new CellSprite(cell, character);
     this.text = new Text(hp, { fontFamily: 'Arial', fontSize: 5, align: 'left' });
     this.addChild(this.cell);
     this.addChild(this.text);
