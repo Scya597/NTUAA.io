@@ -45,6 +45,8 @@ class LoginBox extends Component {
       <div className="loginRoot">
         <div className="loginMenu">
           <h1 className="loginHeader">NTUAA.io</h1>
+          <div className="rule">操作：WASD移動、滑鼠點擊開槍</div>
+          <div className="rule">進入場中央黃色區域者勝，可獲抽獎資格</div>
           <h4 className="loginText">角色選擇</h4>
           <select className="custom-select-wrapper" ref={(input) => { this.character = input; }}>
             <option value="1">開場舞</option>
@@ -59,6 +61,7 @@ class LoginBox extends Component {
           <input className="loginInput" placeholder="名字" ref={(input) => { this.textInput = input; }} required="required" />
           { this.showWarning() }
           <button className="loginStart" onClick={this.setTitle}>開始遊戲</button>
+          <div className="maker">遊戲製作：詹雨安、許秉倫、駱佳駿</div>
         </div>
       </div>
     );
