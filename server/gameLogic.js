@@ -16,7 +16,7 @@ export default function ioActivate(io) {
   const zoneList = [
     new Zone({
       acceptEntry(player) {
-        return player.score > 200;
+        return player.score >= 1500;
       },
       cooldown: 0,
       centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
@@ -24,14 +24,14 @@ export default function ioActivate(io) {
       id: 0,
 
       /* unused */
-      color: 0xd3d3d3,
+      color: 0x696969,
     }),
 
     new Zone({
       acceptEntry() {
         return true;
       },
-      cooldown: 30 * 1000,
+      cooldown: 200 * 1000,
       centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
       radius: 200,
 

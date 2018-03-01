@@ -153,19 +153,21 @@ const checkOneFoodEaten = (cell, food) => {
     food.isEaten = true;
     return true;
   }
+  return false;
 };
 
 const checkAllFoodEaten = (playerList, foodList, zoneList, setting) => {
   for (let k = 0; k < foodList.length; k += 1) {
     checkOneFoodExpired(foodList[k], zoneList, setting);
-
     for (let i = 0; i < playerList.length; i += 1) {
-      if (checkOneFoodEaten(playerList[i].cellList[0], foodList[k])) {
-        /* this is potentially confusion: `mass` determines the radius of the
-         * cell. Since we don't want the size of the player to change anymore,
-         * we keep track of bullet count with `score` instead. */
-      //   console.log(`${playerList[i].score}+${foodList[k].mass}`);
-        playerList[i].score += foodList[k].mass;
+      if (playerList[i].score < 1500) {
+        if (checkOneFoodEaten(playerList[i].cellList[0], foodList[k])) {
+          /* this is potentially confusion: `mass` determines the radius of the
+           * cell. Since we don't want the size of the player to change anymore,
+           * we keep track of bullet count with `score` instead. */
+        //   console.log(`${playerList[i].score}+${foodList[k].mass}`);
+          playerList[i].score += foodList[k].mass;
+        }
       }
     }
   }

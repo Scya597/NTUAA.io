@@ -87,7 +87,7 @@ class PlayerSprite extends Container {
     this.name = name;
     this.cell = new CellSprite(cell, character);
     this.nameText = new Text(`${this.name}: ${hp}`, { fontFamily: 'Arial', fontSize: 15, align: 'center' });
-    this.nameText.position = new Point(0, 70);
+    this.nameText.position = new Point(0, 60);
     this.addChild(this.cell);
     this.addChild(this.nameText);
   }
