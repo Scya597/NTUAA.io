@@ -11,22 +11,22 @@
 	top: 12rem;
 	width: 10rem;
 	height: 4rem;
-	color: #30e8bd;
+	color: #2F4F4F;
 	border-width: 1px;
 	border-style: solid;
-	border-color: #30e8bd;
+	border-color: #2F4F4F;
 	font-size: 2rem;
 	cursor: pointer;
 	border-radius: 5%;
 	transition: 0.5s;
 	&:hover{
-	  background-color: #30e8bd;
+	  background-color: #2F4F4F;
 	  color: #fff;
 	}
  }
  .loginInput{
 	position: relative;
-	top: 6rem;
+	top: 7rem;
 	width : 12rem;
 	height: 3rem;
 	padding-left: 1em;
@@ -50,18 +50,26 @@
 	  border-radius: 5%;
 	}
  }
+ .warning {
+	 margin-top: 100px;
+	 margin-bottom: -100px;
+	 position: relative;
+	 top: 1rem;
+	 font-size: 1rem;
+	 color: #ff0000;
+ }
  .loginHeader{
 	position: relative;
 	top: 1.5rem;
 	font-size: 4.5rem;
-	color: #30e8bd;
+	color: #2F4F4F;
  }
  .loginText{
 	 margin-top: 20px;
 	 position: relative;
 	 top: 1.5rem;
 	 font-size: 1.5rem;
-	 color: #30e8bd;
+	 color: #2F4F4F;
  }
  .loginMenu{
 	@include xcenter-col-flex;
@@ -80,7 +88,7 @@
 	align-items: center;
 	width: 100vw;
 	height: 100vh;
-	background-color: #9cf4df;
+	background-color: #2F4F4F;
 	color: #b4b4b4;
 }
 
@@ -125,7 +133,62 @@
 }
 
 .custom-select-wrapper {
-	margin-top: -20px;
+	margin-top: 40px;
+	margin-bottom: -100px;
 	font-size: 20px;
 	height: 40px;
+	text-align: center;
+}
+
+.lotterytext {
+	position: relative;
+	margin-top: 90px;
+	font-size: 1rem;
+	color: #000000;
+}
+
+.lotterycode {
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: -160px;
+	font-size: 2.5rem;
+	color: #0fff0f;
+}
+
+.lotterybutton{
+ margin-top: -20px;
+ position: relative;
+ top: 12rem;
+ width: 10rem;
+ height: 4rem;
+ color: #2F4F4F;
+ border-width: 1px;
+ border-style: solid;
+ border-color: #2F4F4F;
+ font-size: 1.8rem;
+ cursor: pointer;
+ border-radius: 5%;
+ transition: 0.5s;
+ &:hover{
+	 background-color: #2F4F4F;
+	 color: #fff;
+ }
+}
+
+.link {
+	text-decoration: none;
+	color: #A9A9A9;
+}
+
+.info {
+	font-size: 1.2rem;
+	margin-top: 40px;
+	margin-bottom: -40px;
+	color: #000000;
+}
+
+.maker {
+	font-size: 1rem;
+	margin-top: 220px;
+	color: #000000;
 }

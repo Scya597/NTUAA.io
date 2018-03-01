@@ -5,9 +5,12 @@ class LoginBox extends Component {
     super();
     this.state = {
       userList: [],
+      showWarning: false,
     };
     this.socket = props.socket;
     this.id = props.id;
+    this.setTitle = this.setTitle.bind(this);
+    this.showWarning = this.showWarning.bind(this);
   }
 
   componentDidMount() {
@@ -19,11 +22,22 @@ class LoginBox extends Component {
   componentWillUnmount() {
     this.socket.off('GET_USERLIST');
   }
-  setTitle = () => {
-    this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id, character: this.character.value });
-    this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: this.character.value });
-    this.props.handlelogin(this.textInput.value); // update app state
-    this.textInput.value = '';
+
+  setTitle() {
+    if (this.textInput.value === '') {
+      this.setState({ showWarning: true });
+    } else {
+      this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id, character: this.character.value });
+      this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: this.character.value });
+      this.props.handlelogin(this.textInput.value); // update app state
+      this.textInput.value = '';
+    }
+  }
+
+  showWarning() {
+    if (this.state.showWarning) {
+      return (<div className="warning">請輸入名字！</div>);
+    }
   }
 
   render() {
@@ -32,7 +46,6 @@ class LoginBox extends Component {
         <div className="loginMenu">
           <h1 className="loginHeader">NTUAA.io</h1>
           <h4 className="loginText">角色選擇</h4>
-          <input className="loginInput" placeholder="名字" ref={(input) => { this.textInput = input; }} />
           <select className="custom-select-wrapper" ref={(input) => { this.character = input; }}>
             <option value="1">開場舞</option>
             <option value="2">創意劇</option>
@@ -41,8 +54,10 @@ class LoginBox extends Component {
             <option value="5">會長劇</option>
             <option value="6">歌舞劇</option>
             <option value="7">老人舞</option>
-            <option value="8">特務與他的器材組好夥伴</option>
+            <option value="8">器材組</option>
           </select>
+          <input className="loginInput" placeholder="名字" ref={(input) => { this.textInput = input; }} required="required" />
+          { this.showWarning() }
           <button className="loginStart" onClick={this.setTitle}>開始遊戲</button>
         </div>
       </div>
