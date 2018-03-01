@@ -20,7 +20,7 @@ export default function ioActivate(io) {
       },
       cooldown: 0,
       centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
-      radius: 500,
+      radius: 1500,
       id: 0,
 
       /* unused */
@@ -31,9 +31,9 @@ export default function ioActivate(io) {
       acceptEntry() {
         return true;
       },
-      cooldown: 10 * 1000,
+      cooldown: 30 * 1000,
       centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
-      radius: 50,
+      radius: 200,
 
       id: 1,
 
@@ -107,7 +107,7 @@ export default function ioActivate(io) {
     generateFoods(foodList, setting);
     checkAllFoodEaten(playerList, foodList, zoneList, setting);
     removeEatenFoods(foodList);
-    // console.log(userList);
+    zoneList[1].remainTime = zoneList[1].getRemainingCooldownTime();
   }, 1000 / 60);
 
   /*

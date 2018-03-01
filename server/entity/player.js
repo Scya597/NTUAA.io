@@ -24,7 +24,7 @@ class Player {
       65: 0, 87: 0, 68: 0, 83: 0
     };
     this.cellList = [new Cell({
-      mass: 5000,
+      mass: 15000,
       pos: new Vector2(100, 100),
       id: uuid(),
       color: 0x414141,

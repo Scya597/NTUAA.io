@@ -32,6 +32,10 @@ class Pixi extends Component {
 
     this.state = {
       hp: 0,
+      pos: {
+        x: 0,
+        y: 0,
+      },
     };
   }
   componentDidMount() {
@@ -157,6 +161,7 @@ class Pixi extends Component {
    */
   updateCamera(pos) {
     this.gameScene.pivot.copy(pos);
+    this.setState({ pos });
   }
   updateHp = (_hp) => {
     let { hp } = this.state;
@@ -167,11 +172,11 @@ class Pixi extends Component {
    * @return {jsx} < div className = 'pixi' >
    */
   render() {
-    const { hp } = this.state;
+    const { hp, pos } = this.state;
     return (
       <div>
         <div className="pixi" ref={(pixi) => { this.pixi = pixi; }} />
-        <GameInfo hp={hp} />
+        <GameInfo hp={hp} pos={pos} />
       </div>
     );
   }

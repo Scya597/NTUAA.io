@@ -7,7 +7,8 @@ import playerPNG5 from '../assets/player5.png';
 import playerPNG6 from '../assets/player6.png';
 import playerPNG7 from '../assets/player7.png';
 import playerPNG8 from '../assets/player8.png';
-
+import logo from '../assets/logo.png';
+import setting from './config';
 
 /**
  * Convert mass to radius.
@@ -44,7 +45,6 @@ class CellSprite extends Sprite {
    * @param {Cell} cell - A cell object
    */
   constructor(cell, character) {
-    console.log(character);
     if (character === '1') {
       super(Texture.fromImage(playerPNG1, true, { resolution: 200, antialias: true }));
     } else if (character === '2') {
@@ -99,7 +99,7 @@ class PlayerSprite extends Container {
     const delta = { x: mousePos.x - pos.x, y: -(mousePos.y - pos.y) };
     this.cell.rotation = Math.atan2(delta.x, delta.y);
     // update hp
-    console.log(this.text.text, player.score);
+    // console.log(this.text.text, player.score);
     this.text.text = player.score;
   }
 }
@@ -134,6 +134,30 @@ class FoodSprite extends Sprite {
   }
 }
 
+/**
+ * A class extends from PIXI.Sprite to define
+ * convenient methods for easily constructing or updating a logo sprite.
+ * @extends PIXI.Sprite */
+class LogoSprite extends Sprite {
+  /**
+   * Create a cellSprite from the data in cell.
+   * @param {Cell} cell - A cell object
+   */
+  constructor(r) {
+    super(Texture.fromImage(logo, true, { resolution: 200, antialias: true }));
+    this.width = 2 * r;
+    this.height = 2 * r;
+    /**
+     * A flag to indicate whether this sprite have been
+     * updated after receiving the data from server.
+     * If not, it means that it does not exist in the server database anymore,
+     * it will be removed from the container.
+     * @member {boolean}
+     * @default false */
+    this.flag = false;
+    this.anchor.set(0.5, 0.5);
+  }
+}
 
 /**
  * A class extends from PIXI.Sprite to define
@@ -159,12 +183,25 @@ class ZoneSprite extends Sprite {
      * @default false */
     this.flag = false;
     this.anchor.set(0.5, 0.5);
+    if (zone.remainTime !== 0) {
+      this.text = new Text(Math.floor(zone.remainTime / 1000), { fontFamily: 'Roboto', fontSize: 50, align: 'right' });
+      this.img = new LogoSprite(zone.radius);
+      this.addChild(this.text);
+      this.addChild(this.img);
+    }
   }
   updatePos(pos) {
     this.x = pos.x;
     this.y = pos.y;
+    console.log(pos);
+  }
+  updateRemainTime(remainTime) {
+    if (remainTime > 0) {
+      this.text.text = Math.floor(remainTime / 1000);
+    } else if (remainTime < 0) {
+      this.text.text = '南路開通！';
+    }
   }
 }
 
-
-export { Sprite, CellSprite, FoodSprite, ZoneSprite, PlayerSprite };
+export { Sprite, CellSprite, FoodSprite, ZoneSprite, PlayerSprite, LogoSprite };

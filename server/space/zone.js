@@ -6,10 +6,12 @@ class Zone {
     this.acceptEntry = props.acceptEntry;
 
     this.cooldown = props.cooldown;
-    this.lastEntry = 0;
+    this.lastEntry = Date.now();
 
     this.centre = props.centre;
     this.radius = props.radius;
+
+    this.remainTime = props.cooldown;
 
     /* these are unused, but left here because they might be useful
      * for rendering later, maybe? */

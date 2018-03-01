@@ -1,7 +1,7 @@
 // @flow
 
 import { Container, Point, Graphics } from 'pixi.js';
-import { Sprite, FoodSprite, ZoneSprite, PlayerSprite } from './sprite';
+import { Sprite, FoodSprite, ZoneSprite, PlayerSprite, LogoSprite } from './sprite';
 import config from './config';
 
 /** PlayerContainer class extended from PIXI.container
@@ -52,7 +52,6 @@ class PlayerContainer extends Container {
     this.socket.on('GET_PLAYERS_DATA', (playerList) => {
       let dead = true;
       playerList.forEach((player) => {
-        console.log(player);
         if (player.zones[1]) {
           this.win = true;
           this.socket.emit('WIN');
@@ -202,6 +201,7 @@ class ZoneContainer extends Container {
           this.addChild(sprite);
         }
         sprite.updatePos({ x: zone.centre.x, y: zone.centre.y });
+        sprite.updateRemainTime(zone.remainTime);
         sprite.flag = true;
       });
     });
