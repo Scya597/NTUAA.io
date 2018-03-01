@@ -28,10 +28,9 @@ class LoginBox extends Component {
       this.setState({ showWarning: true });
     } else {
       if (this.character.value === '9') {
-        const specialCharacter = Math.floor(Math.random() * 6) + 9;
-        console.log(specialCharacter);
-        this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id, character: specialCharacter });
-        this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: specialCharacter });
+        const characterNum = Math.floor(Math.random() * 9) + 9;
+        this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id, character: characterNum.toString() });
+        this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: characterNum.toString() });
       } else {
         this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id, character: this.character.value });
         this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: this.character.value });

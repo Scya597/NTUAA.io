@@ -7,6 +7,16 @@ import playerPNG5 from '../assets/player5.png';
 import playerPNG6 from '../assets/player6.png';
 import playerPNG7 from '../assets/player7.png';
 import playerPNG8 from '../assets/player8.png';
+import playerPNG9 from '../assets/player9.png';
+import playerPNG10 from '../assets/player10.png';
+import playerPNG11 from '../assets/player11.png';
+import playerPNG12 from '../assets/player12.png';
+import playerPNG13 from '../assets/player13.png';
+import playerPNG14 from '../assets/player14.png';
+import playerPNG15 from '../assets/player15.png';
+import playerPNG16 from '../assets/player16.png';
+import playerPNG17 from '../assets/player17.png';
+import playerPNG18 from '../assets/player18.png';
 import logo from '../assets/logo.png';
 
 /**
@@ -61,8 +71,27 @@ class CellSprite extends Sprite {
       super(Texture.fromImage(playerPNG7, true, { resolution: 200, antialias: true }));
     } else if (character === '8') {
       super(Texture.fromImage(playerPNG8, true, { resolution: 200, antialias: true }));
+    } else if (character === '9') {
+      super(Texture.fromImage(playerPNG9, true, { resolution: 200, antialias: true }));
+    } else if (character === '10') {
+      super(Texture.fromImage(playerPNG10, true, { resolution: 200, antialias: true }));
+    } else if (character === '11') {
+      super(Texture.fromImage(playerPNG11, true, { resolution: 200, antialias: true }));
+    } else if (character === '12') {
+      super(Texture.fromImage(playerPNG12, true, { resolution: 200, antialias: true }));
+    } else if (character === '13') {
+      super(Texture.fromImage(playerPNG13, true, { resolution: 200, antialias: true }));
+    } else if (character === '14') {
+      super(Texture.fromImage(playerPNG14, true, { resolution: 200, antialias: true }));
+    } else if (character === '15') {
+      super(Texture.fromImage(playerPNG15, true, { resolution: 200, antialias: true }));
+    } else if (character === '16') {
+      super(Texture.fromImage(playerPNG16, true, { resolution: 200, antialias: true }));
+    } else if (character === '17') {
+      super(Texture.fromImage(playerPNG17, true, { resolution: 200, antialias: true }));
     } else {
-      super(Texture.fromImage(playerPNG8, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG18, true, { resolution: 200, antialias: true }));
+      console.log(character);
     }
 
     const r = getRadius(cell.mass);
