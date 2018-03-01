@@ -77,7 +77,7 @@ const fireFood = (player, foodList, zoneList) => {
     player.cellList[0].pos,
   ).normalise();
 
-  const vel = direction.clone().scale(600);
+  const vel = direction.clone().scale(1600);
   const src = player.cellList[0].pos.clone()
     .add(direction.clone().scale(player.cellList[0].getRadius() + 10));
 
@@ -108,7 +108,7 @@ const fireFoods = (playerList, foodList, zoneList) => {
 
 const generateFoods = (foodList, setting) => {
   /* TODO: don't count the foods that are actually bullets */
-  for (let i = 0; i < 400 - foodList.length; i += 1) {
+  for (let i = 0; i < 350 - foodList.length; i += 1) {
     foodList.push(new Food({
       mass: 100,
       vel: new Vector2(0, 0),

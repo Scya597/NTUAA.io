@@ -24,7 +24,7 @@ export default function ioActivate(io) {
       id: 0,
 
       /* unused */
-      color: 0xff0000,
+      color: 0xd3d3d3,
     }),
 
     new Zone({

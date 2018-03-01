@@ -1,4 +1,4 @@
 export default {
-  worldWidth: 12000,
+  worldWidth: 9600,
   worldHeight: 6000,
 };

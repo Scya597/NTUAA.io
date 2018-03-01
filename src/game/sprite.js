@@ -25,10 +25,11 @@ function getRadius(mass) {
  * @param {Circle} circle - any object extends from Circle.
  * @return {PIXI.Texture} - A PIXI.Texture to construct a sprite.
  */
-function generateCircleTexture(circle, radius) {
+function generateCircleTexture(circle, radius, alpha = 1) {
   const graphics = new Graphics();
   graphics.lineStyle();
   graphics.beginFill(circle.color);
+  graphics.alpha = alpha;
   graphics.drawCircle(0, 0, radius);
   graphics.endFill();
   return graphics.generateCanvasTexture();
@@ -143,10 +144,10 @@ class LogoSprite extends Sprite {
    * Create a cellSprite from the data in cell.
    * @param {Cell} cell - A cell object
    */
-  constructor(r) {
-    super(Texture.fromImage(logo, true, { resolution: 200, antialias: true }));
-    this.width = 2 * r;
-    this.height = 2 * r;
+  constructor(w, h, img) {
+    super(Texture.fromImage(img, true, { resolution: 200, antialias: true }));
+    this.width = w;
+    this.height = h;
     /**
      * A flag to indicate whether this sprite have been
      * updated after receiving the data from server.
@@ -169,7 +170,7 @@ class ZoneSprite extends Sprite {
    * @param {Food} food - A food object
    */
   constructor(zone) {
-    super(generateCircleTexture(zone, zone.radius));
+    super(generateCircleTexture(zone, zone.radius, 0.75));
     /**
      * Sprite's uuid
      * @member {string} */
@@ -186,7 +187,7 @@ class ZoneSprite extends Sprite {
     if (zone.remainTime !== 0) {
       this.text = new Text(Math.floor(zone.remainTime / 1000), { fontFamily: 'Roboto', fontSize: 40, align: 'right' });
       this.text.position = new Point(65, 16);
-      this.img = new LogoSprite(zone.radius);
+      this.img = new LogoSprite(2 * zone.radius, 2 * zone.radius, logo);
       this.addChild(this.text);
       this.addChild(this.img);
     }
@@ -194,7 +195,6 @@ class ZoneSprite extends Sprite {
   updatePos(pos) {
     this.x = pos.x;
     this.y = pos.y;
-    console.log(pos);
   }
   updateRemainTime(remainTime) {
     if (remainTime > 0) {

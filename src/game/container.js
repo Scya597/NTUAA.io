@@ -3,6 +3,7 @@
 import { Container, Point, Graphics } from 'pixi.js';
 import { Sprite, FoodSprite, ZoneSprite, PlayerSprite, LogoSprite } from './sprite';
 import config from './config';
+import bg from '../assets/bg.jpg';
 
 /** PlayerContainer class extended from PIXI.container
  * to define methods for easily manipulating the data insides.
@@ -59,7 +60,7 @@ class PlayerContainer extends Container {
         player.cellList.forEach((cell) => {
           let sprite = this.children.find(child => child.id === cell.id);
           if (sprite === undefined) {
-            sprite = new PlayerSprite(cell, player.character);
+            sprite = new PlayerSprite(cell, player.name, player.character);
             this.addChild(sprite);
           }
           sprite.update(player, cell.pos);
@@ -160,6 +161,9 @@ class BgContainer extends Container {
    */
   generateBg() {
     this.addChild(BgContainer.generateRect());
+    this.img = new LogoSprite(config.worldWidth, config.worldHeight, bg);
+    this.img.position = new Point(config.worldWidth / 2, config.worldHeight / 2);
+    this.addChild(this.img);
   }
   /**
    * Generate a Rect Sprite
