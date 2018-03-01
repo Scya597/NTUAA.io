@@ -1,4 +1,4 @@
-import { Sprite, Graphics, Texture, Container, Text } from 'pixi.js';
+import { Sprite, Graphics, Texture, Container, Text, Point } from 'pixi.js';
 import playerPNG1 from '../assets/player1.png';
 import playerPNG2 from '../assets/player2.png';
 import playerPNG3 from '../assets/player3.png';
@@ -8,7 +8,6 @@ import playerPNG6 from '../assets/player6.png';
 import playerPNG7 from '../assets/player7.png';
 import playerPNG8 from '../assets/player8.png';
 import logo from '../assets/logo.png';
-import setting from './config';
 
 /**
  * Convert mass to radius.
@@ -82,12 +81,14 @@ class CellSprite extends Sprite {
   }
 }
 class PlayerSprite extends Container {
-  constructor(cell, character, hp = '0') {
+  constructor(cell, name, character, hp = '0') {
     super();
+    this.name = name;
     this.cell = new CellSprite(cell, character);
-    this.text = new Text(hp, { fontFamily: 'Arial', fontSize: 5, align: 'left' });
+    this.nameText = new Text(`${this.name}: ${hp}`, { fontFamily: 'Arial', fontSize: 15, align: 'center' });
+    this.nameText.position = new Point(0, 70);
     this.addChild(this.cell);
-    this.addChild(this.text);
+    this.addChild(this.nameText);
   }
   update(player, pos) {
     // update pos
@@ -99,8 +100,7 @@ class PlayerSprite extends Container {
     const delta = { x: mousePos.x - pos.x, y: -(mousePos.y - pos.y) };
     this.cell.rotation = Math.atan2(delta.x, delta.y);
     // update hp
-    // console.log(this.text.text, player.score);
-    this.text.text = player.score;
+    this.nameText.text = `${this.name}: ${player.score}`;
   }
 }
 /**
@@ -184,7 +184,8 @@ class ZoneSprite extends Sprite {
     this.flag = false;
     this.anchor.set(0.5, 0.5);
     if (zone.remainTime !== 0) {
-      this.text = new Text(Math.floor(zone.remainTime / 1000), { fontFamily: 'Roboto', fontSize: 50, align: 'right' });
+      this.text = new Text(Math.floor(zone.remainTime / 1000), { fontFamily: 'Roboto', fontSize: 40, align: 'right' });
+      this.text.position = new Point(65, 16);
       this.img = new LogoSprite(zone.radius);
       this.addChild(this.text);
       this.addChild(this.img);
@@ -199,7 +200,7 @@ class ZoneSprite extends Sprite {
     if (remainTime > 0) {
       this.text.text = Math.floor(remainTime / 1000);
     } else if (remainTime < 0) {
-      this.text.text = '南路開通！';
+      this.text.text = '重獲\n新生';
     }
   }
 }
