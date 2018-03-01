@@ -15,6 +15,7 @@ class Player {
   constructor(props) {
     this.id = props.id;
     this.name = props.name;
+    this.character = props.character;
     this.mousePos = new Vector2(100, 100);
     this.mouseDown = false;
     this.keysDown = {
@@ -23,7 +24,7 @@ class Player {
       65: 0, 87: 0, 68: 0, 83: 0
     };
     this.cellList = [new Cell({
-      mass: 2000,
+      mass: 5000,
       pos: new Vector2(100, 100),
       id: uuid(),
       color: 0x414141,

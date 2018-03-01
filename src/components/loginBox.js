@@ -20,9 +20,9 @@ class LoginBox extends Component {
     this.socket.off('GET_USERLIST');
   }
   setTitle = () => {
-    this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id });
-    this.socket.emit('INIT', { id: this.id, name: this.name });
-    this.props.handlelogin(this.textInput.value, this.character.value); // update app state
+    this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id, character: this.character.value });
+    this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: this.character.value });
+    this.props.handlelogin(this.textInput.value); // update app state
     this.textInput.value = '';
   }
 
@@ -40,6 +40,8 @@ class LoginBox extends Component {
             <option value="4">金劇</option>
             <option value="5">會長劇</option>
             <option value="6">歌舞劇</option>
+            <option value="7">老人舞</option>
+            <option value="8">特務與他的器材組好夥伴</option>
           </select>
           <button className="loginStart" onClick={this.setTitle}>開始遊戲</button>
         </div>

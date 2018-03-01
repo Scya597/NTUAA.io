@@ -55,9 +55,12 @@ export default function ioActivate(io) {
     });
     // pixi
     socket.on('INIT', (player) => {
-      const newPlayer = new Player({ id: player.id, name: player.name });
+      const newPlayer = new Player({
+        id: player.id,
+        name: player.name,
+        character: player.character,
+      });
       playerList.push(newPlayer);
-      // console.log('playerList', playerList.length);
     });
 
     socket.on('STATE_UPDATE', (mouseData) => {
@@ -83,8 +86,8 @@ export default function ioActivate(io) {
     socket.on('WIN', () => {
       console.log('win');
       removeWinner(playerList, userList);
-    })
-    
+    });
+
     socket.on('disconnect', () => {
       console.log('Client disconnected');
       if (userList.findIndex(user => user.id === socket.handshake.query.id) !== -1) {

@@ -12,7 +12,6 @@ class Pixi extends Component {
    * @param {object} props.socket - The socket to connect with server side.
    * @param {string} props.id - The player's uuid.
    * @param {name} props.name - The player's name.
-   * @param {name} props.character - The player's character.
    */
   constructor(props) {
     super();
@@ -29,10 +28,6 @@ class Pixi extends Component {
      * Player's name
      * @member {string} */
     this.name = props.name;
-    /**
-     * Player's character
-     * @member {string} */
-    this.character = props.character;
     this.click = false;
 
     this.state = {
@@ -93,7 +88,6 @@ class Pixi extends Component {
       loseGame: this.props.loseGame,
       winGame: this.props.winGame,
       updateHp: this.updateHp,
-      character: this.character,
     });
     /**
      * A FoodContainer wrapped inside [this.gameScene]{@link Pixi#gameScene}.
@@ -106,7 +100,12 @@ class Pixi extends Component {
      * @member {BgContainer} */
     this.bgContainer = new BgContainer();
     this.zoneContainer = new ZoneContainer({ socket: this.socket });
-    this.gameScene.addChild(this.bgContainer, this.zoneContainer, this.foodContainer, this.playerContainer);
+    this.gameScene.addChild(
+      this.bgContainer,
+      this.zoneContainer,
+      this.foodContainer,
+      this.playerContainer,
+    );
     this.initTicker();
     this.initSpaceEmitter();
 

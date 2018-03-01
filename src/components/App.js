@@ -13,7 +13,6 @@ class App extends Component {
       endpoint: 'localhost:8080',
       login: 0,
       name: '',
-      character: 1,
     };
     const { endpoint } = this.state;
     this.id = uuid();
@@ -24,8 +23,8 @@ class App extends Component {
     this.renderPage = this.renderPage.bind(this);
   }
 
-  handleLogin(name, character) {
-    this.setState({ login: 1, name, character });
+  handleLogin(name) {
+    this.setState({ login: 1, name });
     // console.log(character);
     this.socket.connect();
   }
@@ -53,7 +52,6 @@ class App extends Component {
         socket={this.socket}
         id={this.id}
         name={this.state.name}
-        character={this.state.character}
         loseGame={this.loseGame}
         winGame={this.winGame}
       />);

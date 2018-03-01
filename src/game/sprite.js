@@ -5,6 +5,9 @@ import playerPNG3 from '../assets/player3.png';
 import playerPNG4 from '../assets/player4.png';
 import playerPNG5 from '../assets/player5.png';
 import playerPNG6 from '../assets/player6.png';
+import playerPNG7 from '../assets/player7.png';
+import playerPNG8 from '../assets/player8.png';
+
 
 /**
  * Convert mass to radius.
@@ -41,19 +44,25 @@ class CellSprite extends Sprite {
    * @param {Cell} cell - A cell object
    */
   constructor(cell, character) {
+    console.log(character);
     if (character === '1') {
-      super(Texture.fromImage(playerPNG1));
+      super(Texture.fromImage(playerPNG1, true, { resolution: 200, antialias: true }));
     } else if (character === '2') {
-      super(Texture.fromImage(playerPNG2));
+      super(Texture.fromImage(playerPNG2, true, { resolution: 200, antialias: true }));
     } else if (character === '3') {
-      super(Texture.fromImage(playerPNG3));
+      super(Texture.fromImage(playerPNG3, true, { resolution: 200, antialias: true }));
     } else if (character === '4') {
-      super(Texture.fromImage(playerPNG4));
+      super(Texture.fromImage(playerPNG4, true, { resolution: 200, antialias: true }));
     } else if (character === '5') {
-      super(Texture.fromImage(playerPNG5));
+      super(Texture.fromImage(playerPNG5, true, { resolution: 200, antialias: true }));
+    } else if (character === '6') {
+      super(Texture.fromImage(playerPNG6, true, { resolution: 200, antialias: true }));
+    } else if (character === '7') {
+      super(Texture.fromImage(playerPNG7, true, { resolution: 200, antialias: true }));
     } else {
-      super(Texture.fromImage(playerPNG6));
+      super(Texture.fromImage(playerPNG8, true, { resolution: 200, antialias: true }));
     }
+
     const r = getRadius(cell.mass);
     this.width = 2 * r;
     this.height = 2 * r;
