@@ -54,8 +54,10 @@ class PlayerContainer extends Container {
       let dead = true;
       playerList.forEach((player) => {
         if (player.zones[1]) {
-          this.win = true;
-          this.socket.emit('WIN');
+          if (player.id === this.id) {
+            this.win = true;
+            this.socket.emit('WIN');
+          }
         }
         player.cellList.forEach((cell) => {
           let sprite = this.children.find(child => child.id === cell.id);
@@ -161,9 +163,9 @@ class BgContainer extends Container {
    */
   generateBg() {
     this.addChild(BgContainer.generateRect());
-    this.img = new LogoSprite(config.worldWidth, config.worldHeight, bg);
-    this.img.position = new Point(config.worldWidth / 2, config.worldHeight / 2);
-    this.addChild(this.img);
+    // this.img = new LogoSprite(config.worldWidth, config.worldHeight, bg);
+    // this.img.position = new Point(config.worldWidth / 2, config.worldHeight / 2);
+    // this.addChild(this.img);
   }
   /**
    * Generate a Rect Sprite

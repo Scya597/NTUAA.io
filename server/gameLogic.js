@@ -31,7 +31,7 @@ export default function ioActivate(io) {
       acceptEntry() {
         return true;
       },
-      cooldown: 200 * 1000,
+      cooldown: 20 * 1000,
       centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
       radius: 200,
 
