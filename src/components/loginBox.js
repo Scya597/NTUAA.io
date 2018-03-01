@@ -27,8 +27,15 @@ class LoginBox extends Component {
     if (this.textInput.value === '') {
       this.setState({ showWarning: true });
     } else {
-      this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id, character: this.character.value });
-      this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: this.character.value });
+      if (this.character.value === '9') {
+        const specialCharacter = Math.floor(Math.random() * 6) + 9;
+        console.log(specialCharacter);
+        this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id, character: specialCharacter });
+        this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: specialCharacter });
+      } else {
+        this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id, character: this.character.value });
+        this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: this.character.value });
+      }
       this.props.handlelogin(this.textInput.value); // update app state
       this.textInput.value = '';
     }
@@ -57,6 +64,7 @@ class LoginBox extends Component {
             <option value="6">歌舞劇</option>
             <option value="7">老人舞</option>
             <option value="8">器材組</option>
+            <option value="9">特殊角色</option>
           </select>
           <input className="loginInput" placeholder="名字" ref={(input) => { this.textInput = input; }} required="required" />
           { this.showWarning() }

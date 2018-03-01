@@ -59,6 +59,8 @@ class CellSprite extends Sprite {
       super(Texture.fromImage(playerPNG6, true, { resolution: 200, antialias: true }));
     } else if (character === '7') {
       super(Texture.fromImage(playerPNG7, true, { resolution: 200, antialias: true }));
+    } else if (character === '8') {
+      super(Texture.fromImage(playerPNG8, true, { resolution: 200, antialias: true }));
     } else {
       super(Texture.fromImage(playerPNG8, true, { resolution: 200, antialias: true }));
     }
