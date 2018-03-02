@@ -16,6 +16,7 @@ export default function ioActivate(io) {
 
   const isEatenFoodIdList = [];
   const newFoodIdList = [];
+  const bulletList = [];
 
   const zoneList = [
     new Zone({
@@ -110,14 +111,14 @@ export default function ioActivate(io) {
   setInterval(() => {
     checkAllPlayerDead(playerList, userList);
     updatePlayerPosition(playerList, zoneList, setting);
-    updateFoodPosition(foodList, zoneList, setting);
-    fireFoods(playerList, foodList, zoneList);
+    updateFoodPosition(foodList, bulletList);
+    fireFoods(playerList, foodList, zoneList, bulletList);
     generateFoods(foodList, newFoodIdList, setting);
     checkAllFoodEaten(playerList, foodList, zoneList, setting);
-    removeEatenFoods(foodList, isEatenFoodIdList);
+    removeEatenFoods(foodList, isEatenFoodIdList, bulletList);
     zoneList[1].remainTime = zoneList[1].getRemainingCooldownTime();
-    console.log(newFoodIdList.length);
-    console.log(isEatenFoodIdList.length);
+    // console.log(newFoodIdList.length);
+    // console.log(isEatenFoodIdList.length);
   }, 1000 / 60);
 
   /*

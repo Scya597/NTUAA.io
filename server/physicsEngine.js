@@ -53,9 +53,14 @@ const updatePlayerPosition = (playerList, zoneList, setting) => {
   });
 };
 
-const updateFoodPosition = (foodList) => {
+const updateFoodPosition = (foodList, bulletList) => {
   const dt = 1 / 60;
   foodList.forEach((food) => {
+    if (food.vel.norm() !== 0) {
+      food.pos.add(food.vel.clone().scale(dt));
+    }
+  });
+  bulletList.forEach((food) => {
     food.pos.add(food.vel.clone().scale(dt));
   });
 };
@@ -70,7 +75,7 @@ const getZones = (pos, zoneList) => {
   return zones;
 };
 
-const fireFood = (player, foodList, zoneList) => {
+const fireFood = (player, foodList, zoneList, bulletList) => {
   const direction = new Vector2();
   direction.subtractVectors(
     player.mousePos,
@@ -81,7 +86,7 @@ const fireFood = (player, foodList, zoneList) => {
   const src = player.cellList[0].pos.clone()
     .add(direction.clone().scale(player.cellList[0].getRadius() + 10));
 
-  foodList.push(new Food({
+  const newBulletFood = new Food({
     mass: -100,
     pos: src,
     vel,
@@ -89,19 +94,21 @@ const fireFood = (player, foodList, zoneList) => {
     id: uuid(),
     color: 0x111111,
     isEaten: false,
-  }));
+  });
+  foodList.push(newBulletFood);
+  bulletList.push(newBulletFood);
 
   player.score -= 100;
   player.remainingFireFoodCooldown = player.fireFoodCooldown;
 };
 
 
-const fireFoods = (playerList, foodList, zoneList) => {
+const fireFoods = (playerList, foodList, zoneList, bulletList) => {
   playerList.forEach((player) => {
     if (player.remainingFireFoodCooldown > 0) {
       player.remainingFireFoodCooldown -= 1;
     } else if (player.mouseDown && player.score > 200) {
-      fireFood(player, foodList, zoneList);
+      fireFood(player, foodList, zoneList, bulletList);
     }
   });
 };
@@ -162,7 +169,7 @@ const checkAllFoodEaten = (playerList, foodList, zoneList, setting) => {
   for (let k = 0; k < foodList.length; k += 1) {
     checkOneFoodExpired(foodList[k], zoneList, setting);
     for (let i = 0; i < playerList.length; i += 1) {
-      if (playerList[i].score < 1500) {
+      if (playerList[i].score + foodList[k].mass <= 1500) {
         if (checkOneFoodEaten(playerList[i].cellList[0], foodList[k])) {
           /* this is potentially confusion: `mass` determines the radius of the
            * cell. Since we don't want the size of the player to change anymore,
