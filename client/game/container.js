@@ -122,7 +122,9 @@ class FoodContainer extends Container {
     this.socket.on('GET_BULLETS_DATA', (bulletList) => {
       bulletList.forEach((bullet) => {
         const sprite = this.children.find(child => child.id === bullet.id);
-        sprite.updatePos(bullet.pos);
+        if (sprite !== undefined) {
+          sprite.updatePos(bullet.pos);
+        }
       });
     });
   }
