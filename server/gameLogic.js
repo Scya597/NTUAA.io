@@ -14,9 +14,9 @@ export default function ioActivate(io) {
   const playerList = [];
   const foodList = [];
 
-  let isEatenFoodIdList = [];
-  let newFoodList = [];
-  let bulletList = [];
+  const isEatenFoodIdList = [];
+  const newFoodList = [];
+  const bulletList = [];
 
   const zoneList = [
     new Zone({
