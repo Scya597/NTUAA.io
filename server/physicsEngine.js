@@ -75,7 +75,7 @@ const getZones = (pos, zoneList) => {
   return zones;
 };
 
-const fireFood = (player, foodList, zoneList, bulletList) => {
+const fireFood = (player, foodList, zoneList, bulletList, newFoodList) => {
   const direction = new Vector2();
   direction.subtractVectors(
     player.mousePos,
@@ -96,6 +96,11 @@ const fireFood = (player, foodList, zoneList, bulletList) => {
     isEaten: false,
   });
   foodList.push(newBulletFood);
+
+  newFoodList.push({
+    pos: newBulletFood.pos,
+    id: newBulletFood.id,
+  });
   bulletList.push(newBulletFood);
 
   player.score -= 100;
@@ -103,32 +108,35 @@ const fireFood = (player, foodList, zoneList, bulletList) => {
 };
 
 
-const fireFoods = (playerList, foodList, zoneList, bulletList) => {
+const fireFoods = (playerList, foodList, zoneList, bulletList, newFoodList) => {
   playerList.forEach((player) => {
     if (player.remainingFireFoodCooldown > 0) {
       player.remainingFireFoodCooldown -= 1;
     } else if (player.mouseDown && player.score > 200) {
-      fireFood(player, foodList, zoneList, bulletList);
+      fireFood(player, foodList, zoneList, bulletList, newFoodList);
     }
   });
 };
 
-const generateFoods = (foodList, newFoodIdList, setting) => {
+const generateFoods = (foodList, newFoodList, setting) => {
   /* TODO: don't count the foods that are actually bullets */
   for (let i = 0; i < 350 - foodList.length; i += 1) {
-    const newFoodId = uuid();
-    newFoodIdList.push(newFoodId);
-    foodList.push(new Food({
+    const newFood = new Food({
       mass: 100,
       vel: new Vector2(0, 0),
       pos: new Vector2(
         Math.random() * setting.worldWidth,
         Math.random() * setting.worldHeight,
       ),
-      id: newFoodId,
+      id: uuid(),
       color: 0x111111,
       isEaten: false,
-    }));
+    });
+    foodList.push(newFood);
+    newFoodList.push({
+      pos: newFood.pos,
+      id: newFood.id,
+    });
   }
 };
 
@@ -182,16 +190,32 @@ const checkAllFoodEaten = (playerList, foodList, zoneList, setting) => {
   }
 };
 
-const removeEatenFoods = (foodList, isEatenFoodIdList) => {
+const removeEatenFoods = (foodList, isEatenFoodIdList, bulletList) => {
   const isEatenList = [];
+  const isEatenBulletIdList = [];
   for (let i = 0; i < foodList.length; i += 1) {
     if (foodList[i].isEaten) {
       isEatenList.push(i);
       isEatenFoodIdList.push(foodList[i].id);
+      if (foodList[i].vel.norm() !== 0) {
+        isEatenBulletIdList.push(foodList[i].id);
+      }
     }
   }
   for (let i = isEatenList.length - 1; i >= 0; i -= 1) {
     foodList.splice(isEatenList[i], 1);
+  }
+
+  const isEatenBulletList = [];
+  for (let i = 0; i < bulletList.length; i += 1) {
+    for (let j = 0; j < isEatenBulletIdList.length; j += 1) {
+      if (bulletList[i].id === isEatenBulletIdList[j]) {
+        isEatenBulletList.push(i);
+      }
+    }
+  }
+  for (let i = isEatenBulletList.length - 1; i >= 0; i -= 1) {
+    bulletList.splice(isEatenBulletList[i], 1);
   }
 };
 
