@@ -16,7 +16,7 @@ export default function ioActivate(io) {
   const zoneList = [
     new Zone({
       acceptEntry(player) {
-        return player.score >= 1500;
+        return player.score >= setting.zoneAccessLimit * 100;
       },
       cooldown: 0,
       centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
