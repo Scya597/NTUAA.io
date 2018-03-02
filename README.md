@@ -1,29 +1,43 @@
-# NTUAA.io &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-> 🎉 ✨ An io game for NTUAA Night's Sales
+# NTUAA.io
 
 ![game gif](https://github.com/Scya597/NTUAA.io/blob/master/header.gif)
 
-## 0. Table of Contents  
-- [Setup](#1-setup)
-- [Development and Production](#2-development-and-production)
+<p align=center>
+<a target="_blank" href="http://nodejs.org/download/" title="Node version"><img src="https://img.shields.io/badge/node.js-%3E=_6.0-green.svg"></a>
 
-## 1. Setup
+<a target="_blank" href="http://makeapullrequest.com" title="PRs Welcome"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
+
+<a target="_blank" href="https://opensource.org/licenses/MIT" title="License: MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
+</p>  
+
+> 🎉 ✨ An io game for NTUAA Night's Sales
+
+
+## Setup
 ```
-git clone https://github.com/Scya597/Pocket.git
+git clone https://github.com/Scya597/NTUAA.io
 npm install
 ```
 
-## 2. Development and Production
+## Development and Production
 
-### 2.1 To develop the project
+### To develop the project
 
 ```
 npm run dev
 ```
 
-### 2.2 Build production bundle and run the server
+### Build production bundle and run the server
 
 ```
 npm run build
 npm start
 ```
+## How to Play
+
+1. Go to `localhost:8080`
+2. WASD for moving your avatar
+3. Eat foods in the playground
+4. Shot other players by clicking mouse
+5. Access the first Zone when you've eaten enough foods
+6. Access the second Zone when it's open and win the game 
