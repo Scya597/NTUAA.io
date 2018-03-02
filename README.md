@@ -34,8 +34,9 @@ npm start
 ## How to Play
 
 1. Go to `localhost:8080`
-2. WASD for moving your avatar
-3. Eat foods in the playground
-4. Shot other players by clicking mouse
-5. Access the first Zone when you've eaten enough foods
-6. Access the second Zone when it's open and win the game 
+2. Type your name and choose your character before you start
+3. `WASD` for moving your avatar
+4. Eat foods in the playground
+5. Shot other players by clicking mouse
+6. Access the first Zone when you've eaten enough foods
+7. Access the second Zone when it's open and win the game
