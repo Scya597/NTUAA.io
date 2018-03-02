@@ -7,7 +7,7 @@ import {
 import Vector2 from './space/vector2';
 import Zone from './space/zone';
 import Player from './entity/player';
-import setting from '../src/game/config';
+import setting from '../gameConfig';
 
 export default function ioActivate(io) {
   const userList = [];

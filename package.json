@@ -9,7 +9,7 @@
     "build:client": "webpack --config webpack.prod.config.js -p",
     "build:server": "webpack --config webpack.server.config.js -p",
     "build": "npm-run-all build:*",
-    "dev": "NODE_ENV=dev webpack-dashboard -- nodemon --exec babel-node server/server.js --ignore public/ --ignore src/",
+    "dev": "NODE_ENV=dev webpack-dashboard -- nodemon --exec babel-node server/server.js --ignore public/ --ignore client/",
     "flow": "flow",
     "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
   },

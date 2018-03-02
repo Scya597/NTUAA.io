@@ -2,8 +2,8 @@
 
 import { Container, Point, Graphics } from 'pixi.js';
 import { Sprite, FoodSprite, ZoneSprite, PlayerSprite, LogoSprite } from './sprite';
-import config from './config';
-import bg from '../assets/bg.jpg';
+import config from '../../gameConfig';
+// import bg from '../assets/bg.jpg';
 
 /** PlayerContainer class extended from PIXI.container
  * to define methods for easily manipulating the data insides.

@@ -1,5 +1,4 @@
 class Vector2 {
-
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -48,8 +47,8 @@ class Vector2 {
     return this;
   }
   scaleVector(u, a) {
-    this.x = u.x*a;
-    this.y = u.y*a;
+    this.x = u.x * a;
+    this.y = u.y * a;
     return this;
   }
 
@@ -59,20 +58,20 @@ class Vector2 {
     return this;
   }
   divideVector(u, a) {
-    this.x = u.x/a;
-    this.y = u.y/a;
+    this.x = u.x / a;
+    this.y = u.y / a;
     return this;
   }
 
   dot(u) {
-    return this.x*u.x + this.y*u.y;
+    return (this.x * u.x) + (this.y * u.y);
   }
 
   norm() {
-    return Math.sqrt(this.x*this.x + this.y*this.y);
+    return Math.sqrt((this.x * this.x) + (this.y * this.y));
   }
   normSquared() {
-    return this.x*this.x + this.y*this.y;
+    return (this.x * this.x) + (this.y * this.y);
   }
 
   normalise() {
@@ -104,14 +103,14 @@ class Vector2 {
   }
 
   interpolate(u, ratio) {
-    return this.scale(1-ratio).add(
-      u.clone().scale(ratio));
+    return this.scale(1 - ratio).add(u.clone().scale(ratio));
   }
 
   interpolateVectors(u, v, ratio) {
     return this.addVectors(
-      u.clone().scale(1-ratio),
-      v.clone().scale(ratio));
+      u.clone().scale(1 - ratio),
+      v.clone().scale(ratio),
+    );
   }
 }
 

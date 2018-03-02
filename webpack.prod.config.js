@@ -8,7 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: {
     bundle: [
-      './src/index.js',
+      './client/index.js',
     ],
   },
   output: {
@@ -48,7 +48,7 @@ module.exports = {
   plugins: [
     // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/template.html',
+      template: './client/template.html',
       filename: 'index.html',
     }),
     new webpack.LoaderOptionsPlugin({
