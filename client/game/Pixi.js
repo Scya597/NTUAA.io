@@ -45,7 +45,10 @@ class Pixi extends Component {
   componentWillUnmount() {
     console.log('unmount');
     this.socket.off('GET_PLAYERS_DATA');
-    this.socket.off('GET_FOODS_DATA');
+    this.socket.off('GET_BULLETS_DATA');
+    this.socket.off('GET_NEW_FOODS_DATA');
+    this.socket.off('GET_IS_EATEN_FOODS_DATA');
+    this.socket.off('GET_ZONE_TIME');
     this.socket.off('GET_ZONE_DATA');
     this.app.ticker.destroy();
     this.app.stop();
