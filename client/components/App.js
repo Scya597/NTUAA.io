@@ -10,7 +10,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      endpoint: 'https://35.229.193.184/',
+      endpoint: 'http://35.229.193.184/',
       login: 0,
       name: '',
     };
