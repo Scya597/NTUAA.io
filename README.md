@@ -1,6 +1,8 @@
 # NTUAA.io &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 > 🎉 ✨ An io game for NTUAA Night's Sales
 
+![game gif](https://github.com/Scya597/NTUAA.io/blob/master/header.gif)
+
 ## 0. Table of Contents  
 - [Setup](#1-setup)
 - [Development and Production](#2-development-and-production)
