@@ -84,11 +84,22 @@ export default function ioActivate(io) {
 
     socket.on('GET_DATA', () => {
       socket.emit('GET_PLAYERS_DATA', playerList);
-      socket.emit('GET_FOODS_DATA', foodList);
+      socket.emit('GET_BULLETS_DATA', bulletList);
+
+      io.emit('GET_NEW_FOODS_DATA', newFoodList);
+      newFoodList.length = 0;
+
+      io.emit('GET_IS_EATEN_FOODS_DATA', isEatenFoodIdList);
+      isEatenFoodIdList.length = 0;
+
       socket.emit('GET_ZONE_TIME', zoneList[1].remainTime);
     });
 
-    socket.on('GET_ZONE_DATA_SERVER', () => {
+    socket.on('GET_INIT_FOOD_DATA', () => {
+      socket.emit('GET_NEW_FOODS_DATA', foodList);
+    });
+
+    socket.on('GET_INIT_ZONE_DATA', () => {
       socket.emit('GET_ZONE_DATA', zoneList);
     });
 

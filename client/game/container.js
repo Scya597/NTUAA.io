@@ -117,38 +117,47 @@ class FoodContainer extends Container {
      * @member {Object} */
     this.socket = arg.socket;
   }
-  /**
-   * When this function is called.
-   * It will trigger socket to turn on 'GET_FOODS_DATA' task.
-   * So that when the server side emit this task, client side can update accordingly.
-   * When receiving foodList from server.
-   * We do the following things.
-   * 1. Use foodList to update the sprites in this container.
-   * 2. Remove childs which has already been removed in the database.
-   */
-  onGetFoodsData() {
-    this.socket.on('GET_FOODS_DATA', (foodList) => {
+
+  onGetBulletsData() {
+    this.socket.on('GET_BULLETS_DATA', (bulletList) => {
+      bulletList.forEach((bullet) => {
+        const sprite = this.children.find(child => child.id === bullet.id);
+        sprite.updatePos(bullet.pos);
+      });
+    });
+  }
+
+  onGetNewFoodsData() {
+    this.socket.on('GET_NEW_FOODS_DATA', (foodList) => {
+      console.log(foodList);
       foodList.forEach((food) => {
         let sprite = this.children.find(child => child.id === food.id);
         if (sprite === undefined) {
           sprite = new FoodSprite(food);
           this.addChild(sprite);
         }
-        sprite.updatePos(food.pos);
-        sprite.flag = true;
+      });
+    });
+  }
+
+  onGetIsEatenFoodsData() {
+    this.socket.on('GET_IS_EATEN_FOODS_DATA', (foodIdList) => {
+      foodIdList.forEach((foodId) => {
+        const sprite = this.children.find(child => child.id === foodId);
+        sprite.dead = true;
       });
 
       const arr = [];
-      // Store index of child which does not update in this round into arr.
+
       for (let i = 0; i < this.children.length; i += 1) {
-        if (this.children[i].flag === false) {
+        if (this.children[i].dead === true) {
           arr.push(i);
         }
-        this.children[i].flag = false; // reset
       }
       // Remove child accordingly.
       arr.reverse().forEach((i) => {
         this.removeChildAt(i);
+        console.log('kill');
       });
     });
   }
@@ -200,7 +209,6 @@ class ZoneContainer extends Container {
   }
   getZonesData() {
     this.socket.on('GET_ZONE_DATA', (zoneList) => {
-      console.log(zoneList);
       zoneList.forEach((zone) => {
         let sprite = this.children.find(child => child.id === zone.id);
         if (sprite === undefined) {
@@ -212,7 +220,6 @@ class ZoneContainer extends Container {
           this.text.position = new Point(65, 16);
           sprite.addChild(this.text);
         }
-        sprite.flag = true;
       });
     });
   }

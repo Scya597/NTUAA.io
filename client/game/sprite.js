@@ -38,7 +38,12 @@ function getRadius(mass) {
 function generateCircleTexture(circle, radius, alpha = 1) {
   const graphics = new Graphics();
   graphics.lineStyle();
-  graphics.beginFill(circle.color);
+  if (circle.color) {
+    graphics.beginFill(circle.color);
+  } else {
+    graphics.beginFill(0x111111);
+  }
+  // graphics.beginFill(0x111111);
   graphics.alpha = alpha;
   graphics.drawCircle(0, 0, radius);
   graphics.endFill();
@@ -145,20 +150,16 @@ class FoodSprite extends Sprite {
    * @param {Food} food - A food object
    */
   constructor(food) {
-    super(generateCircleTexture(food, getRadius(food.mass)));
+    super(generateCircleTexture(food, getRadius(100)));
     /**
      * Sprite's uuid
      * @member {string} */
     this.id = food.id;
-    /**
-     * A flag to indicate whether this sprite have been
-     * updated after receiving the data from server.
-     * If not, it means that it does not exist in the server database anymore,
-     * it will be removed from the container.
-     * @member {boolean}
-     * @default false */
-    this.flag = false;
+    this.x = food.pos.x;
+    this.y = food.pos.y;
+    this.dead = false;
     this.anchor.set(0.5, 0.5);
+    console.log('create');
   }
   updatePos(pos) {
     this.x = pos.x;
@@ -179,14 +180,6 @@ class LogoSprite extends Sprite {
     super(Texture.fromImage(img, true, { resolution: 200, antialias: true }));
     this.width = w;
     this.height = h;
-    /**
-     * A flag to indicate whether this sprite have been
-     * updated after receiving the data from server.
-     * If not, it means that it does not exist in the server database anymore,
-     * it will be removed from the container.
-     * @member {boolean}
-     * @default false */
-    this.flag = false;
     this.anchor.set(0.5, 0.5);
   }
 }
@@ -208,14 +201,6 @@ class ZoneSprite extends Sprite {
     this.id = zone.id;
     this.x = zone.centre.x;
     this.y = zone.centre.y;
-    /**
-     * A flag to indicate whether this sprite have been
-     * updated after receiving the data from server.
-     * If not, it means that it does not exist in the server database anymore,
-     * it will be removed from the container.
-     * @member {boolean}
-     * @default false */
-    this.flag = false;
     this.anchor.set(0.5, 0.5);
     if (zone.remainTime !== 0) {
       this.img = new LogoSprite(2 * zone.radius, 2 * zone.radius, logo);
