@@ -129,7 +129,6 @@ class FoodContainer extends Container {
 
   onGetNewFoodsData() {
     this.socket.on('GET_NEW_FOODS_DATA', (foodList) => {
-      console.log(foodList);
       foodList.forEach((food) => {
         let sprite = this.children.find(child => child.id === food.id);
         if (sprite === undefined) {
@@ -157,7 +156,6 @@ class FoodContainer extends Container {
       // Remove child accordingly.
       arr.reverse().forEach((i) => {
         this.removeChildAt(i);
-        console.log('kill');
       });
     });
   }

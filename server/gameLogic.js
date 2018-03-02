@@ -128,18 +128,5 @@ export default function ioActivate(io) {
     checkAllFoodEaten(playerList, foodList, zoneList, setting);
     removeEatenFoods(foodList, isEatenFoodIdList, bulletList);
     zoneList[1].remainTime = zoneList[1].getRemainingCooldownTime();
-    console.log(newFoodList.length);
-    console.log(isEatenFoodIdList.length);
-    console.log(bulletList.length);
   }, 1000 / 60);
-
-  /*
-  setInterval(() => {
-    if (playerList[0]) {
-      fireFood(playerList[0], foodList, zoneList);
-    }
-  }, 1000);
-  */
 }
-
-// PRESS_SPACE

@@ -96,7 +96,6 @@ class CellSprite extends Sprite {
       super(Texture.fromImage(playerPNG17, true, { resolution: 200, antialias: true }));
     } else {
       super(Texture.fromImage(playerPNG18, true, { resolution: 200, antialias: true }));
-      console.log(character);
     }
 
     const r = getRadius(cell.mass);
