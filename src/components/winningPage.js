@@ -29,7 +29,7 @@ class WinningPage extends Component {
             <div className="info">2018年3月25日 活大禮堂</div>
             <div className="lotterytext">請複製底下驗證碼，至抽獎連結填寫抽獎資訊</div>
             <div className="lotterycode">{makeid()}</div>
-            <button className="lotterybutton" onClick={this.sendName}><a className="link" href="https://www.google.com.tw/">抽獎連結</a></button>
+            <button className="lotterybutton" onClick={this.sendName}><a className="link" href="https://docs.google.com/forms/d/e/1FAIpQLSedEfl3SIryuS-WOYMjDS4KpAoDBTK9Wwmt4s3ZSWUGhfhfcg/formResponse">抽獎連結</a></button>
             <div className="maker">遊戲製作：詹雨安、許秉倫、駱佳駿</div>
           </div>
         </div>
