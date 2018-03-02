@@ -206,6 +206,8 @@ class ZoneSprite extends Sprite {
      * Sprite's uuid
      * @member {string} */
     this.id = zone.id;
+    this.x = zone.centre.x;
+    this.y = zone.centre.y;
     /**
      * A flag to indicate whether this sprite have been
      * updated after receiving the data from server.
@@ -216,22 +218,8 @@ class ZoneSprite extends Sprite {
     this.flag = false;
     this.anchor.set(0.5, 0.5);
     if (zone.remainTime !== 0) {
-      this.text = new Text(Math.floor(zone.remainTime / 1000), { fontFamily: 'Roboto', fontSize: 40, align: 'right' });
-      this.text.position = new Point(65, 16);
       this.img = new LogoSprite(2 * zone.radius, 2 * zone.radius, logo);
-      this.addChild(this.text);
       this.addChild(this.img);
-    }
-  }
-  updatePos(pos) {
-    this.x = pos.x;
-    this.y = pos.y;
-  }
-  updateRemainTime(remainTime) {
-    if (remainTime > 0) {
-      this.text.text = Math.floor(remainTime / 1000);
-    } else if (remainTime < 0) {
-      this.text.text = '重獲\n新生';
     }
   }
 }

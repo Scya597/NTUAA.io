@@ -80,6 +80,10 @@ export default function ioActivate(io) {
     socket.on('GET_DATA', () => {
       socket.emit('GET_PLAYERS_DATA', playerList);
       socket.emit('GET_FOODS_DATA', foodList);
+      socket.emit('GET_ZONE_TIME', zoneList[1].remainTime);
+    });
+
+    socket.on('GET_ZONE_DATA_SERVER', () => {
       socket.emit('GET_ZONE_DATA', zoneList);
     });
 

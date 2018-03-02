@@ -111,12 +111,13 @@ class Pixi extends Component {
       this.playerContainer,
     );
     this.initTicker();
-    this.initSpaceEmitter();
 
     this.playerContainer.onGetPlayersData();
     this.foodContainer.onGetFoodsData();
-    this.zoneContainer.onGetZonesData();
+    this.zoneContainer.onGetTimeData();
+    this.zoneContainer.getZonesData();
     this.bgContainer.generateBg();
+    this.socket.emit('GET_ZONE_DATA_SERVER');
   }
   /**
    * Initialize app.ticker by adding some tasks insides.
@@ -144,15 +145,6 @@ class Pixi extends Component {
     });
   }
 
-  /**
-   * Initialize space event.
-   * When 'space' is pressed, client will emit 'PRESS_SPACE' task to server.
-   */
-  initSpaceEmitter() {
-    key('space', () => {
-      this.socket.emit('PRESS_SPACE', { id: this.id });
-    });
-  }
   /**
    * Align [this.gameScene]{@link Pixi#gameScene} with pos.
    * @param {object} pos - A position for the camera to be aligned with.

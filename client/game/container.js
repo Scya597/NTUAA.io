@@ -1,6 +1,6 @@
 // @flow
 
-import { Container, Point, Graphics } from 'pixi.js';
+import { Container, Point, Graphics, Text } from 'pixi.js';
 import { Sprite, FoodSprite, ZoneSprite, PlayerSprite, LogoSprite } from './sprite';
 import config from '../../gameConfig';
 // import bg from '../assets/bg.jpg';
@@ -198,18 +198,31 @@ class ZoneContainer extends Container {
      * @member {Object} */
     this.socket = arg.socket;
   }
-  onGetZonesData() {
+  getZonesData() {
     this.socket.on('GET_ZONE_DATA', (zoneList) => {
+      console.log(zoneList);
       zoneList.forEach((zone) => {
         let sprite = this.children.find(child => child.id === zone.id);
         if (sprite === undefined) {
           sprite = new ZoneSprite(zone);
           this.addChild(sprite);
         }
-        sprite.updatePos({ x: zone.centre.x, y: zone.centre.y });
-        sprite.updateRemainTime(zone.remainTime);
+        if (zone.remainTime !== 0) {
+          this.text = new Text(Math.floor(zone.remainTime / 1000), { fontFamily: 'Roboto', fontSize: 40, align: 'right' });
+          this.text.position = new Point(65, 16);
+          sprite.addChild(this.text);
+        }
         sprite.flag = true;
       });
+    });
+  }
+  onGetTimeData() {
+    this.socket.on('GET_ZONE_TIME', (remainTime) => {
+      if (remainTime > 0) {
+        this.text.text = Math.floor(remainTime / 1000);
+      } else if (remainTime < 0) {
+        this.text.text = '重獲\n新生';
+      }
     });
   }
 }
