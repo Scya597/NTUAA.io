@@ -13,6 +13,10 @@ export default function ioActivate(io) {
   const userList = [];
   const playerList = [];
   const foodList = [];
+
+  const isEatenFoodIdList = [];
+  const newFoodIdList = [];
+
   const zoneList = [
     new Zone({
       acceptEntry(player) {
@@ -108,10 +112,12 @@ export default function ioActivate(io) {
     updatePlayerPosition(playerList, zoneList, setting);
     updateFoodPosition(foodList, zoneList, setting);
     fireFoods(playerList, foodList, zoneList);
-    generateFoods(foodList, setting);
+    generateFoods(foodList, newFoodIdList, setting);
     checkAllFoodEaten(playerList, foodList, zoneList, setting);
-    removeEatenFoods(foodList);
+    removeEatenFoods(foodList, isEatenFoodIdList);
     zoneList[1].remainTime = zoneList[1].getRemainingCooldownTime();
+    console.log(newFoodIdList.length);
+    console.log(isEatenFoodIdList.length);
   }, 1000 / 60);
 
   /*

@@ -106,9 +106,11 @@ const fireFoods = (playerList, foodList, zoneList) => {
   });
 };
 
-const generateFoods = (foodList, setting) => {
+const generateFoods = (foodList, newFoodIdList, setting) => {
   /* TODO: don't count the foods that are actually bullets */
   for (let i = 0; i < 350 - foodList.length; i += 1) {
+    const newFoodId = uuid();
+    newFoodIdList.push(newFoodId);
     foodList.push(new Food({
       mass: 100,
       vel: new Vector2(0, 0),
@@ -116,7 +118,7 @@ const generateFoods = (foodList, setting) => {
         Math.random() * setting.worldWidth,
         Math.random() * setting.worldHeight,
       ),
-      id: uuid(),
+      id: newFoodId,
       color: 0x111111,
       isEaten: false,
     }));
@@ -173,11 +175,12 @@ const checkAllFoodEaten = (playerList, foodList, zoneList, setting) => {
   }
 };
 
-const removeEatenFoods = (foodList) => {
+const removeEatenFoods = (foodList, isEatenFoodIdList) => {
   const isEatenList = [];
   for (let i = 0; i < foodList.length; i += 1) {
     if (foodList[i].isEaten) {
       isEatenList.push(i);
+      isEatenFoodIdList.push(foodList[i].id);
     }
   }
   for (let i = isEatenList.length - 1; i >= 0; i -= 1) {
