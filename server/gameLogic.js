@@ -20,7 +20,7 @@ export default function ioActivate(io) {
       },
       cooldown: 0,
       centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
-      radius: 1500,
+      radius: setting.zoneOneRadius,
       id: 0,
 
       /* unused */
@@ -31,9 +31,9 @@ export default function ioActivate(io) {
       acceptEntry() {
         return true;
       },
-      cooldown: 20 * 1000,
+      cooldown: setting.zoneAccessSeconds * 1000,
       centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
-      radius: 200,
+      radius: setting.zoneTwoRadius,
 
       id: 1,
 

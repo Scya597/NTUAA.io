@@ -2,8 +2,25 @@ import uuid from 'uuid/v1';
 
 import Vector2 from '../space/vector2';
 import Cell from './cell';
+import setting from '../../src/game/config';
 
 // const TWEEN = require('@tweenjs/tween.js');
+
+
+const newPos = () => {
+  const lA = (setting.worldWidth - (setting.zoneOneRadius * 2) - 660) / 2;
+  const lB = (setting.worldHeight - (setting.zoneOneRadius * 2) - 400) / 2;
+  const x = Math.random() * setting.worldWidth;
+  let y = Math.random() * setting.worldHeight;
+  if (x > lA && x < (setting.worldWidth - lA)) {
+    if (Math.random() >= 0.5) {
+      y = Math.random() * lB;
+    } else {
+      y = (Math.random() * lB) + (setting.worldHeight - lB);
+    }
+  }
+  return new Vector2(x, y);
+};
 
 /**
  * The Player class
@@ -25,7 +42,7 @@ class Player {
     };
     this.cellList = [new Cell({
       mass: 12000,
-      pos: new Vector2(100, 100),
+      pos: newPos(),
       id: uuid(),
       color: 0x414141,
       vel: new Vector2(0, 0),
