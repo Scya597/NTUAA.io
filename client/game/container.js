@@ -176,7 +176,9 @@ class FoodContainer extends Container {
       // console.log(foodIdList);
       foodIdList.forEach((foodId) => {
         const sprite = this.children.find(child => child.id === foodId);
-        sprite.dead = true;
+        if (sprite !== undefined) {
+          sprite.dead = true;
+        }
       });
 
       const arr = [];
