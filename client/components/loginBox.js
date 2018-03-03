@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { socketTask as task } from '../../gameConfig';
 
 class LoginBox extends Component {
   constructor(props) {
@@ -18,9 +19,13 @@ class LoginBox extends Component {
     } else {
       if (this.character.value === '9') {
         const characterNum = Math.floor(Math.random() * 9) + 9;
-        this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: characterNum.toString() });
+        this.socket.emit(task.INIT, {
+          id: this.id, name: this.textInput.value, character: characterNum.toString(),
+        });
       } else {
-        this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: this.character.value });
+        this.socket.emit(task.INIT, {
+          id: this.id, name: this.textInput.value, character: this.character.value,
+        });
       }
       this.props.handlelogin(this.textInput.value); // update app state
       this.textInput.value = '';

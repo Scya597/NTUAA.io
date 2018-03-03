@@ -3,6 +3,7 @@ import { Application } from 'pixi.js';
 import key from 'keymaster';
 import { Container, PlayerContainer, FoodContainer, BgContainer, ZoneContainer } from './container';
 import GameInfo from '../components/GameInfo';
+import { socketTask as task } from '../../gameConfig';
 
 /** A react component representing the whole pixi game. */
 class Pixi extends Component {
@@ -44,12 +45,12 @@ class Pixi extends Component {
   }
   componentWillUnmount() {
     console.log('unmount');
-    this.socket.off('GET_PLAYERS_DATA');
-    this.socket.off('GET_BULLETS_DATA');
-    this.socket.off('GET_NEW_FOODS_DATA');
-    this.socket.off('GET_IS_EATEN_FOODS_DATA');
-    this.socket.off('GET_ZONE_TIME');
-    this.socket.off('GET_ZONE_DATA');
+    this.socket.off(task.GET_PLAYERS_DATA);
+    this.socket.off(task.GET_BULLETS_DATA);
+    this.socket.off(task.GET_NEW_FOODS_DATA);
+    this.socket.off(task.GET_IS_EATEN_FOODS_DATA);
+    this.socket.off(task.GET_ZONE_TIME);
+    this.socket.off(task.GET_ZONE_DATA);
     this.app.ticker.destroy();
     this.app.stop();
   }
@@ -125,8 +126,8 @@ class Pixi extends Component {
 
     this.bgContainer.generateBg();
 
-    this.socket.emit('GET_INIT_ZONE_DATA');
-    this.socket.emit('GET_INIT_FOOD_DATA');
+    this.socket.emit(task.GET_INIT_ZONE_DATA);
+    this.socket.emit(task.GET_INIT_FOOD_DATA);
     this.initTicker();
   }
   /**
@@ -134,7 +135,7 @@ class Pixi extends Component {
    */
   initTicker() {
     this.app.ticker.add(() => {
-      this.socket.emit('GET_DATA');
+      this.socket.emit(task.GET_DATA);
 
       const controlKeys = [
         32,
@@ -146,7 +147,7 @@ class Pixi extends Component {
         keysDown[controlKeys[i]] = key.isPressed(controlKeys[i]) ? 1 : 0;
       }
 
-      this.socket.emit('STATE_UPDATE', {
+      this.socket.emit(task.STATE_UPDATE, {
         mousePos: this.app.renderer.plugins.interaction.mouse.getLocalPosition(this.gameScene),
         mouseDown: this.click,
         keysDown,

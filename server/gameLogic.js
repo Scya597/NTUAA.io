@@ -44,8 +44,8 @@ export default function ioActivate(io) {
   io.on('connection', (socket) => {
     console.log('New client connected');
 
-    // pixi
-    socket.on('INIT', (player) => {
+    socket.on(task.INIT, (player) => {
+      console.log('INIT');
       const newPlayer = new Player({
         id: player.id,
         name: player.name,
@@ -54,7 +54,8 @@ export default function ioActivate(io) {
       playerList.push(newPlayer);
     });
 
-    socket.on('STATE_UPDATE', (mouseData) => {
+    socket.on(task.STATE_UPDATE, (mouseData) => {
+      console.log('STATE_UPDATE');
       const player = playerList.find((element) => {
         if (element.id === mouseData.id) {
           return element;
@@ -68,29 +69,29 @@ export default function ioActivate(io) {
       }
     });
 
-    socket.on('GET_DATA', () => {
-      socket.emit('GET_PLAYERS_DATA', playerList);
-      socket.emit('GET_BULLETS_DATA', bulletList);
+    socket.on(task.GET_DATA, () => {
+      socket.emit(task.GET_PLAYERS_DATA, playerList);
+      socket.emit(task.GET_BULLETS_DATA, bulletList);
 
-      io.emit('GET_NEW_FOODS_DATA', newFoodList);
+      io.emit(task.GET_NEW_FOODS_DATA, newFoodList);
       newFoodList.length = 0;
 
-      io.emit('GET_IS_EATEN_FOODS_DATA', isEatenFoodIdList);
+      io.emit(task.GET_IS_EATEN_FOODS_DATA, isEatenFoodIdList);
       isEatenFoodIdList.length = 0;
 
-      socket.emit('GET_ZONE_TIME', zoneList[1].remainTime);
+      socket.emit(task.GET_ZONE_TIME, zoneList[1].remainTime);
     });
 
-    socket.on('GET_INIT_FOOD_DATA', () => {
-      socket.emit('GET_NEW_FOODS_DATA', foodList);
+    socket.on(task.GET_INIT_FOOD_DATA, () => {
+      socket.emit(task.GET_NEW_FOODS_DATA, foodList);
     });
 
-    socket.on('GET_INIT_ZONE_DATA', () => {
-      socket.emit('GET_ZONE_DATA', zoneList);
+    socket.on(task.GET_INIT_ZONE_DATA, () => {
+      socket.emit(task.GET_ZONE_DATA, zoneList);
     });
 
-    socket.on('WIN', () => {
-      console.log('win');
+    socket.on(task.WIN, () => {
+      console.log('WIN');
       removeWinner(playerList);
     });
 

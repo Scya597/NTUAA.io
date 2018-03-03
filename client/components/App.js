@@ -5,12 +5,11 @@ import LoginBox from './loginBox';
 import WinningPage from './winningPage';
 import Pixi from '../game/Pixi';
 
-
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      endpoint: 'http://35.229.193.184/',
+      endpoint: 'localhost:8080',
       login: 0,
       name: '',
     };
@@ -30,8 +29,7 @@ class App extends Component {
 
   winGame() {
     this.socket.disconnect();
-    console.log('holy win');
-    // redirect to winning page!!
+    console.log('新生南路XD');
     this.setState({
       login: 2,
     });
@@ -39,7 +37,7 @@ class App extends Component {
 
   loseGame() {
     this.socket.disconnect();
-    console.log('holy lose');
+    console.log('人生好南QQ');
     this.setState({
       login: 0,
     });

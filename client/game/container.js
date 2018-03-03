@@ -2,7 +2,8 @@
 
 import { Container, Point, Graphics, Text } from 'pixi.js';
 import { Sprite, FoodSprite, ZoneSprite, PlayerSprite, LogoSprite } from './sprite';
-import { setting } from '../../gameConfig';
+import { setting, socketTask as task } from '../../gameConfig';
+
 // import bg from '../assets/bg.jpg';
 
 /** PlayerContainer class extended from PIXI.container
@@ -50,13 +51,13 @@ class PlayerContainer extends Container {
    * 3. Remove childs which has already been removed in the database.
    */
   onGetPlayersData() {
-    this.socket.on('GET_PLAYERS_DATA', (playerList) => {
+    this.socket.on(task.GET_PLAYERS_DATA, (playerList) => {
       let dead = true;
       playerList.forEach((player) => {
         if (player.zones[1]) {
           if (player.id === this.id) {
             this.win = true;
-            this.socket.emit('WIN');
+            this.socket.emit(task.WIN);
           }
         }
         player.cellList.forEach((cell) => {
@@ -128,7 +129,8 @@ class FoodContainer extends Container {
    * 2. Update the bullets' position.
    */
   onGetBulletsData() {
-    this.socket.on('GET_BULLETS_DATA', (bulletList) => {
+    this.socket.on(task.GET_BULLETS_DATA, (bulletList) => {
+      // console.log(bulletList);
       bulletList.forEach((bullet) => {
         const sprite = this.children.find(child => child.id === bullet.id);
         if (sprite !== undefined) {
@@ -148,7 +150,8 @@ class FoodContainer extends Container {
    * 2. If not, then create the food sprites.
    */
   onGetNewFoodsData() {
-    this.socket.on('GET_NEW_FOODS_DATA', (foodList) => {
+    this.socket.on(task.GET_NEW_FOODS_DATA, (foodList) => {
+      // console.log(foodList);
       foodList.forEach((food) => {
         let sprite = this.children.find(child => child.id === food.id);
         if (sprite === undefined) {
@@ -169,7 +172,8 @@ class FoodContainer extends Container {
    * 2. Remove isEaten foods from the food container.
    */
   onGetIsEatenFoodsData() {
-    this.socket.on('GET_IS_EATEN_FOODS_DATA', (foodIdList) => {
+    this.socket.on(task.GET_IS_EATEN_FOODS_DATA, (foodIdList) => {
+      // console.log(foodIdList);
       foodIdList.forEach((foodId) => {
         const sprite = this.children.find(child => child.id === foodId);
         sprite.dead = true;
@@ -246,7 +250,7 @@ class ZoneContainer extends Container {
    * 3. If the remainTime of zone is not zero, we'll add a text o it's sprite to show it.
    */
   getZonesData() {
-    this.socket.on('GET_ZONE_DATA', (zoneList) => {
+    this.socket.on(task.GET_ZONE_DATA, (zoneList) => {
       zoneList.forEach((zone) => {
         let sprite = this.children.find(child => child.id === zone.id);
         if (sprite === undefined) {
@@ -272,7 +276,7 @@ class ZoneContainer extends Container {
    * 2. If remainTime < 0, change the text into '重獲新生'
    */
   onGetTimeData() {
-    this.socket.on('GET_ZONE_TIME', (remainTime) => {
+    this.socket.on(task.GET_ZONE_TIME, (remainTime) => {
       if (remainTime > 0) {
         this.text.text = Math.floor(remainTime / 1000);
       } else if (remainTime < 0) {
