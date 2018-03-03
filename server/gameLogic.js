@@ -10,7 +10,6 @@ import Player from './entity/player';
 import setting from '../gameConfig';
 
 export default function ioActivate(io) {
-  const userList = [];
   const playerList = [];
   const foodList = [];
 
@@ -97,7 +96,7 @@ export default function ioActivate(io) {
 
     socket.on('WIN', () => {
       console.log('win');
-      removeWinner(playerList, userList);
+      removeWinner(playerList);
     });
 
     socket.on('disconnect', () => {
@@ -111,7 +110,7 @@ export default function ioActivate(io) {
   });
 
   setInterval(() => {
-    checkAllPlayerDead(playerList, userList);
+    checkAllPlayerDead(playerList);
     updatePlayerPosition(playerList, zoneList, setting);
     updateFoodPosition(foodList, bulletList);
     fireFoods(playerList, foodList, zoneList, bulletList, newFoodList);

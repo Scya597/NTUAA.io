@@ -3,19 +3,17 @@ import uuid from 'uuid/v1';
 import Food from './entity/food';
 import Vector2 from './space/vector2';
 
-const checkAllPlayerDead = (playerList, userList) => {
+const checkAllPlayerDead = (playerList) => {
   for (let i = playerList.length - 1; i >= 0; i -= 1) {
     if (playerList[i].score < 0) {
-      userList.splice(userList.findIndex(user => user.id === playerList[i].id), 1);
       playerList.splice(i, 1);
     }
   }
 };
 
-const removeWinner = (playerList, userList) => {
+const removeWinner = (playerList) => {
   for (let i = playerList.length - 1; i >= 0; i -= 1) {
     if (playerList[i].zones[1]) {
-      userList.splice(userList.findIndex(user => user.id === playerList[i].id), 1);
       playerList.splice(i, 1);
     }
   }
@@ -203,17 +201,8 @@ const removeEatenFoods = (foodList, isEatenFoodIdList, bulletList) => {
   for (let i = isEatenList.length - 1; i >= 0; i -= 1) {
     foodList.splice(isEatenList[i], 1);
   }
-
-  const isEatenBulletList = [];
-  for (let i = 0; i < bulletList.length; i += 1) {
-    for (let j = 0; j < isEatenBulletIdList.length; j += 1) {
-      if (bulletList[i].id === isEatenBulletIdList[j]) {
-        isEatenBulletList.push(i);
-      }
-    }
-  }
-  for (let i = isEatenBulletList.length - 1; i >= 0; i -= 1) {
-    bulletList.splice(isEatenBulletList[i], 1);
+  for (let i = isEatenBulletIdList.length - 1; i >= 0; i -= 1) {
+    bulletList.splice(bulletList.findIndex(bullet => bullet.id === isEatenBulletIdList[i].id), 1);
   }
 };
 
