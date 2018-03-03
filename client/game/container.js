@@ -118,6 +118,15 @@ class FoodContainer extends Container {
     this.socket = arg.socket;
   }
 
+  /**
+   * When this function is called.
+   * It will trigger socket to turn on 'GET_BULLETS_DATA' task.
+   * So that when the server side emit this task, client side can update accordingly.
+   * When receiving bulletList from server.
+   * We do the following things.
+   * 1. Find bullets from our FoodSprite list by id in the bulletList.
+   * 2. Update the bullets' position.
+   */
   onGetBulletsData() {
     this.socket.on('GET_BULLETS_DATA', (bulletList) => {
       bulletList.forEach((bullet) => {
@@ -129,6 +138,15 @@ class FoodContainer extends Container {
     });
   }
 
+  /**
+   * When this function is called.
+   * It will trigger socket to turn on 'GET_NEW_FOODS_DATA' task.
+   * So that when the server side emit this task, client side can update accordingly.
+   * When receiving new foodList from server.
+   * We do the following things.
+   * 1. Check whether the foods in new foodList already exists.
+   * 2. If not, then create the food sprites.
+   */
   onGetNewFoodsData() {
     this.socket.on('GET_NEW_FOODS_DATA', (foodList) => {
       foodList.forEach((food) => {
@@ -141,6 +159,15 @@ class FoodContainer extends Container {
     });
   }
 
+  /**
+   * When this function is called.
+   * It will trigger socket to turn on 'GET_IS_EATEN_FOODS_DATA' task.
+   * So that when the server side emit this task, client side can update accordingly.
+   * When receiving foodIdList from server.
+   * We do the following things.
+   * 1. Find isEaten foods from FoodSprite.
+   * 2. Remove isEaten foods from the food container.
+   */
   onGetIsEatenFoodsData() {
     this.socket.on('GET_IS_EATEN_FOODS_DATA', (foodIdList) => {
       foodIdList.forEach((foodId) => {
@@ -207,6 +234,17 @@ class ZoneContainer extends Container {
      * @member {Object} */
     this.socket = arg.socket;
   }
+
+  /**
+   * When this function is called.
+   * It will trigger socket to turn on 'GET_ZONE_DATA' task.
+   * So that when the server side emit this task, client side can update accordingly.
+   * When receiving zoneList from server.
+   * We do the following things.
+   * 1. Check whether the zones in zoneList already exists.
+   * 2. If not, then create the zone sprites.
+   * 3. If the remainTime of zone is not zero, we'll add a text o it's sprite to show it.
+   */
   getZonesData() {
     this.socket.on('GET_ZONE_DATA', (zoneList) => {
       zoneList.forEach((zone) => {
@@ -223,6 +261,16 @@ class ZoneContainer extends Container {
       });
     });
   }
+
+  /**
+   * When this function is called.
+   * It will trigger socket to turn on 'GET_ZONE_TIME' task.
+   * So that when the server side emit this task, client side can update accordingly.
+   * When receiving remainTime of zone two from server.
+   * We do the following things.
+   * 1. Update the text of remainTime of zone two
+   * 2. If remainTime < 0, change the text into '重獲新生'
+   */
   onGetTimeData() {
     this.socket.on('GET_ZONE_TIME', (remainTime) => {
       if (remainTime > 0) {

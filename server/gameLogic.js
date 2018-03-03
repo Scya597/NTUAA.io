@@ -102,11 +102,10 @@ export default function ioActivate(io) {
 
     socket.on('disconnect', () => {
       console.log('Client disconnected');
-      if (userList.findIndex(user => user.id === socket.handshake.query.id) !== -1) {
-        userList.splice(userList.findIndex(user => user.id === socket.handshake.query.id), 1);
+
+      if (playerList.findIndex(player => player.id === socket.handshake.query.id) !== -1) {
         playerList.splice(playerList.findIndex(player =>
           player.id === socket.handshake.query.id), 1);
-        io.emit('GET_USERLIST', userList);
       }
     });
   });
