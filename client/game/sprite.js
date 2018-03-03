@@ -18,6 +18,7 @@ import playerPNG16 from '../assets/player16.png';
 import playerPNG17 from '../assets/player17.png';
 import playerPNG18 from '../assets/player18.png';
 import logo from '../assets/logo.png';
+import { setting } from '../../gameConfig';
 
 /**
  * Convert mass to radius.
@@ -131,7 +132,11 @@ class PlayerSprite extends Container {
     const delta = { x: mousePos.x - pos.x, y: -(mousePos.y - pos.y) };
     this.cell.rotation = Math.atan2(delta.x, delta.y);
     // update hp
-    this.nameText.text = `${this.name}: ${player.score}`;
+    if (player.score !== setting.playerBulletLimit * 100) {
+      this.nameText.text = `${this.name}: ${player.score / 100}`;
+    } else {
+      this.nameText.text = `${this.name}: FULL`;
+    }
   }
 }
 /**
@@ -144,7 +149,7 @@ class FoodSprite extends Sprite {
    * @param {Food} food - A food object
    */
   constructor(food) {
-    super(generateCircleTexture(food, getRadius(100)), 0x111111);
+    super(generateCircleTexture(food, getRadius(setting.foodMass)), 0x111111);
     /**
      * Sprite's uuid
      * @member {string} */

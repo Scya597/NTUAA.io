@@ -106,11 +106,11 @@ export default function ioActivate(io) {
 
   setInterval(() => {
     checkAllPlayerDead(playerList);
-    updatePlayerPosition(playerList, zoneList, setting);
+    updatePlayerPosition(playerList, zoneList);
     updateFoodPosition(foodList, bulletList);
     fireFoods(playerList, foodList, zoneList, bulletList, newFoodList);
-    generateFoods(foodList, newFoodList, setting);
-    checkAllFoodEaten(playerList, foodList, zoneList, setting);
+    generateFoods(foodList, newFoodList);
+    checkAllFoodEaten(playerList, foodList, zoneList);
     removeEatenFoods(foodList, isEatenFoodIdList, bulletList);
     zoneList[1].remainTime = zoneList[1].getRemainingCooldownTime();
   }, 1000 / 60);

@@ -4,7 +4,13 @@ const setting = {
   zoneOneRadius: 1500,
   zoneTwoRadius: 200,
   zoneAccessSeconds: 200,
-  zoneAccessLimit: 15,
+  zoneAccessLimit: 35,
+  playerBulletLimit: 50,
+  foodMass: 100,
+  cellMass: 10000,
+  foodNumber: 1000,
+  bulletVel: 750,
+  playerVel: 500,
 };
 
 const socketTask = {

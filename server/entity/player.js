@@ -4,9 +4,6 @@ import Vector2 from '../space/vector2';
 import Cell from './cell';
 import { setting } from '../../gameConfig';
 
-// const TWEEN = require('@tweenjs/tween.js');
-
-
 const newPos = () => {
   const lA = (setting.worldWidth - (setting.zoneOneRadius * 2) - 660) / 2;
   const lB = (setting.worldHeight - (setting.zoneOneRadius * 2) - 400) / 2;
@@ -37,11 +34,17 @@ class Player {
     this.mouseDown = false;
     this.keysDown = {
       32: 0,
-      37: 0, 38: 0, 39: 0, 40: 0,
-      65: 0, 87: 0, 68: 0, 83: 0
+      37: 0,
+      38: 0,
+      39: 0,
+      40: 0,
+      65: 0,
+      87: 0,
+      68: 0,
+      83: 0,
     };
     this.cellList = [new Cell({
-      mass: 12000,
+      mass: setting.cellMass,
       pos: newPos(),
       id: uuid(),
       color: 0x414141,
