@@ -2,6 +2,7 @@ import uuid from 'uuid/v1';
 
 import Food from './entity/food';
 import Vector2 from './space/vector2';
+import { setting } from '../gameConfig';
 
 const checkAllPlayerDead = (playerList) => {
   for (let i = playerList.length - 1; i >= 0; i -= 1) {
@@ -19,7 +20,7 @@ const removeWinner = (playerList) => {
   }
 };
 
-const updatePlayerPosition = (playerList, zoneList, setting) => {
+const updatePlayerPosition = (playerList, zoneList) => {
   const dt = 1 / 60;
   playerList.forEach((player) => {
     player.cellList.forEach((cell) => {
@@ -30,7 +31,7 @@ const updatePlayerPosition = (playerList, zoneList, setting) => {
 
         (player.keysDown[40] + player.keysDown[83])
         - player.keysDown[38] - player.keysDown[87],
-      ).scale(500).clipNorm(500);
+      ).scale(setting.playerVel).clipNorm(setting.playerVel);
 
       cell.vel.interpolate(newVel, 0.2);
 
@@ -80,12 +81,12 @@ const fireFood = (player, foodList, zoneList, bulletList, newFoodList) => {
     player.cellList[0].pos,
   ).normalise();
 
-  const vel = direction.clone().scale(1600);
+  const vel = direction.clone().scale(setting.bulletVel);
   const src = player.cellList[0].pos.clone()
     .add(direction.clone().scale(player.cellList[0].getRadius() + 10));
 
   const newBulletFood = new Food({
-    mass: -100,
+    mass: -1 * setting.foodMass,
     pos: src,
     vel,
     zones: getZones(src, zoneList),
@@ -115,11 +116,11 @@ const fireFoods = (playerList, foodList, zoneList, bulletList, newFoodList) => {
   });
 };
 
-const generateFoods = (foodList, newFoodList, setting) => {
+const generateFoods = (foodList, newFoodList) => {
   /* TODO: don't count the foods that are actually bullets */
-  for (let i = 0; i < 350 - foodList.length; i += 1) {
+  for (let i = 0; i < setting.foodNumber - foodList.length; i += 1) {
     const newFood = new Food({
-      mass: 100,
+      mass: setting.foodMass,
       vel: new Vector2(0, 0),
       pos: new Vector2(
         Math.random() * setting.worldWidth,
@@ -136,7 +137,7 @@ const generateFoods = (foodList, newFoodList, setting) => {
   }
 };
 
-const checkOneFoodExpired = (food, zoneList, setting) => {
+const checkOneFoodExpired = (food, zoneList) => {
   /* only bullets move and can possibly expire */
   if (food.mass > 0) { return; }
 
@@ -169,11 +170,11 @@ const checkOneFoodEaten = (cell, food) => {
   return false;
 };
 
-const checkAllFoodEaten = (playerList, foodList, zoneList, setting) => {
+const checkAllFoodEaten = (playerList, foodList, zoneList) => {
   for (let k = 0; k < foodList.length; k += 1) {
-    checkOneFoodExpired(foodList[k], zoneList, setting);
+    checkOneFoodExpired(foodList[k], zoneList);
     for (let i = 0; i < playerList.length; i += 1) {
-      if (playerList[i].score + foodList[k].mass <= 1500) {
+      if (playerList[i].score + foodList[k].mass <= setting.playerBulletLimit * 100) {
         if (checkOneFoodEaten(playerList[i].cellList[0], foodList[k])) {
           /* this is potentially confusion: `mass` determines the radius of the
            * cell. Since we don't want the size of the player to change anymore,
