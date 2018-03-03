@@ -49,15 +49,7 @@ export default function ioActivate(io) {
 
   io.on('connection', (socket) => {
     console.log('New client connected');
-    // login
-    socket.on('EMIT_USERLIST', () => {
-      io.emit('GET_USERLIST', userList);
-    });
 
-    socket.on('SET_NAME', (userInfo) => {
-      userList.push({ name: userInfo.name, id: userInfo.id });
-      io.emit('GET_USERLIST', userList);
-    });
     // pixi
     socket.on('INIT', (player) => {
       const newPlayer = new Player({

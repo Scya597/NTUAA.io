@@ -4,7 +4,6 @@ class LoginBox extends Component {
   constructor(props) {
     super();
     this.state = {
-      userList: [],
       showWarning: false,
     };
     this.socket = props.socket;
@@ -13,26 +12,14 @@ class LoginBox extends Component {
     this.showWarning = this.showWarning.bind(this);
   }
 
-  componentDidMount() {
-    this.socket.on('GET_USERLIST', (userList) => {
-      this.setState({ userList });
-    });
-    this.socket.emit('EMIT_USERLIST');
-  }
-  componentWillUnmount() {
-    this.socket.off('GET_USERLIST');
-  }
-
   setTitle() {
     if (this.textInput.value === '') {
       this.setState({ showWarning: true });
     } else {
       if (this.character.value === '9') {
         const characterNum = Math.floor(Math.random() * 9) + 9;
-        this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id, character: characterNum.toString() });
         this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: characterNum.toString() });
       } else {
-        this.socket.emit('SET_NAME', { name: this.textInput.value, id: this.id, character: this.character.value });
         this.socket.emit('INIT', { id: this.id, name: this.textInput.value, character: this.character.value });
       }
       this.props.handlelogin(this.textInput.value); // update app state

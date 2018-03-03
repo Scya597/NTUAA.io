@@ -25,7 +25,6 @@ class App extends Component {
 
   handleLogin(name) {
     this.setState({ login: 1, name });
-    // console.log(character);
     this.socket.connect();
   }
 

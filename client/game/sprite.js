@@ -35,15 +35,10 @@ function getRadius(mass) {
  * @param {Circle} circle - any object extends from Circle.
  * @return {PIXI.Texture} - A PIXI.Texture to construct a sprite.
  */
-function generateCircleTexture(circle, radius, alpha = 1) {
+function generateCircleTexture(circle, radius, color, alpha = 1) {
   const graphics = new Graphics();
   graphics.lineStyle();
-  if (circle.color) {
-    graphics.beginFill(circle.color);
-  } else {
-    graphics.beginFill(0x111111);
-  }
-  // graphics.beginFill(0x111111);
+  graphics.beginFill(color);
   graphics.alpha = alpha;
   graphics.drawCircle(0, 0, radius);
   graphics.endFill();
@@ -149,7 +144,7 @@ class FoodSprite extends Sprite {
    * @param {Food} food - A food object
    */
   constructor(food) {
-    super(generateCircleTexture(food, getRadius(100)));
+    super(generateCircleTexture(food, getRadius(100)), 0x111111);
     /**
      * Sprite's uuid
      * @member {string} */
@@ -193,7 +188,7 @@ class ZoneSprite extends Sprite {
    * @param {Food} food - A food object
    */
   constructor(zone) {
-    super(generateCircleTexture(zone, zone.radius, 0.75));
+    super(generateCircleTexture(zone, zone.radius, zone.color, 0.75));
     /**
      * Sprite's uuid
      * @member {string} */

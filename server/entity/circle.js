@@ -9,7 +9,6 @@ class Circle {
     this.mass = props.mass;
     this.pos = props.pos;
     this.id = props.id;
-    this.color = props.color;
   }
   /**
    * Use to caculate radius from mass

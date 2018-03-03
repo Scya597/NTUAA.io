@@ -92,7 +92,6 @@ const fireFood = (player, foodList, zoneList, bulletList, newFoodList) => {
     vel,
     zones: getZones(src, zoneList),
     id: uuid(),
-    color: 0x111111,
     isEaten: false,
   });
   foodList.push(newBulletFood);
@@ -129,7 +128,6 @@ const generateFoods = (foodList, newFoodList, setting) => {
         Math.random() * setting.worldHeight,
       ),
       id: uuid(),
-      color: 0x111111,
       isEaten: false,
     });
     foodList.push(newFood);

@@ -113,10 +113,8 @@ class Pixi extends Component {
       this.foodContainer,
       this.playerContainer,
     );
-    this.initTicker();
 
     this.playerContainer.onGetPlayersData();
-    // this.foodContainer.onGetFoodsData();
 
     this.foodContainer.onGetBulletsData();
     this.foodContainer.onGetNewFoodsData();
@@ -124,9 +122,12 @@ class Pixi extends Component {
 
     this.zoneContainer.onGetTimeData();
     this.zoneContainer.getZonesData();
+
     this.bgContainer.generateBg();
+
     this.socket.emit('GET_INIT_ZONE_DATA');
     this.socket.emit('GET_INIT_FOOD_DATA');
+    this.initTicker();
   }
   /**
    * Initialize app.ticker by adding some tasks insides.
