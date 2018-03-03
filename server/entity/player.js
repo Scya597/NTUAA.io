@@ -2,7 +2,7 @@ import uuid from 'uuid/v1';
 
 import Vector2 from '../space/vector2';
 import Cell from './cell';
-import setting from '../../gameConfig';
+import { setting } from '../../gameConfig';
 
 // const TWEEN = require('@tweenjs/tween.js');
 

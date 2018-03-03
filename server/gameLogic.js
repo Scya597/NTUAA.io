@@ -7,7 +7,7 @@ import {
 import Vector2 from './space/vector2';
 import Zone from './space/zone';
 import Player from './entity/player';
-import setting from '../gameConfig';
+import { setting, socketTask as task } from '../gameConfig';
 
 export default function ioActivate(io) {
   const playerList = [];
@@ -26,8 +26,6 @@ export default function ioActivate(io) {
       centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
       radius: setting.zoneOneRadius,
       id: 0,
-
-      /* unused */
       color: 0x696969,
     }),
 
@@ -38,10 +36,7 @@ export default function ioActivate(io) {
       cooldown: setting.zoneAccessSeconds * 1000,
       centre: new Vector2(setting.worldWidth / 2, setting.worldHeight / 2),
       radius: setting.zoneTwoRadius,
-
       id: 1,
-
-      /* unused */
       color: 0xffff00,
     }),
   ];

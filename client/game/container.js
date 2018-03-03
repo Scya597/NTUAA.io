@@ -2,7 +2,7 @@
 
 import { Container, Point, Graphics, Text } from 'pixi.js';
 import { Sprite, FoodSprite, ZoneSprite, PlayerSprite, LogoSprite } from './sprite';
-import config from '../../gameConfig';
+import { setting } from '../../gameConfig';
 // import bg from '../assets/bg.jpg';
 
 /** PlayerContainer class extended from PIXI.container
@@ -199,8 +199,8 @@ class BgContainer extends Container {
    */
   generateBg() {
     this.addChild(BgContainer.generateRect());
-    // this.img = new LogoSprite(config.worldWidth, config.worldHeight, bg);
-    // this.img.position = new Point(config.worldWidth / 2, config.worldHeight / 2);
+    // this.img = new LogoSprite(setting.worldWidth, setting.worldHeight, bg);
+    // this.img.position = new Point(setting.worldWidth / 2, setting.worldHeight / 2);
     // this.addChild(this.img);
   }
   /**
@@ -211,7 +211,7 @@ class BgContainer extends Container {
   static generateRect() {
     const graphics = new Graphics();
     graphics.beginFill(0xffffff);
-    graphics.drawRect(0, 0, config.worldWidth, config.worldHeight);
+    graphics.drawRect(0, 0, setting.worldWidth, setting.worldHeight);
     graphics.endFill();
     const sprite = new Sprite(graphics.generateCanvasTexture());
     return sprite;
