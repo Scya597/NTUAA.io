@@ -204,8 +204,8 @@ const removeEatenFoods = (foodList, isEatenFoodIdList, bulletList) => {
   for (let i = isEatenList.length - 1; i >= 0; i -= 1) {
     foodList.splice(isEatenList[i], 1);
   }
-  for (let i = isEatenBulletIdList.length - 1; i >= 0; i -= 1) {
-    bulletList.splice(bulletList.findIndex(bullet => bullet.id === isEatenBulletIdList[i].id), 1);
+  for (let i = 0; i < isEatenBulletIdList.length; i += 1) {
+    bulletList.splice(bulletList.findIndex(bullet => bullet.id === isEatenBulletIdList[i]), 1);
   }
 };
 
