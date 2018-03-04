@@ -8,9 +8,11 @@ const setting = {
   playerBulletLimit: 50,
   foodMass: 100,
   cellMass: 10000,
-  foodNumber: 1000,
+  foodNumber: 500,
   bulletVel: 750,
   playerVel: 500,
+  foodColor: 0xffff00,
+  bulletColor: 0xff0000,
 };
 
 const socketTask = {

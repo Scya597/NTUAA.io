@@ -98,6 +98,7 @@ const fireFood = (player, foodList, zoneList, bulletList, newFoodList) => {
   newFoodList.push({
     pos: newBulletFood.pos,
     id: newBulletFood.id,
+    color: setting.bulletColor,
   });
   bulletList.push(newBulletFood);
 
@@ -133,6 +134,7 @@ const generateFoods = (foodList, newFoodList) => {
     newFoodList.push({
       pos: newFood.pos,
       id: newFood.id,
+      color: setting.foodColor,
     });
   }
 };
