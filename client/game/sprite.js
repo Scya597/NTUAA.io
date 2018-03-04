@@ -149,7 +149,7 @@ class FoodSprite extends Sprite {
    * @param {Food} food - A food object
    */
   constructor(food) {
-    super(generateCircleTexture(food, getRadius(setting.foodMass)), 0x111111);
+    super(generateCircleTexture(food, getRadius(setting.foodMass), food.color));
     /**
      * Sprite's uuid
      * @member {string} */
