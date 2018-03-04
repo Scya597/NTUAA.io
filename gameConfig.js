@@ -11,7 +11,7 @@ const setting = {
   foodNumber: 500,
   bulletVel: 750,
   playerVel: 500,
-  foodColor: 0xffff00,
+  foodColor: 0x000000,
   bulletColor: 0xff0000,
 };
 
