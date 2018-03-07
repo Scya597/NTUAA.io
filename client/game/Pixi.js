@@ -63,8 +63,9 @@ class Pixi extends Component {
    */
   setup() {
     const appConfig = {
-      width: window.innerWidth,
-      height: window.innerHeight,
+      width: window.innerWidth / 2,
+      height: window.innerHeight / 2,
+      resolution: 2,
       antialias: true,
     };
     /**
@@ -86,7 +87,7 @@ class Pixi extends Component {
     this.app.stage.on('mousedown', () => { this.click = true; });
     this.app.stage.on('mouseup', () => { this.click = false; });
     window.onresize = () => {
-      this.app.renderer.resize(window.innerWidth, window.innerHeight);
+      this.app.renderer.resize(window.innerWidth / 2, window.innerHeight / 2);
       this.gameScene.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
     };
     /**

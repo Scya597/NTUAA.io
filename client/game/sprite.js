@@ -212,7 +212,7 @@ class FoodSprite extends Sprite {
    * Create a foodSprite from the data in food.
    * @param {Food} food - A food object */
   constructor(food) {
-    super(generateCircleTexture(food, getRadius(setting.foodMass), food.color));
+    super(generateCircleTexture(food, getRadius(setting.foodRadius), food.color));
     this.id = food.id;
     this.x = food.pos.x;
     this.y = food.pos.y;
