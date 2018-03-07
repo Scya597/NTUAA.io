@@ -9,6 +9,8 @@ import Zone from './space/zone';
 import Player from './entity/player';
 import { setting, socketTask as task } from '../gameConfig';
 
+let count = 0;
+
 export default function ioActivate(io) {
   const playerList = [];
   const foodList = [];
@@ -43,7 +45,8 @@ export default function ioActivate(io) {
 
   io.on('connection', (socket) => {
     console.log('New client connected');
-
+    count += 1;
+    console.log(count);
     socket.on(task.INIT, (player) => {
       console.log('INIT');
       const newPlayer = new Player({
