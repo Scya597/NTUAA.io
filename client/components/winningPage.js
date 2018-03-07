@@ -17,7 +17,7 @@ class WinningPage extends Component {
    * @param {object} props - The props used to construct. */
   constructor(props) {
     super(props);
-    this.sendName = this.sendName.bind(this);
+    console.log('winning');
   }
 
   /**
