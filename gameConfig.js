@@ -9,8 +9,8 @@ const setting = {
   foodMass: 100,
   cellMass: 10000,
   foodNumber: 500,
-  bulletVel: 750,
-  playerVel: 500,
+  bulletVel: 1500,
+  playerVel: 1000,
   foodColor: 0x000000,
   bulletColor: 0xff0000,
 };
