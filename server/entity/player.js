@@ -1,3 +1,4 @@
+// player no center
 import uuid from 'uuid/v1';
 
 import Vector2 from '../space/vector2';
@@ -5,8 +6,8 @@ import Cell from './cell';
 import { setting } from '../../gameConfig';
 
 const newPos = () => {
-  const lA = (setting.worldWidth - (setting.zoneOneRadius * 2) - 660) / 2;
-  const lB = (setting.worldHeight - (setting.zoneOneRadius * 2) - 400) / 2;
+  const lA = (setting.worldWidth - (setting.zoneOneRadius * 2) - 264) / 2;
+  const lB = (setting.worldHeight - (setting.zoneOneRadius * 2) - 160) / 2;
   const x = Math.random() * setting.worldWidth;
   let y = Math.random() * setting.worldHeight;
   if (x > lA && x < (setting.worldWidth - lA)) {
