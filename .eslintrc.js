@@ -26,8 +26,8 @@ module.exports = {
       "react/prop-types": 0,
       "import/no-extraneous-dependencies": 0,
       "no-param-reassign": 0,
-      // "require-jsdoc": [1, { "require": { "FunctionDeclaration": false, "ClassDeclaration": true, "MethodDefinition": true } }],
-      // "valid-jsdoc": [1, { "requireReturn": false, "requireReturnType": true, "requireParamDescription": true, "requireReturnDescription": true }],
+      "require-jsdoc": [1, { "require": { "FunctionDeclaration": false, "ClassDeclaration": true, "MethodDefinition": true } }],
+      "valid-jsdoc": [1, { "requireReturn": false, "requireReturnType": true, "requireParamDescription": true, "requireReturnDescription": true }],
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
 }
