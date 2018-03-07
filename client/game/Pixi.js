@@ -86,8 +86,8 @@ class Pixi extends Component {
     this.gameScene.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
     this.app.stage.addChild(this.gameScene);
     this.app.stage.interactive = true;
-    // this.app.stage.on('mousedown', () => { this.click = true; console.log('click'); });
-    // this.app.stage.on('mouseup', () => { this.click = false; });
+    this.app.stage.on('mousedown', () => { this.click = true; });
+    this.app.stage.on('mouseup', () => { this.click = false; });
     window.onresize = () => {
       this.app.renderer.resize(window.innerWidth / 2, window.innerHeight / 2);
       this.gameScene.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
@@ -135,8 +135,9 @@ class Pixi extends Component {
 
     this.socket.emit(task.GET_INIT_ZONE_DATA);
     this.socket.emit(task.GET_INIT_FOOD_DATA);
-    document.body.onclick = () => { this.click = true; };
+    this.initTicker();
 
+    // document.body.onclick = () => { this.click = true; };
     // this.smooth = new Smooth({
     //   engine: PIXI,
     //   renderer: this.app.renderer,
