@@ -258,8 +258,8 @@ class ZoneContainer extends Container {
           this.addChild(sprite);
         }
         if (zone.remainTime !== 0) {
-          this.text = new Text(Math.floor(zone.remainTime / 1000), { fontFamily: 'Roboto', fontSize: 40, align: 'right' });
-          this.text.position = new Point(65, 16);
+          this.text = new Text(Math.floor(zone.remainTime / 1000), { fontFamily: 'Roboto', fontSize: 5, align: 'right' });
+          this.text.position = new Point(15, 4);
           sprite.addChild(this.text);
         }
       });
