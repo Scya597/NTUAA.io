@@ -5,14 +5,16 @@ import { Container, PlayerContainer, FoodContainer, BgContainer, ZoneContainer }
 import GameInfo from '../components/GameInfo';
 import { socketTask as task } from '../../gameConfig';
 
-/** A react component representing the whole pixi game. */
+/**
+ * A react component representing the whole pixi game
+ * @extends Component
+ */
 class Pixi extends Component {
   /**
    * Create a Pixi.
    * @param {object} props - The props to construct a pixi object.
    * @param {object} props.socket - The socket to connect with server side.
    * @param {string} props.id - The player's uuid.
-   * @param {name} props.name - The player's name.
    */
   constructor(props) {
     super();
@@ -25,10 +27,6 @@ class Pixi extends Component {
      * Client side uuid
      * @member {string} */
     this.id = props.id;
-    /**
-     * Player's name
-     * @member {string} */
-    this.name = props.name;
     this.click = false;
 
     this.state = {
@@ -39,10 +37,16 @@ class Pixi extends Component {
       },
     };
   }
+  /**
+   * Setup init config of down app and socket at the beginning of the game.
+   */
   componentDidMount() {
     console.log('mount');
     this.setup();
   }
+  /**
+   * Shut down app and socket at the end of the game.
+   */
   componentWillUnmount() {
     console.log('unmount');
     this.socket.off(task.GET_PLAYERS_DATA);
@@ -55,7 +59,7 @@ class Pixi extends Component {
     this.app.stop();
   }
   /**
-   * Setup pixi configuration
+   * Setup pixi and socket configuration
    */
   setup() {
     const appConfig = {
@@ -166,6 +170,11 @@ class Pixi extends Component {
     this.gameScene.pivot.copy(pos);
     this.setState({ pos });
   }
+
+  /**
+   * Update current hp
+   * @param {object} _hp - Current player's hp
+   */
   updateHp = (_hp) => {
     let { hp } = this.state;
     hp = _hp;

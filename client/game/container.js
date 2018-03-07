@@ -1,7 +1,7 @@
 // @flow
 
 import { Container, Point, Graphics, Text } from 'pixi.js';
-import { Sprite, FoodSprite, ZoneSprite, PlayerSprite, LogoSprite } from './sprite';
+import { Sprite, FoodSprite, ZoneSprite, PlayerSprite /* , LogoSprite */ } from './sprite';
 import { setting, socketTask as task } from '../../gameConfig';
 
 // import bg from '../assets/bg.jpg';
@@ -130,7 +130,6 @@ class FoodContainer extends Container {
    */
   onGetBulletsData() {
     this.socket.on(task.GET_BULLETS_DATA, (bulletList) => {
-      // console.log(bulletList);
       bulletList.forEach((bullet) => {
         const sprite = this.children.find(child => child.id === bullet.id);
         if (sprite !== undefined) {
@@ -173,7 +172,6 @@ class FoodContainer extends Container {
    */
   onGetIsEatenFoodsData() {
     this.socket.on(task.GET_IS_EATEN_FOODS_DATA, (foodIdList) => {
-      // console.log(foodIdList);
       foodIdList.forEach((foodId) => {
         const sprite = this.children.find(child => child.id === foodId);
         if (sprite !== undefined) {

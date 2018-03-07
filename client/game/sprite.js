@@ -17,6 +17,21 @@ import playerPNG15 from '../assets/player15.png';
 import playerPNG16 from '../assets/player16.png';
 import playerPNG17 from '../assets/player17.png';
 import playerPNG18 from '../assets/player18.png';
+import playerPNG19 from '../assets/player19.png';
+import playerPNG20 from '../assets/player20.png';
+import playerPNG21 from '../assets/player21.png';
+import playerPNG22 from '../assets/player22.png';
+import playerPNG23 from '../assets/player23.png';
+import playerPNG24 from '../assets/player24.png';
+import playerPNG25 from '../assets/player25.png';
+import playerPNG26 from '../assets/player26.png';
+import playerPNG27 from '../assets/player27.png';
+import playerPNG28 from '../assets/player28.png';
+import playerPNG29 from '../assets/player29.png';
+import playerPNG30 from '../assets/player30.png';
+import playerPNG31 from '../assets/player31.png';
+import playerPNG32 from '../assets/player32.png';
+import playerPNG33 from '../assets/player33.png';
 import logo from '../assets/logo.png';
 import { setting } from '../../gameConfig';
 
@@ -34,6 +49,9 @@ function getRadius(mass) {
  * Generate a PIXI.Texture of the circle.
  * @function generateCircleTexture
  * @param {Circle} circle - any object extends from Circle.
+ * @param {Circle} radius - circle's radius.
+ * @param {Circle} color - circle's color.
+ * @param {Circle} alpha - circle's alphas.
  * @return {PIXI.Texture} - A PIXI.Texture to construct a sprite.
  */
 function generateCircleTexture(circle, radius, color, alpha = 1) {
@@ -54,6 +72,7 @@ class CellSprite extends Sprite {
   /**
    * Create a cellSprite from the data in cell.
    * @param {Cell} cell - A cell object
+   * @param {string} character - Player's character
    */
   constructor(cell, character) {
     if (character === '1') {
@@ -90,8 +109,38 @@ class CellSprite extends Sprite {
       super(Texture.fromImage(playerPNG16, true, { resolution: 200, antialias: true }));
     } else if (character === '17') {
       super(Texture.fromImage(playerPNG17, true, { resolution: 200, antialias: true }));
-    } else {
+    } else if (character === '18') {
       super(Texture.fromImage(playerPNG18, true, { resolution: 200, antialias: true }));
+    } else if (character === '19') {
+      super(Texture.fromImage(playerPNG19, true, { resolution: 200, antialias: true }));
+    } else if (character === '20') {
+      super(Texture.fromImage(playerPNG20, true, { resolution: 200, antialias: true }));
+    } else if (character === '21') {
+      super(Texture.fromImage(playerPNG21, true, { resolution: 200, antialias: true }));
+    } else if (character === '22') {
+      super(Texture.fromImage(playerPNG22, true, { resolution: 200, antialias: true }));
+    } else if (character === '23') {
+      super(Texture.fromImage(playerPNG23, true, { resolution: 200, antialias: true }));
+    } else if (character === '24') {
+      super(Texture.fromImage(playerPNG24, true, { resolution: 200, antialias: true }));
+    } else if (character === '25') {
+      super(Texture.fromImage(playerPNG25, true, { resolution: 200, antialias: true }));
+    } else if (character === '26') {
+      super(Texture.fromImage(playerPNG26, true, { resolution: 200, antialias: true }));
+    } else if (character === '27') {
+      super(Texture.fromImage(playerPNG27, true, { resolution: 200, antialias: true }));
+    } else if (character === '28') {
+      super(Texture.fromImage(playerPNG28, true, { resolution: 200, antialias: true }));
+    } else if (character === '29') {
+      super(Texture.fromImage(playerPNG29, true, { resolution: 200, antialias: true }));
+    } else if (character === '30') {
+      super(Texture.fromImage(playerPNG30, true, { resolution: 200, antialias: true }));
+    } else if (character === '31') {
+      super(Texture.fromImage(playerPNG31, true, { resolution: 200, antialias: true }));
+    } else if (character === '32') {
+      super(Texture.fromImage(playerPNG32, true, { resolution: 200, antialias: true }));
+    } else {
+      super(Texture.fromImage(playerPNG33, true, { resolution: 200, antialias: true }));
     }
 
     const r = getRadius(cell.mass);
@@ -112,7 +161,18 @@ class CellSprite extends Sprite {
     this.anchor.set(0.5, 0.5);
   }
 }
+/**
+ * A class extends from PIXI.Sprite to define
+ * convenient methods for easily constructing or updating a player sprite.
+ * @extends PIXI.Sprite */
 class PlayerSprite extends Container {
+  /**
+   * Create a PlayerSprite from given params.
+   * @param {object} cell - The cell of player
+   * @param {string} name - The name of player
+   * @param {string} character - The character's value of player
+   * @param {number} hp - The hp of player
+   */
   constructor(cell, name, character, hp = '0') {
     super();
     this.name = name;
@@ -122,6 +182,10 @@ class PlayerSprite extends Container {
     this.addChild(this.cell);
     this.addChild(this.nameText);
   }
+  /**
+   * Update player's position, hp, name
+   * @param {object} player - Player's current data
+   * @param {object} pos - Player's current position */
   update(player, pos) {
     // update pos
     this.x = pos.x;
@@ -146,13 +210,9 @@ class PlayerSprite extends Container {
 class FoodSprite extends Sprite {
   /**
    * Create a foodSprite from the data in food.
-   * @param {Food} food - A food object
-   */
+   * @param {Food} food - A food object */
   constructor(food) {
     super(generateCircleTexture(food, getRadius(setting.foodMass), food.color));
-    /**
-     * Sprite's uuid
-     * @member {string} */
     this.id = food.id;
     this.x = food.pos.x;
     this.y = food.pos.y;
@@ -160,6 +220,9 @@ class FoodSprite extends Sprite {
     this.anchor.set(0.5, 0.5);
     console.log('create');
   }
+  /**
+   * Update food's position. (which will only be used by bullet-like foods)
+   * @param {object} pos - Food's current position */
   updatePos(pos) {
     this.x = pos.x;
     this.y = pos.y;
@@ -172,8 +235,10 @@ class FoodSprite extends Sprite {
  * @extends PIXI.Sprite */
 class LogoSprite extends Sprite {
   /**
-   * Create a cellSprite from the data in cell.
-   * @param {Cell} cell - A cell object
+   * Create a LogoSprite from given params.
+   * @param {number} w - width of logo
+   * @param {number} h - height of logo
+   * @param {image} img - The img of logo
    */
   constructor(w, h, img) {
     super(Texture.fromImage(img, true, { resolution: 200, antialias: true }));
@@ -185,13 +250,12 @@ class LogoSprite extends Sprite {
 
 /**
  * A class extends from PIXI.Sprite to define
- * convenient methods for easily constructing or updating a food sprite.
+ * convenient methods for easily constructing or updating a zone sprite.
  * @extends PIXI.Sprite */
 class ZoneSprite extends Sprite {
   /**
-   * Create a foodSprite from the data in food.
-   * @param {Food} food - A food object
-   */
+   * Create a zoneSprite from the data in zone.
+   * @param {Zone} zone - A zone object */
   constructor(zone) {
     super(generateCircleTexture(zone, zone.radius, zone.color, 0.75));
     /**

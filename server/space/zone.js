@@ -1,8 +1,20 @@
 import Vector2 from './vector2';
 
+/**
+ * A class that create a Zone.
+ */
 class Zone {
+  /**
+   * Create a Zone.
+   * @param {object} props - The props to construct a pixi object.
+   * @param {function} props.acceptEntry - It check whether a player can entry the zone.
+   * @param {number} props.cooldown - The player's cooldown's time.
+   * @param {Vector2} props.centre - The player's centre position.
+   * @param {number} props.radius - The player's radius.
+   * @param {uuid} props.id - The player's uuid.
+   * @param {number} props.color - The player's color.
+   */
   constructor(props) {
-    /* accepts an object as an argument and returns true or false. */
     this.acceptEntry = props.acceptEntry;
 
     this.cooldown = props.cooldown;
@@ -20,7 +32,11 @@ class Zone {
   }
 
   /**
-   * checks if vector `u` is within `offset` of zone. */
+   * checks if vector `u` is within `offset` of zone.
+   * @param {Vector2} u - The player's position.
+   * @param {number} offset - offset
+   * @return {bool} - contains or not
+   */
   contains(u, offset) {
     offset = offset || 0;
     const r = new Vector2();
@@ -29,7 +45,10 @@ class Zone {
   }
 
   /**
-   * projects vector `u` to outside of zone. */
+   * projects vector `u` to outside of zone.
+   * @param {Vector2} u - The player's position.
+   * @param {number} offset - offset
+   */
   eject(u, offset) {
     offset = offset || 0;
 
@@ -44,13 +63,17 @@ class Zone {
     }
   }
 
-  /** in milliseconds */
+  /**
+   * @return {number} - Remaining Cooldown Time in milliseconds
+   */
   getRemainingCooldownTime() {
     return this.cooldown - (Date.now() - this.lastEntry);
   }
 
   /**
-   * projects `player` out of zone if not qualified */
+   * projects `player` out of zone if not qualified
+   * @param {player} player - player's object
+   */
   doorkeep(player) {
     const { pos } = player.cellList[0];
     const radius = player.cellList[0].getRadius();
