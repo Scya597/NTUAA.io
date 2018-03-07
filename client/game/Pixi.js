@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Application } from 'pixi.js';
+import * as PIXI from 'pixi.js';
 import key from 'keymaster';
 import { Container, PlayerContainer, FoodContainer, BgContainer, ZoneContainer } from './container';
 import GameInfo from '../components/GameInfo';
 import { socketTask as task } from '../../gameConfig';
+// import Smooth from './smooth';
 
 /**
  * A react component representing the whole pixi game
@@ -57,6 +58,7 @@ class Pixi extends Component {
     this.socket.off(task.GET_ZONE_DATA);
     this.app.ticker.destroy();
     this.app.stop();
+    // this.smooth.pause();
   }
   /**
    * Setup pixi and socket configuration
@@ -72,7 +74,7 @@ class Pixi extends Component {
      * A PIXI.Application representing the whole game.
      * It contains renderer, ticker and root container.
      * @member {PIXI.Application} */
-    this.app = new Application(appConfig);
+    this.app = new PIXI.Application(appConfig);
     this.pixi.appendChild(this.app.view);
     /**
      * A PIXI.Container representing the camera.
@@ -84,8 +86,8 @@ class Pixi extends Component {
     this.gameScene.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
     this.app.stage.addChild(this.gameScene);
     this.app.stage.interactive = true;
-    this.app.stage.on('mousedown', () => { this.click = true; });
-    this.app.stage.on('mouseup', () => { this.click = false; });
+    // this.app.stage.on('mousedown', () => { this.click = true; console.log('click'); });
+    // this.app.stage.on('mouseup', () => { this.click = false; });
     window.onresize = () => {
       this.app.renderer.resize(window.innerWidth / 2, window.innerHeight / 2);
       this.gameScene.position.set(this.app.screen.width / 2, this.app.screen.height / 2);
@@ -133,7 +135,16 @@ class Pixi extends Component {
 
     this.socket.emit(task.GET_INIT_ZONE_DATA);
     this.socket.emit(task.GET_INIT_FOOD_DATA);
-    this.initTicker();
+    document.body.onclick = () => { this.click = true; };
+
+    // this.smooth = new Smooth({
+    //   engine: PIXI,
+    //   renderer: this.app.renderer,
+    //   root: this.gameScene,
+    //   fps: 40,
+    //   update: this.ticker.bind(this),
+    // });
+    // this.smooth.start();
   }
   /**
    * Initialize app.ticker by adding some tasks insides.
@@ -160,6 +171,29 @@ class Pixi extends Component {
       });
     });
   }
+  // /**
+  //  * For future use with smooth
+  //  */
+  // ticker() {
+  //   this.socket.emit(task.GET_DATA);
+  //   const controlKeys = [
+  //     32,
+  //     37, 38, 39, 40,
+  //     65, 87, 68, 83,
+  //   ];
+  //   const keysDown = [];
+  //   for (let i = 0; i < controlKeys.length; i += 1) {
+  //     keysDown[controlKeys[i]] = key.isPressed(controlKeys[i]) ? 1 : 0;
+  //   }
+  //
+  //   this.socket.emit(task.STATE_UPDATE, {
+  //     mousePos: this.app.renderer.plugins.interaction.mouse.getLocalPosition(this.gameScene),
+  //     mouseDown: this.click,
+  //     keysDown,
+  //     id: this.id,
+  //   });
+  //   this.click = false;
+  // }
 
   /**
    * Align [this.gameScene]{@link Pixi#gameScene} with pos.
