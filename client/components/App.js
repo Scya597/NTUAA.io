@@ -15,7 +15,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      endpoint: 'http://35.229.129.64/',
+      endpoint: 'localhost:8080',
       login: 0,
     };
     const { endpoint } = this.state;
