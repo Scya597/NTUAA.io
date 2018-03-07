@@ -3,7 +3,7 @@ const setting = {
   worldHeight: 5536,
   zoneOneRadius: 1500,
   zoneTwoRadius: 200,
-  zoneAccessSeconds: 200,
+  zoneAccessSeconds: 300,
   zoneAccessLimit: 35,
   playerBulletLimit: 50,
   foodMass: 100,
