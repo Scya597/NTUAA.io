@@ -76,6 +76,7 @@ class LoginBox extends Component {
             <option value="8">器材組</option>
             <option value="9">特殊角色系列ㄧ</option>
             <option value="10">特殊角色系列二</option>
+            <option value="29">哲豪</option>
           </select>
           <input className="loginInput" placeholder="名字" ref={(input) => { this.textInput = input; }} required="required" />
           { this.showWarning() }
