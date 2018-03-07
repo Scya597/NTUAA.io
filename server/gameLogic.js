@@ -116,5 +116,5 @@ export default function ioActivate(io) {
     checkAllFoodEaten(playerList, foodList, zoneList);
     removeEatenFoods(foodList, isEatenFoodIdList, bulletList);
     zoneList[1].remainTime = zoneList[1].getRemainingCooldownTime();
-  }, 1000 / 30);
+  }, 1000 / 60);
 }
