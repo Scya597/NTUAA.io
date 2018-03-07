@@ -76,71 +76,71 @@ class CellSprite extends Sprite {
    */
   constructor(cell, character) {
     if (character === '1') {
-      super(Texture.fromImage(playerPNG1, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG1, true, { resolution: 3, antialias: true }));
     } else if (character === '2') {
-      super(Texture.fromImage(playerPNG2, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG2, true, { resolution: 3, antialias: true }));
     } else if (character === '3') {
-      super(Texture.fromImage(playerPNG3, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG3, true, { resolution: 3, antialias: true }));
     } else if (character === '4') {
-      super(Texture.fromImage(playerPNG4, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG4, true, { resolution: 3, antialias: true }));
     } else if (character === '5') {
-      super(Texture.fromImage(playerPNG5, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG5, true, { resolution: 3, antialias: true }));
     } else if (character === '6') {
-      super(Texture.fromImage(playerPNG6, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG6, true, { resolution: 3, antialias: true }));
     } else if (character === '7') {
-      super(Texture.fromImage(playerPNG7, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG7, true, { resolution: 3, antialias: true }));
     } else if (character === '8') {
-      super(Texture.fromImage(playerPNG8, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG8, true, { resolution: 3, antialias: true }));
     } else if (character === '9') {
-      super(Texture.fromImage(playerPNG9, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG9, true, { resolution: 3, antialias: true }));
     } else if (character === '10') {
-      super(Texture.fromImage(playerPNG10, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG10, true, { resolution: 3, antialias: true }));
     } else if (character === '11') {
-      super(Texture.fromImage(playerPNG11, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG11, true, { resolution: 3, antialias: true }));
     } else if (character === '12') {
-      super(Texture.fromImage(playerPNG12, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG12, true, { resolution: 3, antialias: true }));
     } else if (character === '13') {
-      super(Texture.fromImage(playerPNG13, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG13, true, { resolution: 3, antialias: true }));
     } else if (character === '14') {
-      super(Texture.fromImage(playerPNG14, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG14, true, { resolution: 3, antialias: true }));
     } else if (character === '15') {
-      super(Texture.fromImage(playerPNG15, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG15, true, { resolution: 3, antialias: true }));
     } else if (character === '16') {
-      super(Texture.fromImage(playerPNG16, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG16, true, { resolution: 3, antialias: true }));
     } else if (character === '17') {
-      super(Texture.fromImage(playerPNG17, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG17, true, { resolution: 3, antialias: true }));
     } else if (character === '18') {
-      super(Texture.fromImage(playerPNG18, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG18, true, { resolution: 3, antialias: true }));
     } else if (character === '19') {
-      super(Texture.fromImage(playerPNG19, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG19, true, { resolution: 3, antialias: true }));
     } else if (character === '20') {
-      super(Texture.fromImage(playerPNG20, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG20, true, { resolution: 3, antialias: true }));
     } else if (character === '21') {
-      super(Texture.fromImage(playerPNG21, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG21, true, { resolution: 3, antialias: true }));
     } else if (character === '22') {
-      super(Texture.fromImage(playerPNG22, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG22, true, { resolution: 3, antialias: true }));
     } else if (character === '23') {
-      super(Texture.fromImage(playerPNG23, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG23, true, { resolution: 3, antialias: true }));
     } else if (character === '24') {
-      super(Texture.fromImage(playerPNG24, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG24, true, { resolution: 3, antialias: true }));
     } else if (character === '25') {
-      super(Texture.fromImage(playerPNG25, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG25, true, { resolution: 3, antialias: true }));
     } else if (character === '26') {
-      super(Texture.fromImage(playerPNG26, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG26, true, { resolution: 3, antialias: true }));
     } else if (character === '27') {
-      super(Texture.fromImage(playerPNG27, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG27, true, { resolution: 3, antialias: true }));
     } else if (character === '28') {
-      super(Texture.fromImage(playerPNG28, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG28, true, { resolution: 3, antialias: true }));
     } else if (character === '29') {
-      super(Texture.fromImage(playerPNG29, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG29, true, { resolution: 3, antialias: true }));
     } else if (character === '30') {
-      super(Texture.fromImage(playerPNG30, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG30, true, { resolution: 3, antialias: true }));
     } else if (character === '31') {
-      super(Texture.fromImage(playerPNG31, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG31, true, { resolution: 3, antialias: true }));
     } else if (character === '32') {
-      super(Texture.fromImage(playerPNG32, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG32, true, { resolution: 3, antialias: true }));
     } else {
-      super(Texture.fromImage(playerPNG33, true, { resolution: 200, antialias: true }));
+      super(Texture.fromImage(playerPNG33, true, { resolution: 3, antialias: true }));
     }
 
     const r = getRadius(cell.mass);
@@ -241,7 +241,7 @@ class LogoSprite extends Sprite {
    * @param {image} img - The img of logo
    */
   constructor(w, h, img) {
-    super(Texture.fromImage(img, true, { resolution: 200, antialias: true }));
+    super(Texture.fromImage(img, true, { resolution: 3, antialias: true }));
     this.width = w;
     this.height = h;
     this.anchor.set(0.5, 0.5);
