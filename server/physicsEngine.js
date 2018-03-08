@@ -86,7 +86,7 @@ const fireFood = (player, foodList, zoneList, bulletList, newFoodList) => {
     .add(direction.clone().scale(player.cellList[0].getRadius() + 10));
 
   const newBulletFood = new Food({
-    mass: -1 * setting.foodMass,
+    mass: -2 * setting.foodMass,
     pos: src,
     vel,
     zones: getZones(src, zoneList),
@@ -102,7 +102,7 @@ const fireFood = (player, foodList, zoneList, bulletList, newFoodList) => {
   });
   bulletList.push(newBulletFood);
 
-  player.score -= 100;
+  player.score -= setting.foodMass;
   player.remainingFireFoodCooldown = player.fireFoodCooldown;
 };
 
